@@ -1,13 +1,7 @@
-import argparse
+import os
+
 import ai21
 import discord
-
-parser = argparse.ArgumentParser(description="A QA bot for discord with AI21.")
-parser.add_argument("--ai21_api_key", type=str, help="api key for AI21", required=True)
-parser.add_argument("--discord_key", type=str, help="api key for discord bot", required=True)
-
-args = parser.parse_args()
-
 
 def generate(prompt: str):
     response = ai21.Completion.execute(
@@ -83,6 +77,9 @@ class Client(discord.Client):
 
 
 if __name__ == "__main__":
+    ai21.api_key = os.getenv("AI21_API_KEY")
+
     intents = discord.Intents.all()
     client = Client(intents=intents)
-    client.run(args.discord_key)
+    token = os.getenv("DISCORD_TOKEN")
+    client.run(token)
