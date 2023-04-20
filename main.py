@@ -4,7 +4,9 @@ import discord
 from bot import Bot
 import ai21
 
+
 bot = Bot()
+
 
 
 class Client(discord.Client):
