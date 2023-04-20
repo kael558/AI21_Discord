@@ -1,4 +1,10 @@
-Useful resources:
+## TODO
+- [x] Default bot
+- [ ] Variable Preset
+- [ ] AI21 Indexed information
+- [ ] Finishing touches (like discord icon, discord name, hosting)
+
+## Useful resources:
 
 discord intent breakdown: https://discordpy.readthedocs.io/en/stable/api.html#discord.Intents
 
@@ -9,10 +15,3 @@ discord developer link: https://discord.com/developers/applications/932319489243
 replit code: https://replit.com/@kael558/AI21Discord#main.py
 
 uptime robot to ping replit code: https://uptimerobot.com/
-
-TODO
-[x] Default bot
-[ ] Variable Preset
-[ ] AI21 Indexed information
-[ ] Finishing touches (like discord icon, discord name, hosting)
-
