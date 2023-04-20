@@ -20,6 +20,7 @@ Using the conversation as context, I will write a response to the most RECENT qu
       history.insert(0, self.prompt)
     history.append("AI21 Discord Bot:")
     history = "\n".join(history)
+    history = history.strip()
     print("-----")
     print(history)
 
