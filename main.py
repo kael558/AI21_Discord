@@ -15,7 +15,7 @@ class Client(discord.Client):
   async def answer(self, message):
     history = [f"User: {message.clean_content}"]
 
-    async for historic_msg in message.channel.history(limit=0, before=message):
+    async for historic_msg in message.channel.history(limit=5, before=message):
       if not historic_msg.content:
         continue
 
