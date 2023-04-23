@@ -4,9 +4,7 @@ import discord
 from bot import Bot
 import ai21
 
-
 bot = Bot()
-
 
 
 class Client(discord.Client):
@@ -17,14 +15,14 @@ class Client(discord.Client):
   async def answer(self, message):
     history = [f"User: {message.clean_content}"]
 
-    async for historic_msg in message.channel.history(limit=3, before=message):
+    async for historic_msg in message.channel.history(limit=0, before=message):
       if not historic_msg.content:
         continue
 
       if message.author.name == historic_msg.author.name:
         if isinstance(message.channel, discord.channel.DMChannel):
           name = "User"
-        else: # text channel
+        else:  # text channel
           for reaction in historic_msg.reactions:
             if str(reaction.emoji) == "❓":
               name = "User"
@@ -39,7 +37,7 @@ class Client(discord.Client):
       history.insert(0, f"{name}: {historic_msg.clean_content}")
 
     async with message.channel.typing():
-      response = bot.generate(history)
+      response = bot.generate_response(history)
       response_msg = await message.channel.send(response, reference=message)
       await response_msg.edit(suppress=True)
       return
