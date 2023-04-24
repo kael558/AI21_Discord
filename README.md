@@ -1,8 +1,14 @@
 ## TODO
 - [x] Default bot
-- [ ] Variable Preset
+- [x] Variable Preset
 - [ ] AI21 Indexed information
 - [ ] Finishing touches (like discord icon, discord name, hosting)
+
+## How to run - basic
+pip install -r requirements.txt
+
+python main.py
+
 
 ## Useful resources:
 
@@ -12,6 +18,5 @@ cohere's discord bot: https://github.com/cohere-ai/sandbox-grounded-qa/blob/main
 
 discord developer link: https://discord.com/developers/applications/932319489243107358/bot
 
-replit code: https://replit.com/@kael558/AI21Discord#main.py
-
-uptime robot to ping replit code: https://uptimerobot.com/
+digital ocean hosting - https://cloud.digitalocean.com/droplets/352088938/access?i=d0ff85
+$4/month is cheapest option
