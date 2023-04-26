@@ -1,3 +1,4 @@
-ai21
+ai21==1.0.5
 discord
 python-dotenv
+simplechain==0.0.3

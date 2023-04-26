@@ -1,30 +1,32 @@
 import ai21
+from simplechain.stack import TextEmbedderFactory, VectorDatabaseFactory
 
 
-def dedent(text: str):
+def dedent_text(text: str):
     return '\n'.join([m.lstrip() for m in text.split('\n')]).strip()
 
 
-def prompt_template(**deco_kwargs):
+def prompt_template(dedent=True, fix_whitespace=True):
     def real_decorator(func):
-
         def wrapper(*args, **func_kwargs):
             result = func(*args, **func_kwargs)
-            if "dedent" in deco_kwargs and deco_kwargs["dedent"]:
-                result = dedent(result)
-            if "fix_whitespace" in deco_kwargs and deco_kwargs["fix_whitespace"]:
+            if dedent:
+                result = dedent_text(result)
+            if fix_whitespace:
                 result = result.strip()
             return result
-
         return wrapper
-
     return real_decorator
 
 
 class Bot:
-
     def __init__(self):
+        self.embedder = TextEmbedderFactory.create("ai21")
+        self.index = VectorDatabaseFactory.create("annoy", 768, "index.ann", "metadata.json")
+
+    def setup_index(self):
         pass
+
 
     def generate_response(self, conversation_history: list) -> str:
         conversation_history_str = "\n".join(conversation_history)
@@ -82,7 +84,7 @@ def get_commands(conversation_history_str: str):
     prompt = construct_get_commands_prompt(conversation_history_str)
     text = generate_text(prompt, "Classify NLP task")
     preset, request = text.split("Request:")
-    return  preset.strip(), request[9:].strip()
+    return preset.strip(), request[9:].strip()
 
 
 
@@ -129,6 +131,7 @@ def get_params_from_preset(preset: str) -> dict:
             "topP": 1,
         }
 
+    # use default preset params
     return {}
 
 
