@@ -15,7 +15,9 @@ def prompt_template(dedent=True, fix_whitespace=True):
             if fix_whitespace:
                 result = result.strip()
             return result
+
         return wrapper
+
     return real_decorator
 
 
@@ -27,12 +29,11 @@ class Bot:
     def setup_index(self):
         pass
 
-
-    def generate_response(self, conversation_history: list) -> str:
+    def generate_response(self, conversation_history: list, verbose: bool) -> str:
         conversation_history_str = "\n".join(conversation_history)
         preset, request = get_commands(conversation_history_str)
-        
-        response = generate_text(request, preset)
+
+        response = generate_text(request, preset, verbose)
         return response
 
 
@@ -85,7 +86,6 @@ def get_commands(conversation_history_str: str):
     text = generate_text(prompt, "Classify NLP task")
     preset, request = text.split("Request:")
     return preset.strip(), request[9:].strip()
-
 
 
 def get_params_from_preset(preset: str) -> dict:
@@ -170,15 +170,27 @@ def get_default_preset_params():
     }
 
 
-def generate_text(prompt, preset):
+def generate_text(prompt, preset, verbose):
     params = get_default_preset_params()
     preset_params = get_params_from_preset(preset)
     params.update(preset_params)
-    #print("-----PARAMS---------")
-    #print(params)
-    #print("-----PROMPT---------")
-    #print(prompt)
+
     response = ai21.Completion.execute(prompt=prompt, **params)
-    #print("-----RESPONSE---------")
-    #print(response["completions"][0]['data']['text'].strip())
-    return response["completions"][0]['data']['text'].strip()
+    response = response["completions"][0]['data']['text'].strip()
+    response = format_response(response, preset, preset_params, verbose)
+
+    return response
+
+
+def format_response(response, preset, preset_params, verbose):
+    if preset == "Generate code":
+        response = f"```{response}```"
+
+    if verbose:
+        response += f"\n\nThe above text was generated using the following parameters:" \
+                    f"\nPreset: {preset}" \
+                    f"\nModel: {preset_params['model']}" \
+                    f"\nTemperature: {preset_params['temperature']}" \
+                    f"\ntopP: {preset_params['topP']}"
+
+    return response
