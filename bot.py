@@ -1,3 +1,6 @@
+import csv
+import os
+
 import ai21
 from simplechain.stack import TextEmbedderFactory, VectorDatabaseFactory
 
@@ -23,26 +26,54 @@ def prompt_template(dedent=True, fix_whitespace=True):
 
 class Bot:
     def __init__(self):
+        from dotenv import load_dotenv
+        load_dotenv()
+        ai21.api_key = os.environ['AI21_API_KEY']
         self.embedder = TextEmbedderFactory.create("ai21")
         self.index = VectorDatabaseFactory.create("annoy", 768, "index.ann", "metadata.json")
 
     def setup_index(self):
-        pass
+        metadata = []
+        paragraphs = []
 
-    def generate_response(self, conversation_history: list, verbose: bool) -> str:
+        for row in csv.reader(open('data/AI21.csv', 'r', encoding='iso-8859-1')):
+            metadata.append(row)
+            paragraphs.append(row[0])
+
+        # Breaks the strings with 2000+ characters into smaller strings
+        for i, s in enumerate(paragraphs):
+            if len(s) > 2000:
+                paragraphs.pop(i)
+                for j in range(0, len(s), 2000):
+                    paragraphs.insert(i + j, s[j:j + 2000])
+
+        embeds = self.embedder.embed_all(paragraphs)
+        self.index.add_all(embeds, metadata)
+        self.index.save()
+
+    def generate_response(self, conversation_history: list, verbose: bool = False) -> str:
         conversation_history_str = "\n".join(conversation_history)
-        preset, request = get_commands(conversation_history_str)
+        preset, request, requires_ai21_index = get_commands(conversation_history_str)
 
-        response = generate_text(request, preset, verbose)
+        context = ""
+        if requires_ai21_index:
+            context = self.index.get_nearest_neighbors(self.embedder.embed(request), 5)
+            context = "\n".join([f"{i + 1}. {c}" for i, c in enumerate(context)])
+            print("Context:", context)
+
+        prompt = construct_get_response_prompt(request, context)
+        print("Prompt:", prompt)
+        response = generate_text(prompt, preset, verbose)
         return response
 
 
 @prompt_template(dedent=True, fix_whitespace=True)
 def construct_get_commands_prompt(conversation: str):
     prompt = f"""
-    Using the conversation as context, look at the most RECENT request and:
-     - classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
-     - summarize the request in simpler terms
+    Using the conversation as context, look at the most RECENT request and fill in the following:
+    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
+    Request: summarize the request in simpler terms
+    Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
 
     User: Who is Canada's favorite figure skating pair?
     AI21 Discord Bot: The most popular pairs figure skaters in Canada are Tessa Virtue and Scott Moir, and Meagan Duhamel and Eric Radford.
@@ -50,31 +81,48 @@ def construct_get_commands_prompt(conversation: str):
     
     NLP Task: Question answering
     Request: When did Tessa Virtue and Scott Moir, and Meagan Duhamel and Eric Radford win the Olympics?
+    Requires AI21 API: False
     ##
-    Using the conversation as context, look at the most RECENT request and:
-     - classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
-     - summarize the request in simpler terms
-     
+    Using the conversation as context, look at the most RECENT request and fill in the following:
+    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
+    Request: summarize the request in simpler terms
+    Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
+
     User: Write me a love poem
 
     NLP Task: Long form generation
     Request: Write a love poem
+    Requires AI21 API: False
     ##
     Using the conversation as context, look at the most RECENT request and:
-     - classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
-     - summarize the request in simpler terms
-     
+    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
+    Request: summarize the request in simpler terms
+    Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
+
     User: Describe what Africa is like to visit
     AI21 Discord Bot: Africa is a large and diverse continent, with a wide range of cultures and landscapes. Some popular destinations in Africa include Egypt, South Africa, and Kenya. These countries are known for their ancient civilizations, vibrant cities, and stunning natural beauty. Africa is also home to a number of national parks and reserves, including the Sahara Desert, the Serengeti, and the Ngorongoro Crater. These areas offer visitors the opportunity to experience Africa's rich wildlife and unique ecosystems. Overall, Africa is a fascinating place to visit, and it offers visitors a unique and unforgettable experience.
     User: Can you write a shorter description of that and focus on the culture?
     
     NLP Task: Paraphrasing
     Request: Write a shorter description of what Africa is like to visit and focus on the culture
+    Requires AI21 API: False
     ##
     Using the conversation as context, look at the most RECENT request and:
-     - classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
-     - summarize the request in simpler terms
+    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
+    Request: summarize the request in simpler terms
+    Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
+
+    User: How does AI21 charge for tokens?
     
+    NLP Task: Question answering
+    Request: Write an explanation of how AI21 charges for tokens
+    Requires AI21 API: True
+    ##
+    Using the conversation as context, look at the most RECENT request and:
+    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
+    Request: summarize the request in simpler terms
+    Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
+
     {conversation}
     
     NLP Task:"""
@@ -83,9 +131,9 @@ def construct_get_commands_prompt(conversation: str):
 
 def get_commands(conversation_history_str: str):
     prompt = construct_get_commands_prompt(conversation_history_str)
-    text = generate_text(prompt, "Classify NLP task")
-    preset, request = text.split("Request:")
-    return preset.strip(), request[9:].strip()
+    text = generate_text(prompt, "Classify NLP task", verbose=False)
+    preset, request, requires_ai21_index = text.split("\n")
+    return preset.strip(), request[9:].strip(), requires_ai21_index[20:].strip() == "True"
 
 
 def get_params_from_preset(preset: str) -> dict:
@@ -170,6 +218,15 @@ def get_default_preset_params():
     }
 
 
+@prompt_template(dedent=True, fix_whitespace=True)
+def construct_get_response_prompt(request: str, context: str) -> str:
+    if not context:
+        return request
+
+    return f"""Context: {context}
+    Question: {request}"""
+
+
 def generate_text(prompt, preset, verbose):
     params = get_default_preset_params()
     preset_params = get_params_from_preset(preset)
@@ -187,10 +244,18 @@ def format_response(response, preset, preset_params, verbose):
         response = f"```{response}```"
 
     if verbose:
-        response += f"\n\nThe above text was generated using the following parameters:" \
+        response += f"\n\n*The above text was generated using the following parameters:" \
                     f"\nPreset: {preset}" \
                     f"\nModel: {preset_params['model']}" \
                     f"\nTemperature: {preset_params['temperature']}" \
-                    f"\ntopP: {preset_params['topP']}"
+                    f"\ntopP: {preset_params['topP']}*"
 
     return response
+
+
+if __name__ == "__main__":
+    from dotenv import load_dotenv
+
+    load_dotenv()
+    bot = Bot()
+    bot.setup_index()

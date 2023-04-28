@@ -1,4 +1,8 @@
 ai21==1.0.5
-discord
-python-dotenv
-simplechain==0.0.3
+discord~=2.2.2
+python-dotenv~=1.0.0
+simplechain==0.0.5.3
+annoy==1.17.2
+Scrapy~=2.8.0
+itemadapter~=0.8.0
+colorama~=0.4.6

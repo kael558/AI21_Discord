@@ -1,41 +1,53 @@
 import unittest
 from bot import Bot
+from colorama import init, Fore, Back, Style
+import warnings
+
+# Initialize colorama
+init()
+
+with warnings.catch_warnings():
+    warnings.simplefilter('ignore', ResourceWarning)
 
 class TestScraper(unittest.TestCase):
     pass
+
+def print_expected_actual(expected, actual):
+    print(Fore.RED + f"\nExpected: {expected}" + Fore.RESET)
+    print(Fore.GREEN + f"Actual: {actual}\n" + Fore.RESET)
 
 
 class TestBot(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.bot = Bot()
-
-    @classmethod
-    def tearDownClass(cls):
-        # Clean up resources used by all the tests in the class
-        cls.bot.stop()
-        cls.bot = None
+        cls.bot: Bot = Bot()
 
     def test_basic(self):
         history = ['User: Hello, how are you?']
         response = self.bot.generate_response(history)
-        print(response)
+        print_expected_actual('Great! How are you?', response)
 
     def test_basic_history(self):
-        history = ['hello']
+        history = ['User: My name is John and I like cheese',
+                   'AI21 Discord Bot: Hello, John',
+                   'User: What is my name and what do I like?']
         response = self.bot.generate_response(history)
-        print(response)
+        print_expected_actual('Your name is John and you like cheese.', response)
 
     def test_ignore_some_context(self):
-        history = ['hello']
+        history = ['User: Who is Canada\'s favorite figure skating pair?',
+                   'AI21 Discord Bot: Tessa Virtue and Scott Moir',
+                   'User: Describe what Africa is like to visit',
+                   'AI21 Discord Bot: Africa is a continent in the southern hemisphere. It is bordered by the Atlantic Ocean to the west, the Indian Ocean to the east, and the Mediterranean Sea to the north. It is the second largest continent in the world after Asia. Africa has a population of over 1 billion people and is home to some of the world\'s most diverse cultures and languages. The continent is also home to some of the world\'s most diverse wildlife, including elephants, lions, giraffes, zebras, and rhinos. Africa is also home to some of the world\'s most diverse landscapes, including the Sahara Desert, the Nile River, and the Congo River. Africa is also home to some of the world\'s most diverse climates, including the Sahara Desert, the Nile River, and the Congo River. Africa is also home to some of the world\'s most diverse cultures and languages. Africa is also home to some of the world\'s most diverse wildlife, including elephants, lions, giraffes, zebras, and rhinos.',
+                   'User: When did they win the Olympics?']
         response = self.bot.generate_response(history)
-        print(response)
+        print_expected_actual(
+            'Tessa Virtue and Scott Moir won gold at the 2018 Winter Olympics in Pyeongchang, South Korea', response)
 
-    @unittest.skip("Not implemented")
     def test_ai21(self):
-        history = ['hello']
+        history = ['User: How many generation models are offered by AI21?']
         response = self.bot.generate_response(history)
-        print(response)
+        print_expected_actual('J2-Large, J1-Jumbo etc... See links as well', response)
 
     def test_generate_code(self):
         pass
@@ -48,6 +60,7 @@ class TestBot(unittest.TestCase):
 
     def test_question_answering(self):
         pass
+
 
 if __name__ == '__main__':
     unittest.main()
