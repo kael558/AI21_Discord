@@ -10,13 +10,25 @@ commands = ['--verbose', '--no-history']
 
 def clean_and_return_options_message(message_cc: str) -> tuple:
     verbose, no_history = False, False
-
-    if '--verbose' in message_cc:
-        verbose = True
-        message_cc = message_cc.replace('--verbose', '')
-    if '--no-history' in message_cc:
-        no_history = True
-        message_cc = message_cc.replace('--no-history', '')
+    message_cc = message_cc.strip()
+    while True:
+        if message_cc.endswith('--verbose'):
+            verbose = True
+            message_cc = message_cc.replace('--verbose', '')
+            continue
+        if message_cc.endswith('--no-history'):
+            no_history = True
+            message_cc = message_cc.replace('--no-history', '')
+            continue
+        if message_cc.endswith('-v'):
+            verbose = True
+            message_cc = message_cc.replace('-v', '')
+            continue
+        if message_cc.endswith('-nh'):
+            no_history = True
+            message_cc = message_cc.replace('-nh', '')
+            continue
+        break
     message_cc = message_cc.strip()
     return message_cc, verbose, no_history
 
@@ -24,7 +36,7 @@ def clean_and_return_options_message(message_cc: str) -> tuple:
 class Client(discord.Client):
 
     async def on_ready(self):
-        print("Logged in as", self.user)
+        print("Peon: Ready to work!", self.user)
 
     async def answer(self, message):
         message_cc, verbose, no_history = clean_and_return_options_message(message.clean_content)

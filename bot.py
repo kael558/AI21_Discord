@@ -53,19 +53,21 @@ class Bot:
     def generate_response(self, conversation_history: list, verbose: bool = False) -> str:
         conversation_history_str = "\n".join(conversation_history)
         preset, request, requires_ai21_index = get_commands(conversation_history_str)
-        print("REQUIRES:", requires_ai21_index)
+
         context_str, links_str = "", ""
         if requires_ai21_index:
             context = self.index.get_nearest_neighbors(self.embedder.embed(request), 10)
+            print(context)
             links_counter = Counter()
             for c in context:
-                if float(c[1]) > 1.0:
+                if float(c[1]) > 0.8:
                     continue
                 links_counter[c[0][1]] += 1
                 context_str += f"{c[0][0]}."
-            links_str = "The following links may be useful:\n" + "\n".join([link[0] for link in links_counter.most_common(3)])
+            if links_counter:
+                links_str = "The following links may be useful:\n" + "\n".join([link[0] for link in links_counter.most_common(3)])
 
-        prompt = construct_get_response_prompt(request, context_str)
+        prompt = construct_get_response_prompt(request, context_str, conversation_history_str)
 
         response = generate_text(prompt, preset, verbose) + links_str
         return response
@@ -212,12 +214,24 @@ def get_default_preset_params():
 
 
 @prompt_template(dedent=True, fix_whitespace=True)
-def construct_get_response_prompt(request: str, context: str) -> str:
-    if not context:
-        return request
+def construct_get_response_prompt(request: str, context: str, conversation: str) -> str:
+    prompt = """Welcome! I am an AI21 Discord ChatBot. I'm here to answer the your questions, provide advice, or just have a friendly conversation.
+    Please note that while I can provide general information and guidance,
+    I am not a licensed professional and my responses are not intended to be a substitute for professional advice. 
+    Additionally, I strive to remain neutral and respectful in all interactions, and I do not engage in discriminatory or harmful behavior. 
+    """
 
-    return f"""Context: {context}
-    Question: {request}"""
+    if context:
+        prompt += f"I am given the following information: {context}\n"
+
+    prompt += f"""
+    I will use the following conversation between me and a user as context:
+    {conversation}
+    
+    It seems like the user is asking me for this: {request}
+    
+    Write a response to their question or instruction."""
+    return prompt
 
 
 def generate_text(prompt, preset, verbose):
