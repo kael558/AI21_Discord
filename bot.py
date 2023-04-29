@@ -1,5 +1,6 @@
 import csv
 import os
+from collections import Counter
 
 import ai21
 from simplechain.stack import TextEmbedderFactory, VectorDatabaseFactory
@@ -18,9 +19,7 @@ def prompt_template(dedent=True, fix_whitespace=True):
             if fix_whitespace:
                 result = result.strip()
             return result
-
         return wrapper
-
     return real_decorator
 
 
@@ -54,16 +53,21 @@ class Bot:
     def generate_response(self, conversation_history: list, verbose: bool = False) -> str:
         conversation_history_str = "\n".join(conversation_history)
         preset, request, requires_ai21_index = get_commands(conversation_history_str)
-
-        context = ""
+        print("REQUIRES:", requires_ai21_index)
+        context_str, links_str = "", ""
         if requires_ai21_index:
-            context = self.index.get_nearest_neighbors(self.embedder.embed(request), 5)
-            context = "\n".join([f"{i + 1}. {c}" for i, c in enumerate(context)])
-            print("Context:", context)
+            context = self.index.get_nearest_neighbors(self.embedder.embed(request), 10)
+            links_counter = Counter()
+            for c in context:
+                if float(c[1]) > 1.0:
+                    continue
+                links_counter[c[0][1]] += 1
+                context_str += f"{c[0][0]}."
+            links_str = "The following links may be useful:\n" + "\n".join([link[0] for link in links_counter.most_common(3)])
 
-        prompt = construct_get_response_prompt(request, context)
-        print("Prompt:", prompt)
-        response = generate_text(prompt, preset, verbose)
+        prompt = construct_get_response_prompt(request, context_str)
+
+        response = generate_text(prompt, preset, verbose) + links_str
         return response
 
 
@@ -112,17 +116,6 @@ def construct_get_commands_prompt(conversation: str):
     Request: summarize the request in simpler terms
     Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
 
-    User: How does AI21 charge for tokens?
-    
-    NLP Task: Question answering
-    Request: Write an explanation of how AI21 charges for tokens
-    Requires AI21 API: True
-    ##
-    Using the conversation as context, look at the most RECENT request and:
-    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
-    Request: summarize the request in simpler terms
-    Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
-
     {conversation}
     
     NLP Task:"""
@@ -133,7 +126,7 @@ def get_commands(conversation_history_str: str):
     prompt = construct_get_commands_prompt(conversation_history_str)
     text = generate_text(prompt, "Classify NLP task", verbose=False)
     preset, request, requires_ai21_index = text.split("\n")
-    return preset.strip(), request[9:].strip(), requires_ai21_index[20:].strip() == "True"
+    return preset.strip(), request[9:].strip(), requires_ai21_index[19:].strip() == "True"
 
 
 def get_params_from_preset(preset: str) -> dict:
@@ -233,6 +226,8 @@ def generate_text(prompt, preset, verbose):
     params.update(preset_params)
 
     response = ai21.Completion.execute(prompt=prompt, **params)
+    #from pprint import pprint
+    #pprint(response)
     response = response["completions"][0]['data']['text'].strip()
     response = format_response(response, preset, preset_params, verbose)
 
