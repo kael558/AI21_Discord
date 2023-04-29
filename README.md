@@ -2,6 +2,7 @@
 - [x] Default bot
 - [x] Variable Preset
 - [ ] AI21 Indexed information
+- [ ] Implement queue because socket is breaking when multiple inputs are coming in.
 - [ ] Finishing touches (like discord icon, discord name, hosting)
 
 ## How to run - basic
