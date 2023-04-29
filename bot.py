@@ -183,7 +183,7 @@ def get_default_preset_params():
         "temperature": 0.7,
         "topP": 1,
         "topKReturn": 0,
-        "numResults": 1,
+        "numResults": 3,
         "countPenalty": {
             "scale": 0,
             "applyToNumbers": False,
@@ -225,10 +225,9 @@ def generate_text(prompt, preset, verbose):
     preset_params = get_params_from_preset(preset)
     params.update(preset_params)
 
-    response = ai21.Completion.execute(prompt=prompt, **params)
-    #from pprint import pprint
-    #pprint(response)
-    response = response["completions"][0]['data']['text'].strip()
+    responses = ai21.Completion.execute(prompt=prompt, **params)["completions"]
+    finished_responses = [r for r in responses if r["finishReason"]["reason"] == "stop"]
+    response = (finished_responses if finished_responses else responses)[0]["data"]["text"].strip()
     response = format_response(response, preset, preset_params, verbose)
 
     return response
