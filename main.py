@@ -91,6 +91,9 @@ class Client(discord.Client):
 
 
 if __name__ == "__main__":
+    from dotenv import load_dotenv
+    load_dotenv()
+
     ai21.api_key = os.environ['AI21_API_KEY']
     intents = discord.Intents.all()
 
