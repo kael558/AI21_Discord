@@ -44,6 +44,7 @@ Command options are available to the user:
 The user may append these options to their Discord message in the following format: 
  - Write a poem about Europe -nh --verbose
  - What is AI21 Labs --no-history -v
+
 Both examples will make the Bot ignore previous messages and output the model parameters used for generation. 
 
 A scraper is provided that will read and extract information from both the documentation and the home page of AI21 Labs. 
