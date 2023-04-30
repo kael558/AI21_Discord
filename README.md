@@ -38,12 +38,12 @@ The Bot will read the past 5 messages in an attempt to maintain conversation his
 The Bot chooses a language model and parameters most suited to respond to the user input. In addition, it may use indexed information (available from AI21 Labs' website) to provide links and up to date information regarding AI21 Labs.
 
 Command options are available to the user:
- - --no-history or -nh : Bot will ignore all previous messages
- - --verbose or -v : Bot will output preset used to generate response
+ - `--no-history` or `-nh` : Bot will ignore all previous messages
+ - `--verbose` or `-v` : Bot will output preset used to generate response
 
 The user may append these options to their Discord message in the following format: 
- - Write a poem about Europe -nh --verbose
- - What is AI21 Labs --no-history -v
+ - `Write a poem about Europe -nh --verbose`
+ - `What is AI21 Labs --no-history -v`
 
 Both examples will make the Bot ignore previous messages and output the model parameters used for generation. 
 
@@ -60,8 +60,10 @@ Navigate to the folder you want to put the project in and run the following comm
 `pip install -r requirements.txt`
 
 Make sure you have environment variables with the following values:
- - AI21_API_KEY=\<API KEY FOR AI21 LABS>
- - DISCORD_TOKEN=\<DISCORD TOKEN FOR APPLICATION FROM DEVELOPER SITE>
+```
+AI21_API_KEY=<API KEY FOR AI21 LABS>
+DISCORD_TOKEN=<DISCORD TOKEN FOR APPLICATION FROM DEVELOPER SITE>
+```
 
 One way to do that is to create a .env file in the top level directory and put these variables in.
 
@@ -72,7 +74,8 @@ This will setup and start the Discord Bot for it to respond to messages.
 
 ### 🕷️ Running the Scraper
 Navigate to the top level directory and run the following command:
-`scrapy crawl ai21_spider -O data/AI21.csv `
+
+`scrapy crawl ai21_spider -O data/AI21.csv`
 
 This will start the scraper and output the data into the AI21.csv file in the data folder. 
 
