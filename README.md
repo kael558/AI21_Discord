@@ -8,18 +8,21 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
+    <li><a href="#-what-is-this">What is this?</a></li>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#-getting-started">Getting Started</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#quick-install">Quick Install</a></li>
+        <li><a href="#running-the-discord-bot">Running the Discord Bot</a></li>
+        <li><a href="#running-the-scraper">Running the Scraper</a></li>
+        <li><a href="#running-the-index-setup">Running the Index Setup</a></li>
+        <li><a href="#running-the-sh-script">Running the .sh Script</a></li>
       </ul>
     </li>
-    <li><a href="#getting-started">Getting Started</a></li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#-logs">Logging</a></li>
+    <li><a href="#-roadmap">Roadmap</a></li>
+    <li><a href="#-contributing">Contributing</a></li>
+    <li><a href="#-license">License</a></li>
   </ol>
 </details>
 
@@ -45,24 +48,26 @@ Both examples will make the Bot ignore previous messages and output the model pa
 
 A scraper is provided that will read and extract information from both the documentation and the home page of AI21 Labs. 
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## 📖 Getting Started 
 ### Quick Install
 Navigate to the folder you want to put the project in and run the following commands.
 
-`git clone `https://github.com/kael558/AI21_Discord.git`
+`git clone https://github.com/kael558/AI21_Discord.git`
 
 `pip install -r requirements.txt`
 
 Make sure you have environment variables with the following values:
-AI21_API_KEY=<API KEY FOR AI21 LABS>
-DISCORD_TOKEN=<DISCORD TOKEN FOR APPLICATION FROM DEVELOPER SITE>
+ - AI21_API_KEY=\<API KEY FOR AI21 LABS>
+ - DISCORD_TOKEN=\<DISCORD TOKEN FOR APPLICATION FROM DEVELOPER SITE>
 
 One way to do that is to create a .env file in the top level directory and put these variables in.
 
 ### Running the Discord Bot
 `python main.py`
 
-This will start the Discord Bot and it will respond to messages. 
+This will setup and start the Discord Bot for it to respond to messages. 
 
 ### Running the Scraper
 Navigate to the top level directory and run the following command:
@@ -71,51 +76,51 @@ Navigate to the top level directory and run the following command:
 This will start the scraper and output the data into the AI21.csv file in the data folder. 
 
 ### Running the Index Setup
-Once the raw data has been collected via the scraper. It must be indexed into a vector database. Running the following will do so:
+Once the raw data has been collected via the scraper, it must be indexed into a vector database. Running the following will do so:
 `python bot.py`
 
 This will index all the data from AI21.csv into a vector database which can be queried when the Bot needs it. 
 
 ### Running the .sh script
-An restart_client.sh script is provided. It does the following:
+An restart_client.sh script is provided for Linux. It does the following:
  - Stops the Discord Bot if it is running
  - Deletes all the AI21 data
  - Runs the scraper to collect the data
  - Runs the index setup to index the data
  - Restarts the Discord Bot
 
-This script can be run on Linux like so:
+This script can be run like so:
 `./restart_client.sh`
 
-Note: A CRON job is setup with the following schedule:
+A CRON job can be setup with the following schedule:
  - `crontab -e` # Opens the crontab configuration file
  - `0 0 1 * * /path/to/restart_client.sh` # Sets the script to run on the first of every month
 
-## Roadmap
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## ⚠️ Logs
+Logging is provided and all logs are saved in the logs folder with the following files:
+ - bot.log: errors with the Discord Bot while it is running
+ - scraper.log: errors with the Scraper
+ - index.log: errors with the indexing 
+
+## 📅 Roadmap
 - [x] Default bot
 - [x] Variable Preset
 - [x] AI21 Indexed information
 - [ ] Finishing touches (like README, discord icon, discord name, transfer hosting)
 
-## Contributing
+## 🤝 Contributing
 All rights belong to AI21 Labs. 
 
 You may fork the project and work in your own repository.
 
-## License
+## ⚖️ License
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
 
 [license-shield]: https://img.shields.io/github/license/kael558/AI21_Discord.svg?style=for-the-badge
 [license-url]: https://github.com/kael558/AI21_Discord/blob/main/LICENSE
