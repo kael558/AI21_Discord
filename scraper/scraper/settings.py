@@ -24,6 +24,8 @@ USER_AGENT = 'discord kael558#4332 - for AI21 Discord Bot'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+LOG_FILE= 'logs/scraper.log'
+LOG_LEVEL = 'INFO'
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 

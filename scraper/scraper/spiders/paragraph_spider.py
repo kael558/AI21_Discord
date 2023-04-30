@@ -1,4 +1,5 @@
 import scrapy
+import logging
 
 
 def is_valid_paragraph(paragraph):
@@ -25,7 +26,6 @@ class AI21Spider(scrapy.Spider):
     name = "ai21_spider"
     allowed_domains = ['docs.ai21.com', 'ai21.com']
     start_urls = ['https://docs.ai21.com/docs/overview', 'https://www.ai21.com/']
-    #base_url = 'https://docs.ai21.com'
 
     def parse(self, response):
         for paragraph in response.css('p').xpath('normalize-space()').getall():

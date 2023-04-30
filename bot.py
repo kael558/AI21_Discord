@@ -6,6 +6,8 @@ import ai21
 from simplechain.stack import TextEmbedderFactory, VectorDatabaseFactory
 
 
+
+
 def dedent_text(text: str):
     return '\n'.join([m.lstrip() for m in text.split('\n')]).strip()
 
@@ -29,26 +31,40 @@ class Bot:
         load_dotenv()
         ai21.api_key = os.environ['AI21_API_KEY']
         self.embedder = TextEmbedderFactory.create("ai21")
-        self.index = VectorDatabaseFactory.create("annoy", 768, "index.ann", "metadata.json")
+        self.index = VectorDatabaseFactory.create("annoy", 768, "data/index.ann", "data/metadata.json")
 
     def setup_index(self):
-        metadata = []
-        paragraphs = []
+        import time
+        import logging
 
-        for row in csv.reader(open('data/AI21.csv', 'r', encoding='iso-8859-1')):
-            metadata.append(row)
-            paragraphs.append(row[0])
+        logging.basicConfig(filename='logs/indexer.log', level=logging.INFO,
+                            format='%(asctime)s %(levelname)s %(message)s')
+        logging.info("Setting up AI21 Index...")
+        start_time = time.time()
 
-        # Breaks the strings with 2000+ characters into smaller strings
-        for i, s in enumerate(paragraphs):
-            if len(s) > 2000:
-                paragraphs.pop(i)
-                for j in range(0, len(s), 2000):
-                    paragraphs.insert(i + j, s[j:j + 2000])
+        try:
+            metadata = []
+            paragraphs = []
 
-        embeds = self.embedder.embed_all(paragraphs)
-        self.index.add_all(embeds, metadata)
-        self.index.save()
+            for row in csv.reader(open('data/AI21.csv', 'r', encoding='iso-8859-1')):
+                metadata.append(row)
+                paragraphs.append(row[0])
+
+            # Breaks the strings with 2000+ characters into smaller strings
+            for i, s in enumerate(paragraphs):
+                if len(s) > 2000:
+                    paragraphs.pop(i)
+                    for j in range(0, len(s), 2000):
+                        paragraphs.insert(i + j, s[j:j + 2000])
+
+            embeds = self.embedder.embed_all(paragraphs)
+            self.index.add_all(embeds, metadata)
+            self.index.save()
+
+            logging.info(f"AI21 Index created with {len(paragraphs)} items in {time.time()-start_time} seconds." )
+        except Exception as e:
+            logging.error(e)
+            logging.info(f"AI21 Index creation failed after {time.time()-start_time} seconds." )
 
     def generate_response(self, conversation_history: list, verbose: bool = False) -> str:
         conversation_history_str = "\n".join(conversation_history)
