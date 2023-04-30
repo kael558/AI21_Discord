@@ -12,11 +12,11 @@
     <li>
       <a href="#-getting-started">Getting Started</a>
       <ul>
-        <li><a href="#quick-install">Quick Install</a></li>
-        <li><a href="#running-the-discord-bot">Running the Discord Bot</a></li>
-        <li><a href="#running-the-scraper">Running the Scraper</a></li>
-        <li><a href="#running-the-index-setup">Running the Index Setup</a></li>
-        <li><a href="#running-the-sh-script">Running the .sh Script</a></li>
+        <li><a href="#-quick-install">Quick Install</a></li>
+        <li><a href="#-running-the-discord-bot">Running the Discord Bot</a></li>
+        <li><a href="#-running-the-scraper">Running the Scraper</a></li>
+        <li><a href="#-running-the-index-setup">Running the Index Setup</a></li>
+        <li><a href="#-running-the-sh-script">Running the .sh Script</a></li>
       </ul>
     </li>
     <li><a href="#-logs">Logging</a></li>
@@ -52,7 +52,7 @@ A scraper is provided that will read and extract information from both the docum
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 📖 Getting Started 
-### Quick Install
+### ⚡️ Quick Install
 Navigate to the folder you want to put the project in and run the following commands.
 
 `git clone https://github.com/kael558/AI21_Discord.git`
@@ -65,24 +65,24 @@ Make sure you have environment variables with the following values:
 
 One way to do that is to create a .env file in the top level directory and put these variables in.
 
-### Running the Discord Bot
+### 🤖 Running the Discord Bot
 `python main.py`
 
 This will setup and start the Discord Bot for it to respond to messages. 
 
-### Running the Scraper
+### 🕷️ Running the Scraper
 Navigate to the top level directory and run the following command:
 `scrapy crawl ai21_spider -O data/AI21.csv `
 
 This will start the scraper and output the data into the AI21.csv file in the data folder. 
 
-### Running the Index Setup
+### 📁 Running the Index Setup
 Once the raw data has been collected via the scraper, it must be indexed into a vector database. Running the following will do so:
 `python bot.py`
 
 This will index all the data from AI21.csv into a vector database which can be queried when the Bot needs it. 
 
-### Running the .sh script
+### ⚙️ Running the .sh script
 An restart_client.sh script is provided for Linux. It does the following:
  - Stops the Discord Bot if it is running
  - Deletes all the AI21 data
