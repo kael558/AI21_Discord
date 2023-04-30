@@ -14,8 +14,9 @@ logging.basicConfig(filename='logs/bot.log', level=logging.INFO, format='%(ascti
 
 def clean_and_return_options_message(message_cc: str) -> tuple:
     verbose, no_history = False, False
-    message_cc = message_cc.strip()
+
     while True:
+        message_cc = message_cc.strip()
         if message_cc.endswith('--verbose'):
             verbose = True
             message_cc = message_cc.replace('--verbose', '')
