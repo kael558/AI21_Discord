@@ -65,7 +65,7 @@ class Client(discord.Client):
                                 continue
 
                     elif historic_msg.author.name == self.user.name:
-                        name = "AI21 Discord Bot"
+                        name = "AI21 Discord ChatBot"
                     else:
                         continue
                     historic_msg_cc, _, _ = clean_and_return_options_message(historic_msg.clean_content)
