@@ -80,11 +80,11 @@ class Bot:
                 links_counter[c[0][1]] += 1
                 context_str += f"{c[0][0]}."
             if links_counter:
-                links_str = "The following links may be useful:\n" + "\n".join([link[0] for link in links_counter.most_common(3)])
+                links_str = "\n\n*The following links may be useful:*\n" + "\n- ".join([link[0] for link in links_counter.most_common(3)])
 
         prompt = construct_get_response_prompt(request, context_str, conversation_history_str)
 
-        response = generate_text(prompt, preset, verbose) + links_str
+        response = generate_text(prompt, preset, links_str, verbose)
         return response
 
 
@@ -141,17 +141,16 @@ def construct_get_commands_prompt(conversation: str):
 
 def get_commands(conversation_history_str: str):
     prompt = construct_get_commands_prompt(conversation_history_str)
-    text = generate_text(prompt, "Classify NLP task", verbose=False)
+    text = generate_text(prompt, "Classify NLP task")
     preset, request, requires_ai21_index = text.split("\n")
     return preset.strip(), request[9:].strip(), requires_ai21_index[19:].strip() == "True"
 
 
 def get_params_from_preset(preset: str) -> dict:
-    # TODO Check presence penalties
     if preset == "Classify NLP task":
         return {
             "model": "j2-jumbo-instruct",
-            "maxTokens": 100,
+            "maxTokens": 256,
             "temperature": 0,
             "topP": 1,
             "stopSequences": ["##"]
@@ -160,7 +159,7 @@ def get_params_from_preset(preset: str) -> dict:
     if preset == "Generate code":
         return {
             "model": "j2-grande-instruct",
-            "maxTokens": 100,
+            "maxTokens": 256,
             "temperature": 0,
             "topP": 1,
         }
@@ -168,7 +167,7 @@ def get_params_from_preset(preset: str) -> dict:
     if preset == "Paraphrasing":
         return {
             "model": "j2-jumbo",
-            "maxTokens": 100,
+            "maxTokens": 256,
             "temperature": 0.3,
             "topP": 1,
         }
@@ -185,7 +184,7 @@ def get_params_from_preset(preset: str) -> dict:
     if preset == "Question answering":
         return {
             "model": "j2-jumbo-instruct",
-            "maxTokens": 150,
+            "maxTokens": 256,
             "temperature": 0.8,
             "topP": 1,
         }
@@ -197,7 +196,7 @@ def get_params_from_preset(preset: str) -> dict:
 def get_default_preset_params():
     return {
         "model": "j2-grande-instruct",
-        "maxTokens": 100,
+        "maxTokens": 256,
         "temperature": 0.7,
         "topP": 1,
         "topKReturn": 0,
@@ -231,9 +230,8 @@ def get_default_preset_params():
 
 @prompt_template(dedent=True, fix_whitespace=True)
 def construct_get_response_prompt(request: str, context: str, conversation: str) -> str:
-    prompt = """Welcome! I am an AI21 Discord ChatBot. I'm here to answer the your questions, provide advice, or just have a friendly conversation.
-    Please note that while I can provide general information and guidance,
-    I am not a licensed professional and my responses are not intended to be a substitute for professional advice. 
+    prompt = """Welcome! I am AI21 Discord ChatBot. I'm here to answer your questions, provide advice, or just have a friendly conversation.
+    Please note that while I can provide general information and guidance, I am not a licensed professional and my responses are not intended to be a substitute for professional advice. 
     Additionally, I strive to remain neutral and respectful in all interactions, and I do not engage in discriminatory or harmful behavior. 
     """
 
@@ -244,13 +242,13 @@ def construct_get_response_prompt(request: str, context: str, conversation: str)
     I will use the following conversation between me (AI21 Discord ChatBot) and a User as context:
     {conversation}
     
-    It seems like the user is asking me for this: {request}
+    It seems like the User is asking me for this: {request}
     
     Write a response to their question or instruction."""
     return prompt
 
 
-def generate_text(prompt, preset, verbose):
+def generate_text(prompt, preset, links_str="", verbose=False):
     params = get_default_preset_params()
     preset_params = get_params_from_preset(preset)
     params.update(preset_params)
@@ -258,21 +256,24 @@ def generate_text(prompt, preset, verbose):
     responses = ai21.Completion.execute(prompt=prompt, **params)["completions"]
     finished_responses = [r for r in responses if r["finishReason"]["reason"] == "stop"]
     response = (finished_responses if finished_responses else responses)[0]["data"]["text"].strip()
-    response = format_response(response, preset, preset_params, verbose)
+    response = format_response(response, prompt, preset, preset_params, links_str, verbose)
 
     return response
 
 
-def format_response(response, preset, preset_params, verbose):
+def format_response(response, prompt, preset, preset_params, links_str, verbose):
     if preset == "Generate code":
         response = f"```{response}```"
 
+    response += f"\n\n{links_str}"
+
     if verbose:
-        response += f"\n\n*The above text was generated using the following parameters:" \
+        response += f"\n\n*The above text was generated using the following:" \
                     f"\nPreset: {preset}" \
                     f"\nModel: {preset_params['model']}" \
                     f"\nTemperature: {preset_params['temperature']}" \
-                    f"\ntopP: {preset_params['topP']}*"
+                    f"\ntopP: {preset_params['topP']}*" \
+                    f"\n*---Prompt---*\n>>>{prompt}"
 
     return response
 

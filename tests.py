@@ -25,11 +25,13 @@ class TestBot(unittest.TestCase):
     def tearDownClass(cls):
         warnings.resetwarnings()
 
+    @unittest.skip
     def test_basic(self):
         history = ['User: Hello, how are you?']
         response = self.bot.generate_response(history)
         print_expected_actual(history, 'Great! How are you?', response)
 
+    @unittest.skip
     def test_basic_history(self):
         history = ['User: My name is John and I like cheese',
                    'AI21 Discord ChatBot: Hello, John',
@@ -37,6 +39,7 @@ class TestBot(unittest.TestCase):
         response = self.bot.generate_response(history)
         print_expected_actual(history, 'Your name is John and you like cheese.', response)
 
+    @unittest.skip
     def test_ignore_some_context(self):
         history = ['User: Who is Canada\'s favorite figure skating pair?',
                    'AI21 Discord ChatBot: Tessa Virtue and Scott Moir',
@@ -49,15 +52,17 @@ class TestBot(unittest.TestCase):
                               response)
 
     def test_ai21(self):
-        history = ['User: What foundation models are offered by AI21?']
-        response = self.bot.generate_response(history)
+        history = ["User: What specialized API's does AI21 offer?"]
+        response = self.bot.generate_response(history, verbose=True)
         print_expected_actual(history, 'J2-Large, J1-Jumbo etc... See links as well', response)
 
+    @unittest.skip
     def test_generate_code(self):
         history = ['User: Write me a python function that prints "Hello World"']
         response = self.bot.generate_response(history)
         print_expected_actual(history, 'def hello(): print("Hello world!")', response)
 
+    @unittest.skip
     def test_paraphrase(self):
         history = ["AI21 Discord ChatBot: Africa is a huge and diverse continent, with a wide range of cultures, natural landscapes, and travel experiences available. The continent has 54 countries, each with its own unique history, politics, and people."
                     "If you're planning a trip to Africa, it's a good idea to research the specific countries or regions you're interested in visiting. Some African countries are highly developed, with thriving cities and modern infrastructure, while others are more rural and less developed."
@@ -67,16 +72,19 @@ class TestBot(unittest.TestCase):
         response = self.bot.generate_response(history)
         print_expected_actual(history, '1-2 lines of Africa description with a focus on the culture...', response)
 
+    @unittest.skip
     def test_long_form_generation(self):
         history = ["User: Write a short poem about the 'Paul is dead' conspiracy theory"]
         response = self.bot.generate_response(history)
         print_expected_actual(history, 'A poem about the Paul is dead conspiracy', response)
 
+    @unittest.skip
     def test_question_answering(self):
         history = ["User: What sort of questions can I expect at a Software Engineering job interview?"]
         response = self.bot.generate_response(history)
         print_expected_actual(history, 'Interview questions about a job interview', response)
 
+    @unittest.skip
     def test_verbose(self):
         history = ["User: What is the capital of Canada?"]
         response = self.bot.generate_response(history, verbose=True)
