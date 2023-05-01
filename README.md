@@ -163,8 +163,8 @@ A short manual testing suite (*tests.py*) is provided to assess the quality of t
 - [x] Default bot
 - [x] Variable Preset
 - [x] AI21 Indexed information
-- [ ] Split content over 2k characters into multiple messages
-- [ ] Remove instruction for paraphrasing (because j2-jumbo doesn't work with it) 
+- [x] Split content over 2k characters into multiple messages
+- [x] Remove instruction for paraphrasing (because j2-jumbo doesn't work with it) 
 - [ ] Finishing touches (like README, discord icon, discord name, transfer hosting)
 
 ## 🤝 Contributing
