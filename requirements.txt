@@ -7,3 +7,4 @@ Scrapy~=2.8.0
 itemadapter~=0.8.0
 colorama~=0.4.6
 pydantic==1.10.7
+numpy==1.24.3
