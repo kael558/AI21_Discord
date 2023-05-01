@@ -5,6 +5,7 @@ pkill -f "python3 $DISCORD_BOT_SCRIPT"
 
 # Delete the data files
 rm data/*
+rm logs/*
 
 # Activate the virtual env
 source venv/bin/activate
