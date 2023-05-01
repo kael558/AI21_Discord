@@ -13,7 +13,7 @@ bot = Bot()
 logging.basicConfig(filename='logs/bot.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
 
-def send_message(channel, reference_msg, message):
+async def send_message(channel, reference_msg, message):
     MAX_LENGTH = 2000
     n = len(message)
     first_msg = None
@@ -87,10 +87,10 @@ class Client(discord.Client):
                     history.insert(0, f"{name}: {historic_msg_cc}")
             async with message.channel.typing():
                 response, verbose_str = bot.generate_response(history, verbose)
-                response_msg = send_message(message.channel, message, response)
+                response_msg = await send_message(message.channel, message, response)
 
                 if verbose:
-                    send_message(message.channel, response_msg, verbose_str)
+                    await send_message(message.channel, response_msg, verbose_str)
                 await response_msg.edit(suppress=True, embeds=[])
                 return
         except Exception as e:
