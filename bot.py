@@ -66,7 +66,7 @@ class Bot:
             logging.error(e)
             logging.info(f"AI21 Index creation failed after {time.time()-start_time} seconds." )
 
-    def generate_response(self, conversation_history: list, verbose: bool = False) -> str:
+    def generate_response(self, conversation_history: list, verbose: bool = False) -> tuple:
         conversation_history_str = "\n".join(conversation_history)
         preset, request, requires_ai21_index = get_commands(conversation_history_str)
 
@@ -80,12 +80,15 @@ class Bot:
                 links_counter[c[0][1]] += 1
                 context_str += f"{c[0][0]}."
             if links_counter:
-                links_str = "**The following links may be useful:**\n" + "\n- ".join([link[0] for link in links_counter.most_common(3)])
+                links_str = ":link: **The following links may be useful:**\n- " +  "\n- ".join([link[0] for link in links_counter.most_common(3)])
 
         prompt = construct_get_response_prompt(request, context_str, conversation_history_str)
 
-        response = generate_text(prompt, preset, links_str, verbose)
-        return response
+        response, verbose_str = generate_text(prompt, preset, verbose)
+        if response.startswith("AI21 Discord ChatBot: "):
+            response = response[21:]
+        response += f"\n\n{links_str}"
+        return response, verbose_str
 
 
 @prompt_template(dedent=True, fix_whitespace=True)
@@ -141,7 +144,7 @@ def construct_get_commands_prompt(conversation: str):
 
 def get_commands(conversation_history_str: str):
     prompt = construct_get_commands_prompt(conversation_history_str)
-    text = generate_text(prompt, "Classify NLP task")
+    text, _ = generate_text(prompt, "Classify NLP task")
     preset, request, requires_ai21_index = text.split("\n")
     return preset.strip(), request[9:].strip(), requires_ai21_index[19:].strip() == "True"
 
@@ -248,7 +251,7 @@ def construct_get_response_prompt(request: str, context: str, conversation: str)
     return prompt
 
 
-def generate_text(prompt, preset, links_str="", verbose=False):
+def generate_text(prompt, preset, verbose=False):
     params = get_default_preset_params()
     preset_params = get_params_from_preset(preset)
     params.update(preset_params)
@@ -256,26 +259,19 @@ def generate_text(prompt, preset, links_str="", verbose=False):
     responses = ai21.Completion.execute(prompt=prompt, **params)["completions"]
     finished_responses = [r for r in responses if r["finishReason"]["reason"] == "stop"]
     response = (finished_responses if finished_responses else responses)[0]["data"]["text"].strip()
-    response = format_response(response, prompt, preset, preset_params, links_str, verbose)
 
-    return response.strip()
-
-
-def format_response(response, prompt, preset, preset_params, links_str, verbose):
     if preset == "Generate code":
         response = f"```{response}```"
 
-    response += f"\n\n{links_str}"
-
+    verbose_str = ""
     if verbose:
-        response += f"\n\nThe above text was generated using the following:" \
+        verbose_str = f"\n\n:information_source: **The above text was generated using the following:**" \
                     f"\nPreset: *{preset}*" \
                     f"\nModel: *{preset_params['model']}*" \
                     f"\nTemperature: *{preset_params['temperature']}*" \
                     f"\ntopP: *{preset_params['topP']}*" \
-                    f"\n**---Prompt---**\n>>>{prompt}"
-
-    return response
+                    f"\n**---Prompt---**\n>>> {prompt}"
+    return response.strip(), verbose_str.strip()
 
 
 if __name__ == "__main__":

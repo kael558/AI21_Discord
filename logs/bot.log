@@ -49,3 +49,23 @@ ValueError: too many values to unpack (expected 3)
     preset, request, requires_ai21_index = text.split("\n")
 ValueError: too many values to unpack (expected 3)
 
+2023-04-30 23:25:13,102 INFO Attemping to restart Discord Bot...
+2023-04-30 23:25:13,103 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-04-30 23:25:13,104 INFO logging in using static token
+2023-04-30 23:25:13,620 INFO Shard ID None has connected to Gateway (Session ID: fa7b81e8cd7d37e46bcf2a55e1848fd5).
+2023-04-30 23:25:15,676 INFO Discord bot ready!
+2023-04-30 23:26:18,645 INFO Attemping to restart Discord Bot...
+2023-04-30 23:26:18,646 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-04-30 23:26:18,647 INFO logging in using static token
+2023-04-30 23:26:19,194 INFO Shard ID None has connected to Gateway (Session ID: a12df134816089b24ffe6498de965b7e).
+2023-04-30 23:26:21,218 INFO Discord bot ready!
+2023-04-30 23:33:16,057 INFO Attemping to restart Discord Bot...
+2023-04-30 23:33:16,059 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-04-30 23:33:16,060 INFO logging in using static token
+2023-04-30 23:33:16,570 INFO Shard ID None has connected to Gateway (Session ID: 38e482bef3c72343e2c76394421234aa).
+2023-04-30 23:33:18,586 INFO Discord bot ready!
+2023-04-30 23:34:46,136 INFO Attemping to restart Discord Bot...
+2023-04-30 23:34:46,138 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-04-30 23:34:46,139 INFO logging in using static token
+2023-04-30 23:34:46,682 INFO Shard ID None has connected to Gateway (Session ID: 71cf4d0eb381fad7890ad4e847037f3d).
+2023-04-30 23:34:48,726 INFO Discord bot ready!

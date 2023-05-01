@@ -58,7 +58,7 @@ class Client(discord.Client):
                         if isinstance(message.channel, discord.channel.DMChannel):
                             name = "User"
                         else:  # is text channel
-                            for reaction in historic_msg.reactions:
+                            for reaction in historic_msg.reactions: # check for question mark reaction
                                 if str(reaction.emoji) == "❓":
                                     name = "User"
                                     break
@@ -66,15 +66,18 @@ class Client(discord.Client):
                                 continue
 
                     elif historic_msg.author.name == self.user.name:
+                        if historic_msg.clean_content.startswith(":information_source:"):
+                            continue
                         name = "AI21 Discord ChatBot"
                     else:
                         continue
                     historic_msg_cc, _, _ = clean_and_return_options_message(historic_msg.clean_content)
                     history.insert(0, f"{name}: {historic_msg_cc}")
-
             async with message.channel.typing():
-                response = bot.generate_response(history, verbose)
+                response, verbose_str = bot.generate_response(history, verbose)
                 response_msg = await message.channel.send(response, reference=message)
+                if verbose:
+                    await message.channel.send(verbose_str, reference=response_msg)
                 await response_msg.edit(suppress=True, embeds=[])
                 return
         except Exception as e:
