@@ -13,7 +13,7 @@ source venv/bin/activate
 scrapy crawl ai21_spider -O data/AI21.csv
 
 # Setup the index
-python3 index.py
+python3 bot.py
 
 # Restart the Discord bot
 python3 "$DISCORD_BOT_SCRIPT" &
