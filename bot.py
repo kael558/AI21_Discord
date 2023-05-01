@@ -169,7 +169,7 @@ def get_params_from_preset(preset: str) -> dict:
 
     if preset == "Paraphrasing":
         return {
-            "model": "j2-jumbo",
+            "model": "j2-jumbo-instruct",
             "maxTokens": 256,
             "temperature": 0.3,
             "topP": 1,

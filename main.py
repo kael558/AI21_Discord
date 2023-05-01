@@ -13,6 +13,18 @@ bot = Bot()
 logging.basicConfig(filename='logs/bot.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
 
+def send_message(channel, reference_msg, message):
+    MAX_LENGTH = 2000
+    n = len(message)
+    first_msg = None
+    for i in range(0, n, MAX_LENGTH):
+        segment = message[i:i + MAX_LENGTH]
+        response_msg = await channel.send(segment, reference=reference_msg)
+        if not first_msg:
+            first_msg = response_msg
+    return first_msg
+
+
 def clean_and_return_options_message(message_cc: str) -> tuple:
     verbose, no_history = False, False
 
@@ -58,7 +70,7 @@ class Client(discord.Client):
                         if isinstance(message.channel, discord.channel.DMChannel):
                             name = "User"
                         else:  # is text channel
-                            for reaction in historic_msg.reactions: # check for question mark reaction
+                            for reaction in historic_msg.reactions:  # check for question mark reaction
                                 if str(reaction.emoji) == "❓":
                                     name = "User"
                                     break
@@ -75,9 +87,10 @@ class Client(discord.Client):
                     history.insert(0, f"{name}: {historic_msg_cc}")
             async with message.channel.typing():
                 response, verbose_str = bot.generate_response(history, verbose)
-                response_msg = await message.channel.send(response, reference=message)
+                response_msg = send_message(message.channel, message, response)
+
                 if verbose:
-                    await message.channel.send(verbose_str, reference=response_msg)
+                    send_message(message.channel, response_msg, verbose_str)
                 await response_msg.edit(suppress=True, embeds=[])
                 return
         except Exception as e:
@@ -107,6 +120,7 @@ class Client(discord.Client):
 if __name__ == "__main__":
     logging.info("Attemping to restart Discord Bot...")
     from dotenv import load_dotenv
+
     load_dotenv()
 
     ai21.api_key = os.environ['AI21_API_KEY']

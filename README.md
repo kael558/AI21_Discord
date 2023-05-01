@@ -82,11 +82,12 @@ This will start the scraper and output the data into the AI21.csv file in the da
 
 ### 📁 Setting up the Vector Database
 Once the raw data has been collected via the scraper, it must be indexed into a vector database. Running the following will do so:
+
 `python bot.py`
 
 This will index all the data from AI21.csv into a vector database which can be queried when the Bot needs it. 
 
-### ⚙️ Putting it all Together
+### ⚙️ Putting it all Together with a Shell Script
 An restart_client.sh script is provided for Linux. It does the following:
  - Stops the Discord Bot if it is running
  - Deletes the existing AI21 data
@@ -97,9 +98,52 @@ An restart_client.sh script is provided for Linux. It does the following:
 This script can be run like so:
 `./restart_client.sh`
 
+
+### 💧 Droplet Setup From Scratch
+This section covers all steps from a-z to set up the project on a fresh Digital Ocean droplet. Run the following on your terminal:
+```
+# Clone the repo
+git clone https://github.com/kael558/AI21_Discord.git
+cd AI21_Discord/
+
+# Updates the package lists.
+sudo apt update
+
+# Upgrades the packages
+sudo apt -y upgrade
+
+# Install pip
+sudo apt install -y python3-pip
+
+# Installs the necessary development libraries and tools for building and compiling software
+sudo apt install -y build-essential libssl-dev libffi-dev python3-dev
+
+# Install python venv
+sudo apt install -y python3-venv
+
+# Create and activate a new virtual env
+python3 -m venv venv
+source venv/bin/activate
+
+# Install the project dependencies
+pip install -r requirements.txt
+
+# Add execution permissions to .sh file
+chmod +x restart_client.sh
+
+# Run the .sh file
+./restart_client.sh
+```
+
 A CRON job can be setup with the following schedule:
- - `crontab -e` # Opens the crontab configuration file
- - `0 0 1 * * /path/to/restart_client.sh` # Sets the script to run on the first of every month
+```
+# Opens the crontab configuration file
+crontab -e
+
+# Sets the script to run on the first of every month
+0 0 1 * * /path/to/restart_client.sh
+```
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -111,6 +155,7 @@ Logging is provided and all logs are saved in the logs folder with the following
 
 ## 🔧 Testing
 A short manual testing suite (*tests.py*) is provided to assess the quality of the responses. Run the following:
+
 `python -m unittest`
 
 
