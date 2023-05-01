@@ -1,5 +1,7 @@
 import scrapy
-import logging
+
+import warnings
+warnings.filterwarnings("ignore", message="Selector got both text and root, root is being ignored", category=UserWarning)
 
 
 def is_valid_paragraph(paragraph):
