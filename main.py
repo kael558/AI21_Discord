@@ -75,7 +75,7 @@ class Client(discord.Client):
             async with message.channel.typing():
                 response = bot.generate_response(history, verbose)
                 response_msg = await message.channel.send(response, reference=message)
-                await response_msg.edit(suppress=True)
+                await response_msg.edit(suppress=True, embeds=[])
                 return
         except Exception as e:
             logging.error(e)
