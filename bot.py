@@ -80,7 +80,7 @@ class Bot:
                 links_counter[c[0][1]] += 1
                 context_str += f"{c[0][0]}."
             if links_counter:
-                links_str = "\n\n*The following links may be useful:*\n" + "\n- ".join([link[0] for link in links_counter.most_common(3)])
+                links_str = "**The following links may be useful:**\n" + "\n- ".join([link[0] for link in links_counter.most_common(3)])
 
         prompt = construct_get_response_prompt(request, context_str, conversation_history_str)
 
@@ -268,12 +268,12 @@ def format_response(response, prompt, preset, preset_params, links_str, verbose)
     response += f"\n\n{links_str}"
 
     if verbose:
-        response += f"\n\n*The above text was generated using the following:" \
-                    f"\nPreset: {preset}" \
-                    f"\nModel: {preset_params['model']}" \
-                    f"\nTemperature: {preset_params['temperature']}" \
-                    f"\ntopP: {preset_params['topP']}*" \
-                    f"\n*---Prompt---*\n>>>{prompt}"
+        response += f"\n\nThe above text was generated using the following:" \
+                    f"\nPreset: *{preset}*" \
+                    f"\nModel: *{preset_params['model']}*" \
+                    f"\nTemperature: *{preset_params['temperature']}*" \
+                    f"\ntopP: *{preset_params['topP']}*" \
+                    f"\n**---Prompt---**\n>>>{prompt}"
 
     return response
 
