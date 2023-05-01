@@ -258,7 +258,7 @@ def generate_text(prompt, preset, links_str="", verbose=False):
     response = (finished_responses if finished_responses else responses)[0]["data"]["text"].strip()
     response = format_response(response, prompt, preset, preset_params, links_str, verbose)
 
-    return response
+    return response.strip()
 
 
 def format_response(response, prompt, preset, preset_params, links_str, verbose):

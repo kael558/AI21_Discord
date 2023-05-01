@@ -1,6 +1,7 @@
 import os
 
 import logging
+import traceback
 
 import discord
 from bot import Bot
@@ -78,6 +79,7 @@ class Client(discord.Client):
                 return
         except Exception as e:
             logging.error(e)
+            logging.error(traceback.format_exc())
             await message.channel.send("Sorry, an expected error occurred. Please try again later.")
 
     async def on_message(self, message):
