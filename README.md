@@ -83,7 +83,7 @@ This will start the scraper and output the data into the AI21.csv file in the da
 ### 📁 Setting up the Vector Database
 Once the raw data has been collected via the scraper, it must be indexed into a vector database. Running the following will do so:
 
-`python bot.py`
+`python index.py`
 
 This will index all the data from AI21.csv into a vector database which can be queried when the Bot needs it. 
 
@@ -130,8 +130,15 @@ sudo apt install -y python3-venv
 python3 -m venv venv
 source venv/bin/activate
 
+# Install wheel 
+pip install wheel==0.40.0
+pip install annoy==1.17.2
+
 # Install the project dependencies
-pip install -r requirements.txt
+pip install -r requirements.txt --no-cache-dir
+
+# Make a .env file and populate it with AI21_API_KEY and DISCORD_TOKEN
+vi .env
 
 # Add execution permissions to .sh file
 chmod +x restart_client.sh
