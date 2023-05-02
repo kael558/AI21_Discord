@@ -43,11 +43,15 @@ class Bot:
             try:
                 context = self.index.get_nearest_neighbors(self.embedder.embed(request), 10)
                 links_counter = Counter()
-                for c in context:
-                    if float(c[1]) > 0.8:
-                        continue
-                    links_counter[c[0][1]] += 1
-                    context_str += f"{c[0][0]}."
+                for i, c in enumerate(context):
+                    if i < 3:
+                        links_counter[c[0][1]] += 1
+                        context_str += f"{c[0][0]}."
+                    else:
+                        if float(c[1]) > 0.8:
+                            continue
+                        links_counter[c[0][1]] += 1
+                        context_str += f"{c[0][0]}."
                 if links_counter:
                     links_str = ":link: **The following links may be useful:**\n- " +  "\n- ".join([link[0] for link in links_counter.most_common(3)])
             except Exception as e:

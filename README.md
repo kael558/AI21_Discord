@@ -103,6 +103,10 @@ You can see the Discord Bot running as "python3 main.py" with:
 
 `ps -ef | grep python`
 
+And to kill the process:
+
+`pkill -f "python main.py"`
+
 
 ### 💧 Droplet Setup From Scratch
 This section covers all steps from a-z to set up the project on a fresh Digital Ocean droplet. Run the following on your terminal:
