@@ -16,7 +16,7 @@ mv data/* "$directory"
 source venv/bin/activate
 
 # Re-scrape the file
-scrapy crawl ai21_spider -O temp_data/AI21.csv
+scrapy crawl ai21_spider -O data/AI21.csv
 
 # Setup the index
 python3 index.py
