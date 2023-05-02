@@ -69,3 +69,8 @@ ValueError: too many values to unpack (expected 3)
 2023-04-30 23:34:46,139 INFO logging in using static token
 2023-04-30 23:34:46,682 INFO Shard ID None has connected to Gateway (Session ID: 71cf4d0eb381fad7890ad4e847037f3d).
 2023-04-30 23:34:48,726 INFO Discord bot ready!
+2023-05-02 08:07:08,458 INFO Attemping to restart Discord Bot...
+2023-05-02 08:07:08,460 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-02 08:07:08,462 INFO logging in using static token
+2023-05-02 08:07:09,045 INFO Shard ID None has connected to Gateway (Session ID: 33c641341ff6e5273bc916868bd9126d).
+2023-05-02 08:07:11,076 INFO Discord bot ready!

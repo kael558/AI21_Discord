@@ -62,11 +62,10 @@ def copy_files_from_source_to_dest(source_dir, destination_dir):
 
 
 if __name__ == "__main__":
-    ai21.api_key = os.environ['AI21_API_KEY']
-
     from dotenv import load_dotenv
 
     load_dotenv()
+    ai21.api_key = os.environ['AI21_API_KEY']
 
     logging.basicConfig(filename='logs/indexer.log', level=logging.INFO,
                         format='%(asctime)s %(levelname)s %(message)s')
@@ -78,8 +77,8 @@ if __name__ == "__main__":
         logging.info(f"AI21 Index created with {num_items} items in {time.time() - start_time} seconds.")
     except Exception as e:
         # Move the data folder back to its original location
-        delete_contents_in_folder("/data")
-        copy_files_from_source_to_dest("/temp_data", "/data")
+        delete_contents_in_folder("data/")
+        copy_files_from_source_to_dest("temp_data/", "data/")
 
         logging.error(e)
         logging.info(f"AI21 Index creation failed after {time.time() - start_time} seconds.")

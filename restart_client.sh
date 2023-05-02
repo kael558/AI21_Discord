@@ -1,3 +1,4 @@
+#!/bin/bash
 DISCORD_BOT_SCRIPT=main.py
 
 # Stop the Discord bot
@@ -7,7 +8,7 @@ pkill -f "python3 $DISCORD_BOT_SCRIPT"
 rm logs/*
 
 # Move all files in data folder to temp_data folder
-directory="/temp_data"
+directory="temp_data/"
 mkdir -p "$directory"
 mv data/* "$directory"
 
