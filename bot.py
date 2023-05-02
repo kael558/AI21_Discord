@@ -33,38 +33,6 @@ class Bot:
         self.embedder = TextEmbedderFactory.create("ai21")
         self.index = VectorDatabaseFactory.create("annoy", 768, "data/index.ann", "data/metadata.json")
 
-    def setup_index(self):
-        import time
-        import logging
-
-        logging.basicConfig(filename='logs/indexer.log', level=logging.INFO,
-                            format='%(asctime)s %(levelname)s %(message)s')
-        logging.info("Setting up AI21 Index...")
-        start_time = time.time()
-
-        try:
-            metadata = []
-            paragraphs = []
-
-            for row in csv.reader(open('data/AI21.csv', 'r', encoding='iso-8859-1')):
-                metadata.append(row)
-                paragraphs.append(row[0])
-
-            # Breaks the strings with 2000+ characters into smaller strings
-            for i, s in enumerate(paragraphs):
-                if len(s) > 2000:
-                    paragraphs.pop(i)
-                    for j in range(0, len(s), 2000):
-                        paragraphs.insert(i + j, s[j:j + 2000])
-
-            embeds = self.embedder.embed_all(paragraphs)
-            self.index.add_all(embeds, metadata)
-            self.index.save()
-
-            logging.info(f"AI21 Index created with {len(paragraphs)} items in {time.time()-start_time} seconds." )
-        except Exception as e:
-            logging.error(e)
-            logging.info(f"AI21 Index creation failed after {time.time()-start_time} seconds." )
 
     def generate_response(self, conversation_history: list, verbose: bool = False) -> tuple:
         conversation_history_str = "\n".join(conversation_history)
@@ -72,15 +40,19 @@ class Bot:
 
         context_str, links_str = "", ""
         if requires_ai21_index:
-            context = self.index.get_nearest_neighbors(self.embedder.embed(request), 10)
-            links_counter = Counter()
-            for c in context:
-                if float(c[1]) > 0.8:
-                    continue
-                links_counter[c[0][1]] += 1
-                context_str += f"{c[0][0]}."
-            if links_counter:
-                links_str = ":link: **The following links may be useful:**\n- " +  "\n- ".join([link[0] for link in links_counter.most_common(3)])
+            try:
+                context = self.index.get_nearest_neighbors(self.embedder.embed(request), 10)
+                links_counter = Counter()
+                for c in context:
+                    if float(c[1]) > 0.8:
+                        continue
+                    links_counter[c[0][1]] += 1
+                    context_str += f"{c[0][0]}."
+                if links_counter:
+                    links_str = ":link: **The following links may be useful:**\n- " +  "\n- ".join([link[0] for link in links_counter.most_common(3)])
+            except Exception as e:
+                # Keep going if the index fails
+                links_str = ""
 
         prompt = construct_get_response_prompt(request, context_str, conversation_history_str)
 
@@ -274,9 +246,5 @@ def generate_text(prompt, preset, verbose=False):
     return response.strip(), verbose_str.strip()
 
 
-if __name__ == "__main__":
-    from dotenv import load_dotenv
 
-    load_dotenv()
-    bot = Bot()
-    bot.setup_index()
+

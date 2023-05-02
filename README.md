@@ -89,14 +89,19 @@ This will index all the data from AI21.csv into a vector database which can be q
 
 ### ⚙️ Putting it all Together with a Shell Script
 An restart_client.sh script is provided for Linux. It does the following:
- - Stops the Discord Bot if it is running
- - Deletes the existing AI21 data
- - Runs the scraper to collect the updated data
- - Sets up the vector database
- - Restarts the Discord Bot
+1. Stops the Discord Bot if it is running 
+2. Moves the existing data into a temporary folder
+3. Runs the scraper to collect the updated data
+4. Sets up the vector database
+5. If step 3 or 4 fail, then re-use the old data. Else delete the old data.
+6. Restarts the Discord Bot
 
 This script can be run like so:
 `./restart_client.sh`
+
+You can see the Discord Bot running as "python3 main.py" with:
+
+`ps -ef | grep python`
 
 
 ### 💧 Droplet Setup From Scratch
@@ -163,8 +168,6 @@ A short manual testing suite (*tests.py*) is provided to assess the quality of t
 - [x] Default bot
 - [x] Variable Preset
 - [x] AI21 Indexed information
-- [x] Split content over 2k characters into multiple messages
-- [x] Remove instruction for paraphrasing (because j2-jumbo doesn't work with it) 
 - [ ] Finishing touches (like README, discord icon, discord name, transfer hosting)
 
 ## 🤝 Contributing
