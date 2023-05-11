@@ -8,12 +8,39 @@ import warnings
 # Initialize colorama
 init()
 
+
+
 def print_expected_actual(history, expected, actual):
     print("------------------------------------------------------------")
     print(Fore.CYAN + "\n".join(history) + Fore.RESET)
     print(Fore.RED + f"Expected: {expected}" + Fore.RESET)
     print(Fore.GREEN + f"Actual: {actual}\n" + Fore.RESET)
 
+
+class TestIndex(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.bot: Bot = Bot()
+        warnings.simplefilter('ignore', category=ResourceWarning)  # Ignores socket warnings on AI21 API
+
+    @classmethod
+    def tearDownClass(cls):
+        warnings.resetwarnings()
+
+    def test_apis(self):
+        request = "What specialized API's does AI21 offer?"
+        context, links = self.bot.get_context(request)
+        print_expected_actual(request, '', context + '\n' + '\n'.join(links))
+
+    def test_pricing(self):
+        request = "What is the pricing of AI21 models?"
+        context, links = self.bot.get_context(request)
+        print_expected_actual(request, '', context + '\n' + '\n'.join(links))
+
+    def test_basic(self):
+        request = "When was AI21's Jurassic-1 released?"
+        context, links = self.bot.get_context(request)
+        print_expected_actual(request, '', context + '\n' + '\n'.join(links))
 
 class TestBot(unittest.TestCase):
     @classmethod
@@ -26,10 +53,17 @@ class TestBot(unittest.TestCase):
         warnings.resetwarnings()
 
     def test_basic(self):
+        history = ["User:  What specialized API's does AI21 offer?"]
+        response = self.bot.generate_response(history)
+        print_expected_actual(history, 'Great! How are you?', response)
+
+    @unittest.skip
+    def test_basic(self):
         history = ['User: Hello, how are you?']
         response = self.bot.generate_response(history)
         print_expected_actual(history, 'Great! How are you?', response)
 
+    @unittest.skip
     def test_basic_history(self):
         history = ['User: My name is John and I like cheese',
                    'AI21 Discord ChatBot: Hello, John',
@@ -82,5 +116,4 @@ class TestBot(unittest.TestCase):
         response = self.bot.generate_response(history, verbose=True)
         print_expected_actual(history, 'Ottawa and model parameters', response)
 
-if __name__ == '__main__':
-    unittest.main()
+

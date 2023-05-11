@@ -32,7 +32,7 @@
 ## 🤔 What is this?
 A Discord Bot that responds to user's with the power of AI21 Labs' large language models. 
 
-A User can directly message (DM) or place a "❓" reaction on their message in a text channel to ask the Bot to respond. 
+A User can directly message (DM) the Bot or place a "❓" reaction on their message in a text channel to ask the Bot to respond. 
 
 The Bot will read the past 5 messages in an attempt to maintain conversation history. It will solely consist of messages exchanged between the User and the Bot.
 

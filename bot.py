@@ -1,28 +1,10 @@
 import csv
 import os
-from collections import Counter
 
 import ai21
-from simplechain.stack import TextEmbedderFactory, VectorDatabaseFactory
 
-
-
-
-def dedent_text(text: str):
-    return '\n'.join([m.lstrip() for m in text.split('\n')]).strip()
-
-
-def prompt_template(dedent=True, fix_whitespace=True):
-    def real_decorator(func):
-        def wrapper(*args, **func_kwargs):
-            result = func(*args, **func_kwargs)
-            if dedent:
-                result = dedent_text(result)
-            if fix_whitespace:
-                result = result.strip()
-            return result
-        return wrapper
-    return real_decorator
+from index import Indexer
+from prompts import construct_get_response_prompt, construct_get_commands_prompt
 
 
 class Bot:
@@ -30,9 +12,7 @@ class Bot:
         from dotenv import load_dotenv
         load_dotenv()
         ai21.api_key = os.environ['AI21_API_KEY']
-        self.embedder = TextEmbedderFactory.create("ai21")
-        self.index = VectorDatabaseFactory.create("annoy", 768, "data/index.ann", "data/metadata.json")
-
+        self.indexer = Indexer()
 
     def generate_response(self, conversation_history: list, verbose: bool = False) -> tuple:
         conversation_history_str = "\n".join(conversation_history)
@@ -40,23 +20,7 @@ class Bot:
 
         context_str, links_str = "", ""
         if requires_ai21_index:
-            try:
-                context = self.index.get_nearest_neighbors(self.embedder.embed(request), 10)
-                links_counter = Counter()
-                for i, c in enumerate(context):
-                    if i < 3:
-                        links_counter[c[0][1]] += 1
-                        context_str += f"{c[0][0]}."
-                    else:
-                        if float(c[1]) > 0.8:
-                            continue
-                        links_counter[c[0][1]] += 1
-                        context_str += f"{c[0][0]}."
-                if links_counter:
-                    links_str = ":link: **The following links may be useful:**\n- " +  "\n- ".join([link[0] for link in links_counter.most_common(3)])
-            except Exception as e:
-                # Keep going if the index fails
-                links_str = ""
+            context_str, links_str = self.indexer.get_context(request)
 
         prompt = construct_get_response_prompt(request, context_str, conversation_history_str)
 
@@ -65,57 +29,6 @@ class Bot:
             response = response[21:]
         response += f"\n\n{links_str}"
         return response, verbose_str
-
-
-@prompt_template(dedent=True, fix_whitespace=True)
-def construct_get_commands_prompt(conversation: str):
-    prompt = f"""
-    Using the conversation as context, look at the most RECENT request and fill in the following:
-    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
-    Request: summarize the request in simpler terms
-    Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
-
-    User: Who is Canada's favorite figure skating pair?
-    AI21 Discord ChatBot: The most popular pairs figure skaters in Canada are Tessa Virtue and Scott Moir, and Meagan Duhamel and Eric Radford.
-    User: When did they win the Olympics?
-    
-    NLP Task: Question answering
-    Request: When did Tessa Virtue and Scott Moir, and Meagan Duhamel and Eric Radford win the Olympics?
-    Requires AI21 API: False
-    ##
-    Using the conversation as context, look at the most RECENT request and fill in the following:
-    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
-    Request: summarize the request in simpler terms
-    Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
-
-    User: Write me a love poem
-
-    NLP Task: Long form generation
-    Request: Write a love poem
-    Requires AI21 API: False
-    ##
-    Using the conversation as context, look at the most RECENT request and:
-    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
-    Request: summarize the request in simpler terms
-    Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
-
-    User: Describe what Africa is like to visit
-    AI21 Discord ChatBot: Africa is a large and diverse continent, with a wide range of cultures and landscapes. Some popular destinations in Africa include Egypt, South Africa, and Kenya. These countries are known for their ancient civilizations, vibrant cities, and stunning natural beauty. Africa is also home to a number of national parks and reserves, including the Sahara Desert, the Serengeti, and the Ngorongoro Crater. These areas offer visitors the opportunity to experience Africa's rich wildlife and unique ecosystems. Overall, Africa is a fascinating place to visit, and it offers visitors a unique and unforgettable experience.
-    User: Can you write a shorter description of that and focus on the culture?
-    
-    NLP Task: Paraphrasing
-    Request: Write a shorter description of what Africa is like to visit and focus on the culture
-    Requires AI21 API: False
-    ##
-    Using the conversation as context, look at the most RECENT request and:
-    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
-    Request: summarize the request in simpler terms
-    Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
-
-    {conversation}
-    
-    NLP Task:"""
-    return prompt
 
 
 def get_commands(conversation_history_str: str):
@@ -129,7 +42,7 @@ def get_params_from_preset(preset: str) -> dict:
     if preset == "Classify NLP task":
         return {
             "model": "j2-jumbo-instruct",
-            "maxTokens": 256,
+            "maxTokens": 512,
             "temperature": 0,
             "topP": 1,
             "stopSequences": ["##"]
@@ -138,7 +51,7 @@ def get_params_from_preset(preset: str) -> dict:
     if preset == "Generate code":
         return {
             "model": "j2-grande-instruct",
-            "maxTokens": 256,
+            "maxTokens": 512,
             "temperature": 0,
             "topP": 1,
         }
@@ -146,7 +59,7 @@ def get_params_from_preset(preset: str) -> dict:
     if preset == "Paraphrasing":
         return {
             "model": "j2-jumbo-instruct",
-            "maxTokens": 256,
+            "maxTokens": 512,
             "temperature": 0.3,
             "topP": 1,
         }
@@ -154,16 +67,16 @@ def get_params_from_preset(preset: str) -> dict:
     if preset == "Long form generation":
         return {
             "model": "j2-jumbo-instruct",
-            "maxTokens": 300,
+            "maxTokens": 512,
             "temperature": 0.84,
             "topP": 1,
-            "numResults": 1,  # maxToken for numResults>1 is 256
+            "numResults": 1,
         }
 
     if preset == "Question answering":
         return {
             "model": "j2-jumbo-instruct",
-            "maxTokens": 256,
+            "maxTokens": 512,
             "temperature": 0.8,
             "topP": 1,
         }
@@ -175,11 +88,11 @@ def get_params_from_preset(preset: str) -> dict:
 def get_default_preset_params():
     return {
         "model": "j2-grande-instruct",
-        "maxTokens": 256,
+        "maxTokens": 512,
         "temperature": 0.7,
         "topP": 1,
         "topKReturn": 0,
-        "numResults": 3,
+        "numResults": 1,
         "countPenalty": {
             "scale": 0,
             "applyToNumbers": False,
@@ -207,26 +120,6 @@ def get_default_preset_params():
     }
 
 
-@prompt_template(dedent=True, fix_whitespace=True)
-def construct_get_response_prompt(request: str, context: str, conversation: str) -> str:
-    prompt = """Welcome! I am AI21 Discord ChatBot. I'm here to answer your questions, provide advice, or just have a friendly conversation.
-    Please note that while I can provide general information and guidance, I am not a licensed professional and my responses are not intended to be a substitute for professional advice. 
-    Additionally, I strive to remain neutral and respectful in all interactions, and I do not engage in discriminatory or harmful behavior. 
-    """
-
-    if context:
-        prompt += f"I am given the following information: {context}\n"
-
-    prompt += f"""
-    I will use the following conversation between me (AI21 Discord ChatBot) and a User as context:
-    {conversation}
-    
-    It seems like the User is asking me for this: {request}
-    
-    Write a response to their question or instruction."""
-    return prompt
-
-
 def generate_text(prompt, preset, verbose=False):
     params = get_default_preset_params()
     preset_params = get_params_from_preset(preset)
@@ -242,13 +135,9 @@ def generate_text(prompt, preset, verbose=False):
     verbose_str = ""
     if verbose:
         verbose_str = f"\n\n:information_source: **The above text was generated using the following:**" \
-                    f"\nPreset: *{preset}*" \
-                    f"\nModel: *{preset_params['model']}*" \
-                    f"\nTemperature: *{preset_params['temperature']}*" \
-                    f"\ntopP: *{preset_params['topP']}*" \
-                    f"\n**---Prompt---**\n>>> {prompt}"
+                      f"\nPreset: *{preset}*" \
+                      f"\nModel: *{preset_params['model']}*" \
+                      f"\nTemperature: *{preset_params['temperature']}*" \
+                      f"\ntopP: *{preset_params['topP']}*" \
+                      f"\n**---Prompt---**\n>>> {prompt}"
     return response.strip(), verbose_str.strip()
-
-
-
-

@@ -33,7 +33,7 @@ class AI21Spider(scrapy.Spider):
         for paragraph in response.css('p').xpath('normalize-space()').getall():
             paragraph = is_valid_paragraph(paragraph)
             if paragraph:
-                yield {'paragraphs': paragraph, 'link': response.request.url}
+                yield {'paragraph': paragraph, 'link': response.request.url}
 
         base_url = response.request.url.split('.com')[0] + '.com'
         for link in response.xpath('.//@href').getall():
