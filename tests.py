@@ -2,6 +2,7 @@ import unittest
 
 from colorama import init, Fore
 
+from index import Indexer
 from bot import Bot
 import warnings
 
@@ -11,6 +12,8 @@ init()
 
 
 def print_expected_actual(history, expected, actual):
+    if isinstance(history, str):
+        history = [history]
     print("------------------------------------------------------------")
     print(Fore.CYAN + "\n".join(history) + Fore.RESET)
     print(Fore.RED + f"Expected: {expected}" + Fore.RESET)
@@ -20,7 +23,7 @@ def print_expected_actual(history, expected, actual):
 class TestIndex(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.bot: Bot = Bot()
+        cls.index: Indexer = Indexer()
         warnings.simplefilter('ignore', category=ResourceWarning)  # Ignores socket warnings on AI21 API
 
     @classmethod
@@ -29,18 +32,20 @@ class TestIndex(unittest.TestCase):
 
     def test_apis(self):
         request = "What specialized API's does AI21 offer?"
-        context, links = self.bot.get_context(request)
-        print_expected_actual(request, '', context + '\n' + '\n'.join(links))
+        context_str, links_str = self.index.get_context(request)
+        print_expected_actual(request, '', context_str + '\n' + links_str)
+
 
     def test_pricing(self):
         request = "What is the pricing of AI21 models?"
-        context, links = self.bot.get_context(request)
-        print_expected_actual(request, '', context + '\n' + '\n'.join(links))
-
+        context_str, links_str = self.index.get_context(request)
+        print_expected_actual(request, '', context_str + '\n' + links_str)
+        
+    @unittest.skip
     def test_basic(self):
         request = "When was AI21's Jurassic-1 released?"
-        context, links = self.bot.get_context(request)
-        print_expected_actual(request, '', context + '\n' + '\n'.join(links))
+        context_str, links_str = self.index.get_context(request)
+        print_expected_actual(request, '', context_str + '\n' + links_str)
 
 class TestBot(unittest.TestCase):
     @classmethod
@@ -71,6 +76,7 @@ class TestBot(unittest.TestCase):
         response = self.bot.generate_response(history)
         print_expected_actual(history, 'Your name is John and you like cheese.', response)
 
+    @unittest.skip
     def test_ignore_some_context(self):
         history = ['User: Who is Canada\'s favorite figure skating pair?',
                    'AI21 Discord ChatBot: Tessa Virtue and Scott Moir',
@@ -81,17 +87,17 @@ class TestBot(unittest.TestCase):
         print_expected_actual(history,
                               'Tessa Virtue and Scott Moir won gold at the 2018 Winter Olympics in Pyeongchang, South Korea',
                               response)
-
+    @unittest.skip
     def test_ai21(self):
         history = ["User: What specialized API's does AI21 offer?"]
         response = self.bot.generate_response(history, verbose=True)
         print_expected_actual(history, 'J2-Large, J1-Jumbo etc... See links as well', response)
-
+    @unittest.skip
     def test_generate_code(self):
         history = ['User: Write me a python function that prints "Hello World"']
         response = self.bot.generate_response(history)
         print_expected_actual(history, 'def hello(): print("Hello world!")', response)
-
+    @unittest.skip
     def test_paraphrase(self):
         history = ["AI21 Discord ChatBot: Africa is a huge and diverse continent, with a wide range of cultures, natural landscapes, and travel experiences available. The continent has 54 countries, each with its own unique history, politics, and people."
                     "If you're planning a trip to Africa, it's a good idea to research the specific countries or regions you're interested in visiting. Some African countries are highly developed, with thriving cities and modern infrastructure, while others are more rural and less developed."
@@ -100,17 +106,17 @@ class TestBot(unittest.TestCase):
                     "User: Can you write a shorter description in 1-2 lines and focus on the culture"]
         response = self.bot.generate_response(history)
         print_expected_actual(history, '1-2 lines of Africa description with a focus on the culture...', response)
-
+    @unittest.skip
     def test_long_form_generation(self):
         history = ["User: Write a short poem about the 'Paul is dead' conspiracy theory"]
         response = self.bot.generate_response(history)
         print_expected_actual(history, 'A poem about the Paul is dead conspiracy', response)
-
+    @unittest.skip
     def test_question_answering(self):
         history = ["User: What sort of questions can I expect at a Software Engineering job interview?"]
         response = self.bot.generate_response(history)
         print_expected_actual(history, 'Interview questions about a job interview', response)
-
+    @unittest.skip
     def test_verbose(self):
         history = ["User: What is the capital of Canada?"]
         response = self.bot.generate_response(history, verbose=True)

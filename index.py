@@ -20,9 +20,12 @@ class Indexer:
     def setup_index(self):
         raw_data = {}
 
-        for row in csv.reader(open('data/AI21.csv', 'r', encoding='iso-8859-1')):
+        for i, row in enumerate(csv.reader(open('data/AI21.csv', 'r', encoding='iso-8859-1'))):
+            if i == 0: # Skip the header
+                continue
             if row[0] in raw_data:
-                raw_data[row[0]].append(row[1])
+                if row[1] not in raw_data[row[0]]:
+                    raw_data[row[0]].append(row[1])
             else:
                 raw_data[row[0]] = [row[1]]
 
@@ -44,49 +47,52 @@ class Indexer:
 
         return len(data)
 
-    def get_context(self, request, n=10):
+    def get_context(self, request, n=20):
         context_str, links_str = "", ""
-        try:
-            results_dict = self.index.get_nearest_neighbors(self.embedder.embed(request), n, include_distances=True)
-            indexes = set()
-            for i in results_dict['ids']:
-                if i < 3:
-                    if i >= 2:
-                        indexes.add(i-2)
-                    if i >= 1:
-                        indexes.add(i-1)
-                    indexes.add(i)
-                else:
-                    if results_dict['distances'][i] > 0.8:
-                        break
+        #try:
 
-            indexes = list(indexes)
-            indexes.sort()
-            context = []
-            links_counter = Counter()
-            if len(indexes) > 0:
-                metadata = self.index.get_item_given_index(indexes[0]['metadata'])
-                for link in metadata['link']:
-                    links_counter[link] += 1
-                context.append("- " + str(metadata['paragraph']))
-                for i in range(1, len(indexes)):
-                    if indexes[i] - 1 != indexes[i-1]: # new paragraph
-                        context.append("\n - ")
+        results_dict = self.index.get_nearest_neighbors(self.embedder.embed(request), n, include_distances=True)
+        indexes = set()
+        k = 100 # pre-paragraphs to include
+
+        for i, item_idx in enumerate(results_dict['ids']):
+            link_i = results_dict['metadata'][i][1]
+            if i < n: # at least n paragraphs are included
+                for j in range(item_idx, max(-1, item_idx-k-1), -1): # get k pre-paragraphs
+                    link_j = self.index.get_item_given_index(j)['metadata'][1] # [1] is the link
+                    print("add", j, link_j)
+                    if link_i == link_j: # if pre-paragraph has the same link
+                        indexes.add(j)
                     else:
-                        context.append(" ")
-                    metadata = self.index.get_item_given_index(indexes[i]['metadata'])
-                    for link in metadata['link']:
-                        links_counter[link] += 1
-                    context.append("- " + str(metadata['paragraph']))
-            context_str = "".join(context)
+                        break
+            elif results_dict['distances'][i] > 3:
+                break
 
-            if links_counter:
-                links_str = ":link: **The following links may be useful:**\n- " + "\n- ".join(
-                    [link[0] for link in links_counter.most_common(3)])
-        except Exception as e:
-            # Keep going if the index fails
-            links_str = ""
-            context_str = ""
+        indexes = list(indexes)
+        indexes.sort()
+
+        context = []
+        links_counter = Counter()
+        for i in range(0, len(indexes)):
+            if indexes[i] - 1 != indexes[i-1] or i == 0: # new paragraph
+                context.append("\n - ")
+            else:
+                context.append(" ")
+            metadata = self.index.get_item_given_index(indexes[i])['metadata']
+            context.append(str(metadata[0])) # [0] is the context
+            for link in metadata[1]: # [1] is the link
+                links_counter[link] += 1
+   
+        context_str = "".join(context)
+
+        if links_counter:
+            links_str = ":link: **The following links may be useful:**\n- " + "\n- ".join(
+                [link[0] for link in links_counter.most_common(3)])
+        #except Exception as e:
+        # Keep going if the index fails
+        #   print(e)
+        #    links_str = ""
+        #    context_str = ""
         return context_str, links_str
 
 

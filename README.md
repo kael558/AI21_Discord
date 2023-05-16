@@ -179,6 +179,7 @@ A short manual testing suite (*tests.py*) is provided to assess the quality of t
 - [x] Default bot
 - [x] Variable Preset
 - [x] AI21 Indexed information
+- [ ] Improving scraper (including any text node elements, by adding depth to elements and including hierarchical elements for context)
 - [ ] Finishing touches (like README, discord icon, discord name, transfer hosting)
 
 ## 🤝 Contributing

@@ -20,7 +20,7 @@ class Bot:
 
         context_str, links_str = "", ""
         if requires_ai21_index:
-            context_str, links_str = self.indexer.get_context(request)
+            context_str, links_str = self.indexer.get_context(request, n=100)
 
         prompt = construct_get_response_prompt(request, context_str, conversation_history_str)
 
@@ -57,15 +57,15 @@ def get_params_from_preset(preset: str) -> dict:
         }
 
     if preset == "Paraphrasing":
-        return {
+        return  {
             "model": "j2-jumbo-instruct",
             "maxTokens": 512,
             "temperature": 0.3,
             "topP": 1,
         }
-
+    
     if preset == "Long form generation":
-        return {
+        return  {
             "model": "j2-jumbo-instruct",
             "maxTokens": 512,
             "temperature": 0.84,
@@ -120,24 +120,29 @@ def get_default_preset_params():
     }
 
 
-def generate_text(prompt, preset, verbose=False):
-    params = get_default_preset_params()
-    preset_params = get_params_from_preset(preset)
-    params.update(preset_params)
 
-    responses = ai21.Completion.execute(prompt=prompt, **params)["completions"]
-    finished_responses = [r for r in responses if r["finishReason"]["reason"] == "stop"]
-    response = (finished_responses if finished_responses else responses)[0]["data"]["text"].strip()
+def generate_text(prompt, preset, context="", verbose=False):
+    verbose_str = ""
 
+    if preset == "Question answering" and context!="":
+        response = ai21.Experimantal.Answer.execute(context=prompt, question=prompt)
+        if verbose:
+            verbose_str = f"\n\n:information_source: **The above text was generated using the Contextual Question Answering service by provided by AI21 Labs.**" \
+                        f"\nSee more at https://docs.ai21.com/docs/contextual-answers-api"
+    else: # foundation models
+        params = get_default_preset_params()
+        preset_params = get_params_from_preset(preset)
+        params.update(preset_params)
+        response = ai21.Completion.execute(prompt=prompt, **params)["completions"][0]["data"]["text"].strip()
+        if verbose:
+            verbose_str = f"\n\n:information_source: **The above text was generated using the following:**" \
+                        f"\nPreset: *{preset}*" \
+                        f"\nModel: *{preset_params['model']}*" \
+                        f"\nTemperature: *{preset_params['temperature']}*" \
+                        f"\ntopP: *{preset_params['topP']}*" \
+                        f"\n**---Prompt---**\n>>> {prompt}"
+        
     if preset == "Generate code":
         response = f"```{response}```"
-
-    verbose_str = ""
-    if verbose:
-        verbose_str = f"\n\n:information_source: **The above text was generated using the following:**" \
-                      f"\nPreset: *{preset}*" \
-                      f"\nModel: *{preset_params['model']}*" \
-                      f"\nTemperature: *{preset_params['temperature']}*" \
-                      f"\ntopP: *{preset_params['topP']}*" \
-                      f"\n**---Prompt---**\n>>> {prompt}"
+        
     return response.strip(), verbose_str.strip()
