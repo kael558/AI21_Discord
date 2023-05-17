@@ -57,15 +57,15 @@ def get_params_from_preset(preset: str) -> dict:
         }
 
     if preset == "Paraphrasing":
-        return  {
+        return {
             "model": "j2-jumbo-instruct",
             "maxTokens": 512,
             "temperature": 0.3,
             "topP": 1,
         }
-    
+
     if preset == "Long form generation":
-        return  {
+        return {
             "model": "j2-jumbo-instruct",
             "maxTokens": 512,
             "temperature": 0.84,
@@ -120,29 +120,28 @@ def get_default_preset_params():
     }
 
 
-
 def generate_text(prompt, preset, context="", verbose=False):
     verbose_str = ""
 
-    if preset == "Question answering" and context!="":
+    if preset == "Question answering" and context != "":
         response = ai21.Experimantal.Answer.execute(context=prompt, question=prompt)
         if verbose:
             verbose_str = f"\n\n:information_source: **The above text was generated using the Contextual Question Answering service by provided by AI21 Labs.**" \
-                        f"\nSee more at https://docs.ai21.com/docs/contextual-answers-api"
-    else: # foundation models
+                          f"\nSee more at https://docs.ai21.com/docs/contextual-answers-api"
+    else:  # foundation models
         params = get_default_preset_params()
         preset_params = get_params_from_preset(preset)
         params.update(preset_params)
         response = ai21.Completion.execute(prompt=prompt, **params)["completions"][0]["data"]["text"].strip()
         if verbose:
             verbose_str = f"\n\n:information_source: **The above text was generated using the following:**" \
-                        f"\nPreset: *{preset}*" \
-                        f"\nModel: *{preset_params['model']}*" \
-                        f"\nTemperature: *{preset_params['temperature']}*" \
-                        f"\ntopP: *{preset_params['topP']}*" \
-                        f"\n**---Prompt---**\n>>> {prompt}"
-        
+                          f"\nPreset: *{preset}*" \
+                          f"\nModel: *{preset_params['model']}*" \
+                          f"\nTemperature: *{preset_params['temperature']}*" \
+                          f"\ntopP: *{preset_params['topP']}*" \
+                          f"\n**---Prompt---**\n>>> {prompt}"
+
     if preset == "Generate code":
         response = f"```{response}```"
-        
+
     return response.strip(), verbose_str.strip()

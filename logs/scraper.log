@@ -1,6 +1,6 @@
-2023-05-15 23:02:54 [scrapy.utils.log] INFO: Scrapy 2.8.0 started (bot: ai21_scraper)
-2023-05-15 23:02:54 [scrapy.utils.log] INFO: Versions: lxml 4.9.2.0, libxml2 2.9.4, cssselect 1.2.0, parsel 1.8.1, w3lib 2.1.1, Twisted 22.10.0, Python 3.10.9 (main, Dec 15 2022, 10:44:50) [Clang 14.0.0 (clang-1400.0.29.202)], pyOpenSSL 23.1.1 (OpenSSL 3.1.0 14 Mar 2023), cryptography 40.0.2, Platform macOS-12.6.3-arm64-arm-64bit
-2023-05-15 23:02:54 [scrapy.crawler] INFO: Overridden settings:
+2023-05-16 22:49:48 [scrapy.utils.log] INFO: Scrapy 2.8.0 started (bot: ai21_scraper)
+2023-05-16 22:49:48 [scrapy.utils.log] INFO: Versions: lxml 4.9.2.0, libxml2 2.9.12, cssselect 1.2.0, parsel 1.8.1, w3lib 2.1.1, Twisted 22.10.0, Python 3.9.1 (tags/v3.9.1:1e5d33e, Dec  7 2020, 17:08:21) [MSC v.1927 64 bit (AMD64)], pyOpenSSL 23.1.1 (OpenSSL 3.1.0 14 Mar 2023), cryptography 40.0.2, Platform Windows-10-10.0.19041-SP0
+2023-05-16 22:49:48 [scrapy.crawler] INFO: Overridden settings:
 {'BOT_NAME': 'ai21_scraper',
  'CLOSESPIDER_PAGECOUNT': 1000,
  'LOG_FILE': 'logs/scraper.log',
@@ -11,15 +11,14 @@
  'SPIDER_MODULES': ['scraper.spiders'],
  'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor',
  'USER_AGENT': 'discord kael558#4332 - for AI21 Discord Bot'}
-2023-05-15 23:02:54 [scrapy.extensions.telnet] INFO: Telnet Password: 816a77a13a3abd61
-2023-05-15 23:02:54 [scrapy.middleware] INFO: Enabled extensions:
+2023-05-16 22:49:48 [scrapy.extensions.telnet] INFO: Telnet Password: 40cb42835b35f0ed
+2023-05-16 22:49:48 [scrapy.middleware] INFO: Enabled extensions:
 ['scrapy.extensions.corestats.CoreStats',
  'scrapy.extensions.telnet.TelnetConsole',
- 'scrapy.extensions.memusage.MemoryUsage',
  'scrapy.extensions.closespider.CloseSpider',
  'scrapy.extensions.feedexport.FeedExporter',
  'scrapy.extensions.logstats.LogStats']
-2023-05-15 23:02:54 [scrapy.middleware] INFO: Enabled downloader middlewares:
+2023-05-16 22:49:48 [scrapy.middleware] INFO: Enabled downloader middlewares:
 ['scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
  'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
  'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
@@ -32,354 +31,355 @@
  'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
  'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
  'scrapy.downloadermiddlewares.stats.DownloaderStats']
-2023-05-15 23:02:54 [scrapy.middleware] INFO: Enabled spider middlewares:
+2023-05-16 22:49:48 [scrapy.middleware] INFO: Enabled spider middlewares:
 ['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
  'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
  'scrapy.spidermiddlewares.referer.RefererMiddleware',
  'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
  'scrapy.spidermiddlewares.depth.DepthMiddleware']
-2023-05-15 23:02:54 [scrapy.middleware] INFO: Enabled item pipelines:
+2023-05-16 22:49:48 [scrapy.middleware] INFO: Enabled item pipelines:
 []
-2023-05-15 23:02:54 [scrapy.core.engine] INFO: Spider opened
-2023-05-15 23:02:54 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
-2023-05-15 23:02:54 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
-2023-05-15 23:02:54 [scrapy.downloadermiddlewares.robotstxt] ERROR: Error downloading <GET https://www.ai21.commailto:info@ai21.com/robots.txt>: Codepoint U+003A at position 10 of 'commailto:info@ai21' not allowed
+2023-05-16 22:49:48 [scrapy.core.engine] INFO: Spider opened
+2023-05-16 22:49:48 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2023-05-16 22:49:48 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2023-05-16 22:49:49 [scrapy.downloadermiddlewares.robotstxt] ERROR: Error downloading <GET https://www.ai21.commailto:info@ai21.com/robots.txt>: Codepoint U+003A at position 10 of 'commailto:info@ai21' not allowed
 Traceback (most recent call last):
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/defer.py", line 1693, in _inlineCallbacks
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\defer.py", line 1693, in _inlineCallbacks
     result = context.run(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/python/failure.py", line 518, in throwExceptionIntoGenerator
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\python\failure.py", line 518, in throwExceptionIntoGenerator
     return g.throw(self.type, self.value, self.tb)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/middleware.py", line 52, in process_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\middleware.py", line 52, in process_request
     return (yield download_func(request=request, spider=spider))
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/utils/defer.py", line 73, in mustbe_deferred
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\utils\defer.py", line 73, in mustbe_deferred
     result = f(*args, **kw)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/__init__.py", line 79, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\__init__.py", line 79, in download_request
     return handler.download_request(request, spider)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/http11.py", line 72, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\http11.py", line 72, in download_request
     return agent.download_request(request)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/http11.py", line 376, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\http11.py", line 376, in download_request
     d = agent.request(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1148, in request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1148, in request
     endpoint = self._getEndpoint(parsedURI)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1132, in _getEndpoint
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1132, in _getEndpoint
     return self._endpointFactory.endpointForURI(uri)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1003, in endpointForURI
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1003, in endpointForURI
     connectionCreator = self._policyForHTTPS.creatorForNetloc(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/contextfactory.py", line 91, in creatorForNetloc
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\contextfactory.py", line 91, in creatorForNetloc
     return ScrapyClientTLSOptions(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/tls.py", line 43, in __init__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\tls.py", line 43, in __init__
     super().__init__(hostname, ctx)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/_sslverify.py", line 1124, in __init__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\_sslverify.py", line 1124, in __init__
     self._hostnameBytes = _idnaBytes(hostname)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/_idna.py", line 31, in _idnaBytes
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\_idna.py", line 31, in _idnaBytes
     return idna.encode(text)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 360, in encode
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 360, in encode
     s = alabel(label)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 258, in alabel
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 258, in alabel
     ulabel(label_bytes)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 297, in ulabel
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 297, in ulabel
     check_label(label_bytes)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 250, in check_label
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 250, in check_label
     raise InvalidCodepoint('Codepoint {} at position {} of {} not allowed'.format(_unot(cp_value), pos+1, repr(label)))
 idna.core.InvalidCodepoint: Codepoint U+003A at position 10 of 'commailto:info@ai21' not allowed
-2023-05-15 23:02:55 [scrapy.core.scraper] ERROR: Error downloading <GET https://www.ai21.commailto:info@ai21.com?subject=From%20your%20footer%20website>
+2023-05-16 22:49:49 [scrapy.core.scraper] ERROR: Error downloading <GET https://www.ai21.commailto:info@ai21.com?subject=From%20your%20footer%20website>
 idna.core.InvalidCodepoint: Codepoint U+003A at position 10 of 'commailto:info@ai21' not allowed
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/defer.py", line 1693, in _inlineCallbacks
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\defer.py", line 1693, in _inlineCallbacks
     result = context.run(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/python/failure.py", line 518, in throwExceptionIntoGenerator
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\python\failure.py", line 518, in throwExceptionIntoGenerator
     return g.throw(self.type, self.value, self.tb)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/middleware.py", line 52, in process_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\middleware.py", line 52, in process_request
     return (yield download_func(request=request, spider=spider))
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/utils/defer.py", line 73, in mustbe_deferred
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\utils\defer.py", line 73, in mustbe_deferred
     result = f(*args, **kw)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/__init__.py", line 79, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\__init__.py", line 79, in download_request
     return handler.download_request(request, spider)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/http11.py", line 72, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\http11.py", line 72, in download_request
     return agent.download_request(request)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/http11.py", line 376, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\http11.py", line 376, in download_request
     d = agent.request(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1148, in request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1148, in request
     endpoint = self._getEndpoint(parsedURI)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1132, in _getEndpoint
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1132, in _getEndpoint
     return self._endpointFactory.endpointForURI(uri)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1003, in endpointForURI
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1003, in endpointForURI
     connectionCreator = self._policyForHTTPS.creatorForNetloc(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/contextfactory.py", line 91, in creatorForNetloc
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\contextfactory.py", line 91, in creatorForNetloc
     return ScrapyClientTLSOptions(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/tls.py", line 43, in __init__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\tls.py", line 43, in __init__
     super().__init__(hostname, ctx)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/_sslverify.py", line 1124, in __init__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\_sslverify.py", line 1124, in __init__
     self._hostnameBytes = _idnaBytes(hostname)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/_idna.py", line 31, in _idnaBytes
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\_idna.py", line 31, in _idnaBytes
     return idna.encode(text)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 360, in encode
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 360, in encode
     s = alabel(label)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 258, in alabel
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 258, in alabel
     ulabel(label_bytes)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 297, in ulabel
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 297, in ulabel
     check_label(label_bytes)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 250, in check_label
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 250, in check_label
     raise InvalidCodepoint('Codepoint {} at position {} of {} not allowed'.format(_unot(cp_value), pos+1, repr(label)))
 idna.core.InvalidCodepoint: Codepoint U+003A at position 10 of 'commailto:info@ai21' not allowed
-2023-05-15 23:02:55 [scrapy.core.scraper] ERROR: Error downloading <GET https://www.ai21.commailto:info@ai21.com>
+2023-05-16 22:49:49 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:50 [scrapy.core.scraper] ERROR: Error downloading <GET https://www.ai21.commailto:info@ai21.com>
 Traceback (most recent call last):
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/defer.py", line 1693, in _inlineCallbacks
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\defer.py", line 1693, in _inlineCallbacks
     result = context.run(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/python/failure.py", line 518, in throwExceptionIntoGenerator
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\python\failure.py", line 518, in throwExceptionIntoGenerator
     return g.throw(self.type, self.value, self.tb)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/middleware.py", line 52, in process_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\middleware.py", line 52, in process_request
     return (yield download_func(request=request, spider=spider))
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/utils/defer.py", line 73, in mustbe_deferred
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\utils\defer.py", line 73, in mustbe_deferred
     result = f(*args, **kw)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/__init__.py", line 79, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\__init__.py", line 79, in download_request
     return handler.download_request(request, spider)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/http11.py", line 72, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\http11.py", line 72, in download_request
     return agent.download_request(request)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/http11.py", line 376, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\http11.py", line 376, in download_request
     d = agent.request(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1148, in request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1148, in request
     endpoint = self._getEndpoint(parsedURI)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1132, in _getEndpoint
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1132, in _getEndpoint
     return self._endpointFactory.endpointForURI(uri)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1003, in endpointForURI
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1003, in endpointForURI
     connectionCreator = self._policyForHTTPS.creatorForNetloc(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/contextfactory.py", line 91, in creatorForNetloc
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\contextfactory.py", line 91, in creatorForNetloc
     return ScrapyClientTLSOptions(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/tls.py", line 43, in __init__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\tls.py", line 43, in __init__
     super().__init__(hostname, ctx)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/_sslverify.py", line 1124, in __init__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\_sslverify.py", line 1124, in __init__
     self._hostnameBytes = _idnaBytes(hostname)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/_idna.py", line 31, in _idnaBytes
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\_idna.py", line 31, in _idnaBytes
     return idna.encode(text)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 360, in encode
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 360, in encode
     s = alabel(label)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 258, in alabel
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 258, in alabel
     ulabel(label_bytes)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 297, in ulabel
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 297, in ulabel
     check_label(label_bytes)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 250, in check_label
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 250, in check_label
     raise InvalidCodepoint('Codepoint {} at position {} of {} not allowed'.format(_unot(cp_value), pos+1, repr(label)))
 idna.core.InvalidCodepoint: Codepoint U+003A at position 10 of 'commailto:info@ai21' not allowed
-2023-05-15 23:02:55 [scrapy.downloadermiddlewares.robotstxt] ERROR: Error downloading <GET https://www.ai21.commailto:press@ai21.com/robots.txt>: Codepoint U+003A at position 10 of 'commailto:press@ai21' not allowed
+2023-05-16 22:49:50 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/jurassic-x>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:50 [scrapy.downloadermiddlewares.robotstxt] ERROR: Error downloading <GET https://www.ai21.commailto:press@ai21.com/robots.txt>: Codepoint U+003A at position 10 of 'commailto:press@ai21' not allowed
 Traceback (most recent call last):
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/defer.py", line 1693, in _inlineCallbacks
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\defer.py", line 1693, in _inlineCallbacks
     result = context.run(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/python/failure.py", line 518, in throwExceptionIntoGenerator
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\python\failure.py", line 518, in throwExceptionIntoGenerator
     return g.throw(self.type, self.value, self.tb)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/middleware.py", line 52, in process_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\middleware.py", line 52, in process_request
     return (yield download_func(request=request, spider=spider))
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/utils/defer.py", line 73, in mustbe_deferred
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\utils\defer.py", line 73, in mustbe_deferred
     result = f(*args, **kw)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/__init__.py", line 79, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\__init__.py", line 79, in download_request
     return handler.download_request(request, spider)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/http11.py", line 72, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\http11.py", line 72, in download_request
     return agent.download_request(request)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/http11.py", line 376, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\http11.py", line 376, in download_request
     d = agent.request(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1148, in request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1148, in request
     endpoint = self._getEndpoint(parsedURI)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1132, in _getEndpoint
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1132, in _getEndpoint
     return self._endpointFactory.endpointForURI(uri)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1003, in endpointForURI
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1003, in endpointForURI
     connectionCreator = self._policyForHTTPS.creatorForNetloc(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/contextfactory.py", line 91, in creatorForNetloc
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\contextfactory.py", line 91, in creatorForNetloc
     return ScrapyClientTLSOptions(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/tls.py", line 43, in __init__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\tls.py", line 43, in __init__
     super().__init__(hostname, ctx)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/_sslverify.py", line 1124, in __init__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\_sslverify.py", line 1124, in __init__
     self._hostnameBytes = _idnaBytes(hostname)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/_idna.py", line 31, in _idnaBytes
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\_idna.py", line 31, in _idnaBytes
     return idna.encode(text)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 360, in encode
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 360, in encode
     s = alabel(label)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 258, in alabel
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 258, in alabel
     ulabel(label_bytes)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 297, in ulabel
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 297, in ulabel
     check_label(label_bytes)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 250, in check_label
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 250, in check_label
     raise InvalidCodepoint('Codepoint {} at position {} of {} not allowed'.format(_unot(cp_value), pos+1, repr(label)))
 idna.core.InvalidCodepoint: Codepoint U+003A at position 10 of 'commailto:press@ai21' not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/overview>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/sign-up>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/jurassic-x>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.core.scraper] ERROR: Error downloading <GET https://www.ai21.commailto:press@ai21.com>
+2023-05-16 22:49:50 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://docs.ai21.com/reference/j2-instruct>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:50 [scrapy.core.scraper] ERROR: Error downloading <GET https://www.ai21.commailto:press@ai21.com>
 idna.core.InvalidCodepoint: Codepoint U+003A at position 10 of 'commailto:press@ai21' not allowed
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/defer.py", line 1693, in _inlineCallbacks
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\defer.py", line 1693, in _inlineCallbacks
     result = context.run(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/python/failure.py", line 518, in throwExceptionIntoGenerator
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\python\failure.py", line 518, in throwExceptionIntoGenerator
     return g.throw(self.type, self.value, self.tb)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/middleware.py", line 52, in process_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\middleware.py", line 52, in process_request
     return (yield download_func(request=request, spider=spider))
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/utils/defer.py", line 73, in mustbe_deferred
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\utils\defer.py", line 73, in mustbe_deferred
     result = f(*args, **kw)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/__init__.py", line 79, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\__init__.py", line 79, in download_request
     return handler.download_request(request, spider)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/http11.py", line 72, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\http11.py", line 72, in download_request
     return agent.download_request(request)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/handlers/http11.py", line 376, in download_request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\handlers\http11.py", line 376, in download_request
     d = agent.request(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1148, in request
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1148, in request
     endpoint = self._getEndpoint(parsedURI)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1132, in _getEndpoint
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1132, in _getEndpoint
     return self._endpointFactory.endpointForURI(uri)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/web/client.py", line 1003, in endpointForURI
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\web\client.py", line 1003, in endpointForURI
     connectionCreator = self._policyForHTTPS.creatorForNetloc(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/contextfactory.py", line 91, in creatorForNetloc
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\contextfactory.py", line 91, in creatorForNetloc
     return ScrapyClientTLSOptions(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/downloader/tls.py", line 43, in __init__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\downloader\tls.py", line 43, in __init__
     super().__init__(hostname, ctx)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/_sslverify.py", line 1124, in __init__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\_sslverify.py", line 1124, in __init__
     self._hostnameBytes = _idnaBytes(hostname)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/twisted/internet/_idna.py", line 31, in _idnaBytes
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\twisted\internet\_idna.py", line 31, in _idnaBytes
     return idna.encode(text)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 360, in encode
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 360, in encode
     s = alabel(label)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 258, in alabel
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 258, in alabel
     ulabel(label_bytes)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 297, in ulabel
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 297, in ulabel
     check_label(label_bytes)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/idna/core.py", line 250, in check_label
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\idna\core.py", line 250, in check_label
     raise InvalidCodepoint('Codepoint {} at position {} of {} not allowed'.format(_unot(cp_value), pos+1, repr(label)))
 idna.core.InvalidCodepoint: Codepoint U+003A at position 10 of 'commailto:press@ai21' not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/pricing>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/docs>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/privacy-policy>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=d1c760e3-b240-478a-9ccf-e3738a9e1192>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=7d100e79-a7f2-455d-909a-e1d2de300008>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/terms-of-use>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=02d65c2a-4e71-4b41-934e-44d0d10ad66d>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=ff1fb2fb-a01c-49c5-9eb7-729d0ef0ee15>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=3a456554-f3bf-424c-b145-0c849ca081ee>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=45f34b22-3e6e-40af-8a61-188d8978272c>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=a0cc02bb-b3ea-47c9-8fad-80585d28d7b5>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=28b32adb-16bd-4b56-bbac-8b2e49bf50f9>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://docs.ai21.com/reference/j2-instruct>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=52324e54-96b9-4f3b-85a2-83fb635af259>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=bbac8b85-e5af-4707-9dc7-002997a804cc>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=93e96836-708a-45c0-9653-696639bfc47a>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=0148455b-cf15-4883-8f3e-882185383963>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=061fdf23-2d9d-4c4b-b076-0599bfdfbe87>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=0b8509aa-eb71-40fa-8fe0-d72ebabb1a59>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=4038a473-a0dc-4a47-b0b6-9dd95054af30>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:56 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=6fe73fa3-509b-4707-aff2-ac171a669551>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:56 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=6ed4ade2-aa33-4153-a97b-8bc096bcca9f>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:56 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=3779f992-8879-446a-ac38-4579d8700814>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:56 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=84699926-0286-476f-bc99-5d14d192945e>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:56 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=e20a3d93-f79a-408d-832f-21758b853981>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:56 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=ad9f5e2b-d688-45e8-a379-42acf8056018>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:56 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=88b3ef2b-a2d7-4e64-b873-6864d070f5ad>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:56 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=08e27c29-eda3-45ff-a931-55e48eb7a793>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:56 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/account/api-key>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:56 [scrapy.core.scraper] ERROR: Spider error processing <GET https://docs.ai21.com/reference/j1-complete> (referer: https://docs.ai21.com/reference/j2-instruct-api-ref)
+2023-05-16 22:49:51 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/sign-up>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:51 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/terms-of-use>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:52 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/account/api-key>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:52 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/privacy-policy>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:53 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/docs>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:53 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=3779f992-8879-446a-ac38-4579d8700814>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:53 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=6fe73fa3-509b-4707-aff2-ac171a669551>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:53 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=e20a3d93-f79a-408d-832f-21758b853981>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:53 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/models>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:54 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=6ed4ade2-aa33-4153-a97b-8bc096bcca9f>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:54 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=84699926-0286-476f-bc99-5d14d192945e>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:54 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=08e27c29-eda3-45ff-a931-55e48eb7a793>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:54 [scrapy.core.scraper] ERROR: Spider error processing <GET https://docs.ai21.com/reference/j1-complete> (referer: https://docs.ai21.com/reference/j2-instruct-api-ref)
 Traceback (most recent call last):
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/utils/defer.py", line 257, in iter_errback
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\utils\defer.py", line 257, in iter_errback
     yield next(it)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/utils/python.py", line 312, in __next__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\utils\python.py", line 312, in __next__
     return next(self.data)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/utils/python.py", line 312, in __next__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\utils\python.py", line 312, in __next__
     return next(self.data)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/spidermw.py", line 104, in process_sync
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\spidermw.py", line 104, in process_sync
     for r in iterable:
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/spidermiddlewares/offsite.py", line 28, in <genexpr>
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\spidermiddlewares\offsite.py", line 28, in <genexpr>
     return (r for r in result or () if self._filter(r, spider))
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/spidermw.py", line 104, in process_sync
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\spidermw.py", line 104, in process_sync
     for r in iterable:
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/spidermiddlewares/referer.py", line 353, in <genexpr>
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\spidermiddlewares\referer.py", line 353, in <genexpr>
     return (self._set_referer(r, response) for r in result or ())
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/spidermw.py", line 104, in process_sync
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\spidermw.py", line 104, in process_sync
     for r in iterable:
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/spidermiddlewares/urllength.py", line 27, in <genexpr>
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\spidermiddlewares\urllength.py", line 27, in <genexpr>
     return (r for r in result or () if self._filter(r, spider))
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/spidermw.py", line 104, in process_sync
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\spidermw.py", line 104, in process_sync
     for r in iterable:
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/spidermiddlewares/depth.py", line 31, in <genexpr>
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\spidermiddlewares\depth.py", line 31, in <genexpr>
     return (r for r in result or () if self._filter(r, response, spider))
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/core/spidermw.py", line 104, in process_sync
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\core\spidermw.py", line 104, in process_sync
     for r in iterable:
-  File "/Users/rguna/Projects/AI21_Discord/scraper/spiders/paragraph_spider.py", line 42, in parse
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\scraper\spiders\text_spider.py", line 51, in parse
     yield response.follow(link, self.parse)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/http/response/text.py", line 186, in follow
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\http\response\text.py", line 186, in follow
     return super().follow(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/http/response/__init__.py", line 186, in follow
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\http\response\__init__.py", line 186, in follow
     return Request(
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/http/request/__init__.py", line 93, in __init__
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\http\request\__init__.py", line 93, in __init__
     self._set_url(url)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/scrapy/http/request/__init__.py", line 135, in _set_url
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\scrapy\http\request\__init__.py", line 135, in _set_url
     s = safe_url_string(url, self.encoding)
-  File "/Users/rguna/Projects/AI21_Discord/venv/lib/python3.10/site-packages/w3lib/url.py", line 148, in safe_url_string
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\w3lib\url.py", line 148, in safe_url_string
     parts.port,
-  File "/opt/homebrew/Cellar/python@3.10/3.10.9/Frameworks/Python.framework/Versions/3.10/lib/python3.10/urllib/parse.py", line 177, in port
-    raise ValueError(f"Port could not be cast to integer value as {port!r}")
+  File "C:\Python39\lib\urllib\parse.py", line 175, in port
+    raise ValueError(message) from None
 ValueError: Port could not be cast to integer value as 'docs'
-2023-05-15 23:02:57 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://docs.ai21.com/docs/response>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:57 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://status.ai21.com//dka575ofm4ao0.cloudfront.net/pages-favicon_logos/original/270543/studio-favicon.png>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:57 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/models>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:58 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/widget/docs/improvements>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/widget/docs/gec>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/widget/docs/answer>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/account/account>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/widget/docs/paraphrase>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/widget/docs/summarization>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=0c526350-7f04-448b-9e2d-5935d47b7dcd>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=f7aeff31-5fed-4d98-9f7f-8364fe1efb3a>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=6705c4f5-c409-439f-9bad-7820c3134d97>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=05c74d4e-4362-4ffe-847e-e56080564063>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=4ce67329-a227-40ab-ad24-50d0ef39432d>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=0d48bb1e-9d9e-47bc-92ff-9ef113c7fb08>: HTTP status code is not handled or not allowed
-2023-05-15 23:02:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=0a7a0708-269d-48f0-8d60-fb12631bb700>: HTTP status code is not handled or not allowed
-2023-05-15 23:03:01 [scrapy.core.engine] INFO: Closing spider (finished)
-2023-05-15 23:03:01 [scrapy.extensions.feedexport] INFO: Stored csv feed (1475 items) in: data/AI21.csv
-2023-05-15 23:03:01 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+2023-05-16 22:49:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/pricing>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:55 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://docs.ai21.com/docs/response>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:56 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=d1c760e3-b240-478a-9ccf-e3738a9e1192>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:57 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=ff1fb2fb-a01c-49c5-9eb7-729d0ef0ee15>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:57 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/widget/docs/improvements>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/widget/docs/answer>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=0c526350-7f04-448b-9e2d-5935d47b7dcd>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/widget/docs/paraphrase>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/widget/docs/gec>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=f7aeff31-5fed-4d98-9f7f-8364fe1efb3a>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=6705c4f5-c409-439f-9bad-7820c3134d97>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/widget/docs/summarization>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/overview>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/account/account>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=0b8509aa-eb71-40fa-8fe0-d72ebabb1a59>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=4038a473-a0dc-4a47-b0b6-9dd95054af30>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=7d100e79-a7f2-455d-909a-e1d2de300008>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=3a456554-f3bf-424c-b145-0c849ca081ee>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=45f34b22-3e6e-40af-8a61-188d8978272c>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=0148455b-cf15-4883-8f3e-882185383963>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=28b32adb-16bd-4b56-bbac-8b2e49bf50f9>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=52324e54-96b9-4f3b-85a2-83fb635af259>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=bbac8b85-e5af-4707-9dc7-002997a804cc>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=a0cc02bb-b3ea-47c9-8fad-80585d28d7b5>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=93e96836-708a-45c0-9653-696639bfc47a>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=061fdf23-2d9d-4c4b-b076-0599bfdfbe87>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=ad9f5e2b-d688-45e8-a379-42acf8056018>: HTTP status code is not handled or not allowed
+2023-05-16 22:49:59 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=88b3ef2b-a2d7-4e64-b873-6864d070f5ad>: HTTP status code is not handled or not allowed
+2023-05-16 22:50:00 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=0d48bb1e-9d9e-47bc-92ff-9ef113c7fb08>: HTTP status code is not handled or not allowed
+2023-05-16 22:50:00 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=0a7a0708-269d-48f0-8d60-fb12631bb700>: HTTP status code is not handled or not allowed
+2023-05-16 22:50:00 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=05c74d4e-4362-4ffe-847e-e56080564063>: HTTP status code is not handled or not allowed
+2023-05-16 22:50:00 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground?promptShare=4ce67329-a227-40ab-ad24-50d0ef39432d>: HTTP status code is not handled or not allowed
+2023-05-16 22:50:01 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://status.ai21.com//dka575ofm4ao0.cloudfront.net/pages-favicon_logos/original/270543/studio-favicon.png>: HTTP status code is not handled or not allowed
+2023-05-16 22:50:06 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <404 https://studio.ai21.com/playground/complete?promptShare=02d65c2a-4e71-4b41-934e-44d0d10ad66d>: HTTP status code is not handled or not allowed
+2023-05-16 22:50:06 [scrapy.core.engine] INFO: Closing spider (finished)
+2023-05-16 22:50:06 [scrapy.extensions.feedexport] INFO: Stored csv feed (11181 items) in: data/AI21.csv
+2023-05-16 22:50:06 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
 {'downloader/exception_count': 91,
  'downloader/exception_type_count/idna.core.InvalidCodepoint': 5,
  'downloader/exception_type_count/scrapy.exceptions.IgnoreRequest': 86,
- 'downloader/request_bytes': 64657,
- 'downloader/request_count': 215,
- 'downloader/request_method_count/GET': 215,
- 'downloader/response_bytes': 4370591,
- 'downloader/response_count': 210,
- 'downloader/response_status_count/200': 150,
+ 'downloader/request_bytes': 65272,
+ 'downloader/request_count': 217,
+ 'downloader/request_method_count/GET': 217,
+ 'downloader/response_bytes': 4358399,
+ 'downloader/response_count': 212,
+ 'downloader/response_status_count/200': 149,
  'downloader/response_status_count/301': 8,
  'downloader/response_status_count/302': 1,
  'downloader/response_status_count/404': 51,
+ 'downloader/response_status_count/504': 3,
  'dupefilter/filtered': 7635,
- 'elapsed_time_seconds': 6.758371,
+ 'elapsed_time_seconds': 18.051545,
  'feedexport/success_count/FileFeedStorage': 1,
  'finish_reason': 'finished',
- 'finish_time': datetime.datetime(2023, 5, 16, 3, 3, 1, 175341),
- 'httpcompression/response_bytes': 28538267,
- 'httpcompression/response_count': 198,
+ 'finish_time': datetime.datetime(2023, 5, 17, 2, 50, 6, 980757),
+ 'httpcompression/response_bytes': 28450027,
+ 'httpcompression/response_count': 197,
  'httperror/response_ignored_count': 50,
  'httperror/response_ignored_status_count/404': 50,
- 'item_scraped_count': 1475,
+ 'item_scraped_count': 11181,
  'log_count/ERROR': 6,
  'log_count/INFO': 61,
- 'memusage/max': 74006528,
- 'memusage/startup': 74006528,
- 'offsite/domains': 84,
- 'offsite/filtered': 13830,
- 'request_depth_max': 5,
- 'response_received_count': 201,
+ 'offsite/domains': 81,
+ 'offsite/filtered': 8336,
+ 'request_depth_max': 4,
+ 'response_received_count': 200,
+ 'retry/count': 3,
+ 'retry/reason_count/504 Gateway Time-out': 3,
  "robotstxt/exception_count/<class 'idna.core.InvalidCodepoint'>": 2,
  'robotstxt/forbidden': 86,
  'robotstxt/request_count': 6,
  'robotstxt/response_count': 4,
  'robotstxt/response_status_count/200': 3,
  'robotstxt/response_status_count/404': 1,
- 'scheduler/dequeued': 295,
- 'scheduler/dequeued/memory': 295,
- 'scheduler/enqueued': 295,
- 'scheduler/enqueued/memory': 295,
+ 'scheduler/dequeued': 297,
+ 'scheduler/dequeued/memory': 297,
+ 'scheduler/enqueued': 297,
+ 'scheduler/enqueued/memory': 297,
  'spider_exceptions/ValueError': 1,
- 'start_time': datetime.datetime(2023, 5, 16, 3, 2, 54, 416970)}
-2023-05-15 23:03:01 [scrapy.core.engine] INFO: Spider closed (finished)
+ 'start_time': datetime.datetime(2023, 5, 17, 2, 49, 48, 929212)}
+2023-05-16 22:50:06 [scrapy.core.engine] INFO: Spider closed (finished)
