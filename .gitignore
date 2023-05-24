@@ -187,3 +187,6 @@ fabric.properties
 
 # sqlite database
 *.db
+
+# archive data
+archive_data/

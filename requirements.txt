@@ -1,7 +1,7 @@
-ai21==1.0.5
+ai21==1.0.7
 discord~=2.2.2
 python-dotenv~=1.0.0
-simplechain==0.0.5.3
+simplechain==0.0.5.7
 annoy==1.17.2
 Scrapy~=2.8.0
 itemadapter~=0.8.0

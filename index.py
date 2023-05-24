@@ -1,12 +1,11 @@
 import csv
-import os
-import time
 import logging
-from collections import Counter
+import os
+import shutil
+import time
 
 import ai21
 from simplechain.stack import TextEmbedderFactory, VectorDatabaseFactory
-import shutil
 
 logging.basicConfig(filename='logs/indexer.log', level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
@@ -21,83 +20,42 @@ class Indexer:
         self.index = VectorDatabaseFactory.create("annoy", 768, data_file, metadata_file)
 
     def setup_index(self):
-        raw_data = {}
-
+        data = []
         for i, row in enumerate(csv.reader(open('data/AI21.csv', 'r', encoding='UTF-8'))):
             if i == 0:  # Skip the header
                 continue
-            if row[0] in raw_data:
-                if row[1] not in raw_data[row[0]]:
-                    raw_data[row[0]].append(row[1])
-            else:
-                raw_data[row[0]] = [row[1]]
+            data.append(row)
 
-        # Convert the dictionary to a list of tuples and ignore text with more than 3 links
-        data = [(k, v) for k, v in raw_data.items() if len(v) < 3]
-
-        # Breaks the strings with 2000+ characters into smaller strings
-        for i, tupl in enumerate(data):
-            if len(tupl[0]) > 2000:
-                data.pop(i)
-                for j in range(0, len(tupl[0]), 2000):
-                    s = tupl[0]
-                    new_tuple = (s[j:j + 2000], tupl[1])
-                    data.insert(i + j, new_tuple)
-
-        embeds = self.embedder.embed_all([tupl[0] for tupl in data])
-        data = [{"text": tupl[0], "links": tupl[1]} for tupl in data]
+        embeds = self.embedder.embed_all([d[0] for d in data])  # embed the titles
+        data = [{"title": d[0], "text": d[1], "link": d[2]} for d in data]
         self.index.add_all(embeds, data)
         self.index.save()
 
         return len(data)
 
-    def get_context(self, request, n=20):
-        context_str, links_str = "", ""
+    def get_context(self, request, n=5):
+        context, links = [], []
         try:
+            # If 'AI21' is in string, it maps it to generic pages too often. So we remove it.
+            request = request.replace('AI21', '')
 
             results_dict = self.index.get_nearest_neighbors(self.embedder.embed(request), n, include_distances=True)
-            indexes = set()
-            k = 100  # pre-paragraphs to include
 
             for i, item_idx in enumerate(results_dict['ids']):
-                links_i = set(results_dict['metadata'][i]['links'])
-                if i < n:  # at least n paragraphs are included
-                    for j in range(item_idx, max(-1, item_idx - k - 1), -1):  # get k pre-paragraphs
-                        links_j = set(self.index.get_item_given_index(j)['metadata']['links'])
-
-                        if links_i.intersection(
-                                links_j):  # if pre-paragraph has at 1 same links, then it's probably the line before
-                            indexes.add(j)
-                        else:
-                            break
-                elif results_dict['distances'][i] > 3:
+                if results_dict['distances'][i] > 2:
                     break
-
-            indexes = list(indexes)
-            indexes.sort()
-
-            context = []
-            links_counter = Counter()
-            for i in range(0, len(indexes)):
-                if indexes[i] - 1 != indexes[i - 1] or i == 0:  # new text
-                    context.append("\n - ")
-                else:
-                    context.append(" ")
-                metadata = self.index.get_item_given_index(indexes[i])['metadata']
-                context.append(str(metadata['text']))  # [0] is the text
-                for link in metadata['links']:  # [1] is the link
-                    links_counter[link] += 1
-
-            context_str = "".join(context)
-
-            if links_counter:
-                links_str = ":link: **The following links may be useful:**\n- " + "\n- ".join(
-                    [link[0] for link in links_counter.most_common(3)])
+                links.append(results_dict['metadata'][i]['link'])
+                context.append(results_dict['metadata'][i]['text'])
+                print(results_dict['metadata'][i]['title'])
         except Exception as e:
-            # Keep going if the index fails
             logging.error(e)
-            links_str = ""
-            context_str = ""
+            return None, None
+
+        length = 50000//len(context)
+        context = [c[:length] for c in context]
+        context_str = "".join(context)  # Contextual Answers API has 50k character limit
+        links_str = ":link: **The following links may be useful:**\n- " + "\n- ".join(links)
+
         return context_str, links_str
 
 
@@ -134,7 +92,7 @@ def setup():
     start_time = time.time()
 
     try:
-        indexer = Indexer("temp_data/index.ann", "temp_data/metadata.json")
+        indexer = Indexer()
         num_items = indexer.setup_index()
         logging.info(f"AI21 Index created with {num_items} items in {time.time() - start_time} seconds.")
     except Exception as e:
@@ -148,7 +106,7 @@ def setup():
 
 if __name__ == "__main__":
     """ 
-    Assumes all the data is in the temp_data/ folder.
+    Sets up index and data files in data/ folder.
     """
     from dotenv import load_dotenv
 

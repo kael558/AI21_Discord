@@ -76,7 +76,7 @@ This will setup and start the Discord Bot for it to respond to messages.
 ### 🕷️ Running the Scraper
 Navigate to the top level directory and run the following command:
 
-`scrapy crawl ai21_spider -O data/AI21.csv`
+`scrapy crawl ai21_title_spider -O data/AI21.csv`
 
 This will start the scraper and output the data into the AI21.csv file in the data folder. 
 
@@ -179,7 +179,9 @@ A short manual testing suite (*tests.py*) is provided to assess the quality of t
 - [x] Default bot
 - [x] Variable Preset
 - [x] AI21 Indexed information
-- [ ] Improving scraper (including any text node elements, by adding depth to elements and including hierarchical elements for context)
+- [x] Improving scraper (including any text node elements, by adding depth to elements and including hierarchical elements for context)
+- [ ] Add hierarchical context retrieval to get context
+- [ ] Consider scraping only docs for better results (seems like the embeddings only match contents in there)
 - [ ] Finishing touches (like README, discord icon, discord name, transfer hosting)
 
 ## 🤝 Contributing

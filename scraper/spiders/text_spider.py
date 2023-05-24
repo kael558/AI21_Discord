@@ -7,7 +7,7 @@ warnings.filterwarnings("ignore", message="Selector got both text and root, root
 
 REPLACE_PATTERN = re.compile('|'.join(map(re.escape, [' ', '​', ' ', ' ', '‍'])))
 
-# â
+
 def is_valid_text(text):
     text = REPLACE_PATTERN.sub(' ', text.strip())
     if ' ' not in text or len(text) > 1500:
@@ -22,7 +22,7 @@ def get_element_depth(element):
 
 
 class AI21Spider(scrapy.Spider):
-    name = "ai21_spider"
+    name = "ai21_text_spider"
     allowed_domains = ['docs.ai21.com', 'ai21.com']
     start_urls = ['https://docs.ai21.com/docs/overview', 'https://www.ai21.com/']
 
@@ -49,3 +49,15 @@ class AI21Spider(scrapy.Spider):
             if not link.startswith("https"):
                 link = base_url + link
             yield response.follow(link, self.parse)
+
+
+"""1. Need 
+1. Embedded search using titles. 
+ - AI21 titles are fairly descriptive (most of the time)
+ - won't match information in elements
+
+2a. Use contextual QA API and pass in all the text from the matching links. (Trying to format the data according to their depth)
+
+
+
+"""
