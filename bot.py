@@ -28,7 +28,8 @@ class Bot:
         response, verbose_str = generate_text(prompt, preset, context_str, verbose)
         if response.startswith("AI21 Discord ChatBot: "):
             response = response[21:]
-        response += f"\n\n{links_str}"
+        if links_str:
+            response += f"\n\n{links_str}"
         return response.strip(), verbose_str.strip()
 
 
