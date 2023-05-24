@@ -1,10 +1,11 @@
-import csv
 import os
 
 import ai21
 
 from index import Indexer
 from prompts import construct_get_response_prompt, construct_get_commands_prompt
+import requests
+
 
 
 class Bot:
@@ -17,18 +18,19 @@ class Bot:
     def generate_response(self, conversation_history: list, verbose: bool = False) -> tuple:
         conversation_history_str = "\n".join(conversation_history)
         preset, request, requires_ai21_index = get_commands(conversation_history_str)
-
         context_str, links_str = "", ""
         if requires_ai21_index:
-            context_str, links_str = self.indexer.get_context(request, n=100)
+            context_str, links_str = self.indexer.get_context(request)
+        if context_str:
+            prompt = request
+        else:
+            prompt = construct_get_response_prompt(request, conversation_history_str)
 
-        prompt = construct_get_response_prompt(request, context_str, conversation_history_str)
-
-        response, verbose_str = generate_text(prompt, preset, verbose)
+        response, verbose_str = generate_text(prompt, preset, context_str, verbose)
         if response.startswith("AI21 Discord ChatBot: "):
             response = response[21:]
         response += f"\n\n{links_str}"
-        return response, verbose_str
+        return response.strip(), verbose_str.strip()
 
 
 def get_commands(conversation_history_str: str):
@@ -124,9 +126,21 @@ def generate_text(prompt, preset, context="", verbose=False):
     verbose_str = ""
 
     if preset == "Question answering" and context != "":
-        response = ai21.Experimantal.Answer.execute(context=prompt, question=prompt)
+        url = "https://api.ai21.com/studio/v1/experimental/answer"
+        payload = {
+            "context": context,
+            "question": prompt
+        }
+        headers = {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "Authorization": "Bearer YI2Pt1GWGG7HsfomHzh8pc8xOt2uAMTo"
+        }
+        response = requests.post(url, json=payload, headers=headers)
+        response = response.json()["answer"]
+        #response = ai21.Experimantal.Answer.execute(context=context, question=prompt)
         if verbose:
-            verbose_str = f"\n\n:information_source: **The above text was generated using the Contextual Question Answering service by provided by AI21 Labs.**" \
+            verbose_str = f"\n\n:information_source: **The above text was generated using the Contextual Question Answering API provided by AI21 Labs.**" \
                           f"\nSee more at https://docs.ai21.com/docs/contextual-answers-api"
     else:  # foundation models
         params = get_default_preset_params()
@@ -145,3 +159,5 @@ def generate_text(prompt, preset, context="", verbose=False):
         response = f"```{response}```"
 
     return response.strip(), verbose_str.strip()
+
+

@@ -16,7 +16,7 @@ FEEDS = None
 DUPEFILTER_CLASS = 'scrapy.dupefilters.RFPDupeFilter'
 
 
-CLOSESPIDER_PAGECOUNT = 1000
+CLOSESPIDER_PAGECOUNT = 10000
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'discord kael558#4332 - for AI21 Discord Bot'
