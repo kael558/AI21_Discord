@@ -61,6 +61,17 @@ def construct_get_commands_prompt(conversation: str):
     Request: summarize the request in simpler terms
     Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
 
+    User: Do any of the J2 models support batch transform? Which?
+
+    NLP Task: Question answering
+    Request: J2 models batch transform
+    Requires AI21 API: True
+    ##
+    Using the conversation as context, look at the most RECENT request and:
+    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
+    Request: summarize the request in simpler terms
+    Requires AI21 API: determine if the request requires information available on AI21 labs website as True/False
+    
     {conversation}
 
     NLP Task:"""
@@ -71,6 +82,7 @@ def construct_get_commands_prompt(conversation: str):
 def construct_get_response_prompt(request: str, conversation: str) -> str:
     prompt = """Welcome! I am AI21 Discord ChatBot. I'm here to answer your questions, provide advice, or just have a friendly conversation.
     Please note that while I can provide general information and guidance, I am not a licensed professional and my responses are not intended to be a substitute for professional advice. 
+    I may hallucinate or make mistakes, so please use your own judgment when making decisions based on my responses.
     Additionally, I strive to remain neutral and respectful in all interactions, and I do not engage in discriminatory or harmful behavior. 
     """
 
@@ -80,7 +92,7 @@ def construct_get_response_prompt(request: str, conversation: str) -> str:
 
     It seems like the User is asking me for this: {request}
 
-    Write a response to their question or instruction."""
+    My accurate response to their question or instruction."""
     return prompt
 
 

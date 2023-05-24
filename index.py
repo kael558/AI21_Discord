@@ -42,16 +42,15 @@ class Indexer:
             results_dict = self.index.get_nearest_neighbors(self.embedder.embed(request), n, include_distances=True)
 
             for i, item_idx in enumerate(results_dict['ids']):
-                if results_dict['distances'][i] > 2:
+                if results_dict['distances'][i] > 1:
                     break
                 links.append(results_dict['metadata'][i]['link'])
                 context.append(results_dict['metadata'][i]['text'])
-                print(results_dict['metadata'][i]['title'])
         except Exception as e:
             logging.error(e)
             return None, None
 
-        length = 50000//len(context)
+        length = 49999//len(context)
         context = [c[:length] for c in context]
         context_str = "".join(context)  # Contextual Answers API has 50k character limit
         links_str = ":link: **The following links may be useful:**\n- " + "\n- ".join(links)

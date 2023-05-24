@@ -190,3 +190,4 @@ fabric.properties
 
 # archive data
 archive_data/
+archive_data/*

@@ -58,7 +58,6 @@ class TestBot(unittest.TestCase):
     def tearDownClass(cls):
         warnings.resetwarnings()
 
-
     @unittest.skip
     def test_basic(self):
         history = ['User: Hello, how are you?']
@@ -86,7 +85,7 @@ class TestBot(unittest.TestCase):
                               response + '\n' + verbose_str)
 
     def test_ai21(self):
-        history = ["User: What specialized API's does AI21 offer?"]
+        history = ["""User: How does the segmentation works? And what are the possible types?"""]
         response, verbose_str = self.bot.generate_response(history, verbose=True)
         print_expected_actual(history, 'J2-Large, J1-Jumbo etc... See links as well', response + '\n' + verbose_str)
 
@@ -105,7 +104,8 @@ class TestBot(unittest.TestCase):
             "Africa is also known for its friendly and welcoming people, as well as its delicious food and vibrant music, dance, and art cultures. No matter what you're interested in or what you're looking for in a travel experience, Africa has something to offer.",
             "User: Can you write a shorter description in 1-2 lines and focus on the culture"]
         response, verbose_str = self.bot.generate_response(history)
-        print_expected_actual(history, '1-2 lines of Africa description with a focus on the culture...', response + '\n' + verbose_str)
+        print_expected_actual(history, '1-2 lines of Africa description with a focus on the culture...',
+                              response + '\n' + verbose_str)
 
     @unittest.skip
     def test_long_form_generation(self):

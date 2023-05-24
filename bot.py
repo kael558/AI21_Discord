@@ -7,7 +7,6 @@ from prompts import construct_get_response_prompt, construct_get_commands_prompt
 import requests
 
 
-
 class Bot:
     def __init__(self):
         from dotenv import load_dotenv
@@ -137,7 +136,10 @@ def generate_text(prompt, preset, context="", verbose=False):
             "Authorization": "Bearer YI2Pt1GWGG7HsfomHzh8pc8xOt2uAMTo"
         }
         response = requests.post(url, json=payload, headers=headers)
+        print(response.json())
         response = response.json()["answer"]
+        if response == "Answer not in document":
+            response = "I couldn't find the answer to your question."
         #response = ai21.Experimantal.Answer.execute(context=context, question=prompt)
         if verbose:
             verbose_str = f"\n\n:information_source: **The above text was generated using the Contextual Question Answering API provided by AI21 Labs.**" \
