@@ -42,12 +42,15 @@ class Indexer:
             results_dict = self.index.get_nearest_neighbors(self.embedder.embed(request), n, include_distances=True)
 
             for i, item_idx in enumerate(results_dict['ids']):
-                if results_dict['distances'][i] > 1:
+                if results_dict['distances'][i] > 2:
                     break
                 links.append(results_dict['metadata'][i]['link'])
                 context.append(results_dict['metadata'][i]['text'])
         except Exception as e:
             logging.error(e)
+            return None, None
+
+        if len(context) == 0:
             return None, None
 
         length = 49999//len(context)
