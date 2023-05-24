@@ -1,5 +1,5 @@
 import csv
-import logging
+
 import os
 import shutil
 import time
@@ -7,8 +7,7 @@ import time
 import ai21
 from simplechain.stack import TextEmbedderFactory, VectorDatabaseFactory
 
-logging.basicConfig(filename='logs/indexer.log', level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(message)s')
+
 
 
 class Indexer:
@@ -20,6 +19,8 @@ class Indexer:
         self.index = VectorDatabaseFactory.create("annoy", 768, data_file, metadata_file)
 
     def setup_index(self):
+
+
         data = []
         for i, row in enumerate(csv.reader(open('data/AI21.csv', 'r', encoding='UTF-8'))):
             if i == 0:  # Skip the header
@@ -90,6 +91,11 @@ def copy_files_from_source_to_dest(source_dir, destination_dir):
 
 
 def setup():
+    import logging
+
+    logging.basicConfig(filename='logs/indexer.log', level=logging.INFO,
+                        format='%(asctime)s %(levelname)s %(message)s')
+
     logging.info("Setting up AI21 Index...")
     start_time = time.time()
 
