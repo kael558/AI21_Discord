@@ -8,8 +8,6 @@ import ai21
 from simplechain.stack import TextEmbedderFactory, VectorDatabaseFactory
 
 
-
-
 class Indexer:
     def __init__(self, data_file: str = "data/index.ann", metadata_file: str = "data/metadata.json"):
         from dotenv import load_dotenv
@@ -47,21 +45,15 @@ class Indexer:
             links.append(results_dict['metadata'][i]['link'])
             context.append(results_dict['metadata'][i]['text'])
 
-        print("REQUEST")
-        print(request)
-
-        print("LINKS")
-        print(links)
-
         if len(context) == 0:
             return None, None
 
-        length = 49999//len(context)
+        length = 49999 // len(context)
         context = [c[:length] for c in context]
         context_str = "".join(context)  # Contextual Answers API has 50k character limit
         links_str = ":link: **The following links may be useful:**\n- " + "\n- ".join(links)
 
-        return  context_str, links_str
+        return context_str, links_str
 
 
 def delete_contents_in_folder(directory):
@@ -73,8 +65,8 @@ def delete_contents_in_folder(directory):
         try:
             if os.path.isfile(file_path):
                 os.remove(file_path)
-        except Exception as e:
-            print(f"Failed to delete {file_path} with error: {e}")
+        except Exception:
+            pass  # Ignore exception
 
 
 def copy_files_from_source_to_dest(source_dir, destination_dir):

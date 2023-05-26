@@ -46,7 +46,6 @@ class Bot:
 
 def get_commands(conversation_history_str: str):
     prompt = construct_get_commands_prompt(conversation_history_str)
-    print(prompt)
     text, _ = generate_text(prompt, "Classify NLP task")
     lines = text.split("\n")
 
