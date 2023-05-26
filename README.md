@@ -66,7 +66,7 @@ AI21_API_KEY=<API KEY FOR AI21 LABS>
 DISCORD_TOKEN=<DISCORD TOKEN FOR APPLICATION FROM DEVELOPER SITE>
 ```
 
-One way to do that is to create a .env file in the top level directory and put these variables in.
+One way to do that is to create a .env file in the top level directory and put these variables in because python-dotenv is installed.
 
 ### 🤖 Running the Discord Bot
 `python main.py`
@@ -76,9 +76,13 @@ This will setup and start the Discord Bot for it to respond to messages.
 ### 🕷️ Running the Scraper
 Navigate to the top level directory and run the following command:
 
-`scrapy crawl ai21_title_spider -O data/AI21.csv`
+`scrapy crawl ai21_spider -O data/AI21.csv`
 
 This will start the scraper and output the data into the AI21.csv file in the data folder. 
+
+There are two versions of the scraper:
+1. The title spider will scrape the title, contents and link of every page
+2. The text spider will scrape the individual text elements - assign a depth to them - and the link of every page. 
 
 ### 📁 Setting up the Vector Database
 Once the raw data has been collected via the scraper, it must be indexed into a vector database. Running the following will do so:
@@ -88,7 +92,7 @@ Once the raw data has been collected via the scraper, it must be indexed into a 
 This will index all the data from AI21.csv into a vector database which can be queried when the Bot needs it. 
 
 ### ⚙️ Putting it all Together with a Shell Script
-An restart_client.sh script is provided for Linux. It does the following:
+A restart_client.sh script is provided for Linux. It does the following:
 1. Stops the Discord Bot if it is running 
 2. Moves the existing data into a temporary folder
 3. Runs the scraper to collect the updated data
@@ -170,7 +174,7 @@ Logging is provided and all logs are saved in the logs folder with the following
  - index.log: errors with the indexing 
 
 ## 🔧 Testing
-A short manual testing suite (*tests.py*) is provided to assess the quality of the responses. Run the following:
+A short manual testing suite (*tests.py*) is provided to assess the quality of the context retrieved and the responses. Run the following:
 
 `python -m unittest`
 
@@ -180,8 +184,7 @@ A short manual testing suite (*tests.py*) is provided to assess the quality of t
 - [x] Variable Preset
 - [x] AI21 Indexed information
 - [x] Improving scraper (including any text node elements, by adding depth to elements and including hierarchical elements for context)
-- [ ] Add hierarchical context retrieval to get context
-- [ ] Consider scraping only docs for better results (seems like the embeddings only match contents in there)
+- [ ] Test hierarchical context retrieval to get context
 - [ ] Finishing touches (like README, discord icon, discord name, transfer hosting)
 
 ## 🤝 Contributing

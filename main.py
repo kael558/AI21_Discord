@@ -7,11 +7,6 @@ import discord
 from bot import Bot
 import ai21
 
-bot = Bot()
-
-# Set up logging
-logging.basicConfig(filename='logs/bot.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
-
 
 async def send_message(channel, reference_msg, message):
     MAX_LENGTH = 2000
@@ -59,30 +54,28 @@ class Client(discord.Client):
     async def answer(self, message):
         try:
             message_cc, verbose, no_history = clean_and_return_options_message(message.clean_content)
-
             history = [f"User: {message_cc}"]
+            is_dm_channel = isinstance(message.channel, discord.channel.DMChannel)
+
             if not no_history:
                 async for historic_msg in message.channel.history(limit=5, before=message):
                     if not historic_msg.content:
                         continue
 
-                    if message.author.name == historic_msg.author.name:
-                        if isinstance(message.channel, discord.channel.DMChannel):
-                            name = "User"
-                        else:  # is text channel
-                            for reaction in historic_msg.reactions:  # check for question mark reaction
-                                if str(reaction.emoji) == "❓":
-                                    name = "User"
-                                    break
-                            else:
-                                continue
-
-                    elif historic_msg.author.name == self.user.name:
+                    if historic_msg.author.name == self.user.name:
                         if historic_msg.clean_content.startswith(":information_source:"):
                             continue
                         name = "AI21 Discord ChatBot"
-                    else:
-                        continue
+                    else:  # message from user
+                        if not is_dm_channel:  # if is a text channel
+                            for reaction in historic_msg.reactions:
+                                if str(reaction.emoji) == "❓":
+                                    break
+                            else:  # if no question mark reaction, skip
+                                continue
+
+                        name = historic_msg.author.name
+
                     historic_msg_cc, _, _ = clean_and_return_options_message(historic_msg.clean_content)
                     history.insert(0, f"{name}: {historic_msg_cc}")
             async with message.channel.typing():
@@ -113,14 +106,19 @@ class Client(discord.Client):
             return
 
         # Check if the reaction is a single question mark
-        if str(reaction.emoji) == "❓" and reaction.count == 1:
+        if str(reaction.emoji) == "❓":
             await self.answer(reaction.message)
 
 
 if __name__ == "__main__":
-    logging.info("Attemping to restart Discord Bot...")
-    from dotenv import load_dotenv
+    # Set up logging
+    logging.basicConfig(filename='logs/bot.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
+    bot = Bot(logger=logging)
+
+    logging.info("Attemping to restart Discord Bot...")
+
+    from dotenv import load_dotenv
     load_dotenv()
 
     ai21.api_key = os.environ['AI21_API_KEY']

@@ -8,18 +8,25 @@ import requests
 
 
 class Bot:
-    def __init__(self):
+    def __init__(self, logger=None):
         from dotenv import load_dotenv
         load_dotenv()
         ai21.api_key = os.environ['AI21_API_KEY']
         self.indexer = Indexer()
+        self.logger = logger
 
     def generate_response(self, conversation_history: list, verbose: bool = False) -> tuple:
         conversation_history_str = "\n".join(conversation_history)
         preset, request, requires_ai21_index = get_commands(conversation_history_str)
         context_str, links_str = "", ""
         if requires_ai21_index:
-            context_str, links_str = self.indexer.get_context(request)
+            try:
+                context_str, links_str = self.indexer.get_context(request, n=3)
+            except Exception as e:
+                if self.logger:
+                    self.logger.error(e)
+                context_str, links_str = "", ""
+
         if context_str:
             prompt = request
         else:

@@ -19,8 +19,6 @@ class Indexer:
         self.index = VectorDatabaseFactory.create("annoy", 768, data_file, metadata_file)
 
     def setup_index(self):
-
-
         data = []
         for i, row in enumerate(csv.reader(open('data/AI21.csv', 'r', encoding='UTF-8'))):
             if i == 0:  # Skip the header
@@ -34,22 +32,19 @@ class Indexer:
 
         return len(data)
 
-    def get_context(self, request, n=5):
+    def get_context(self, request, n=3):
         context, links = [], []
-        try:
-            # If 'AI21' is in string, it maps it to generic pages too often. So we remove it.
-            request = request.replace('AI21', '')
 
-            results_dict = self.index.get_nearest_neighbors(self.embedder.embed(request), n, include_distances=True)
+        # If 'AI21' is in string, it maps it to generic pages too often. So we remove it.
+        request = request.replace('AI21', '')
 
-            for i, item_idx in enumerate(results_dict['ids']):
-                if results_dict['distances'][i] > 1:
-                    break
-                links.append(results_dict['metadata'][i]['link'])
-                context.append(results_dict['metadata'][i]['text'])
-        except Exception as e:
-            logging.error(e)
-            return None, None
+        results_dict = self.index.get_nearest_neighbors(self.embedder.embed(request), n, include_distances=True)
+
+        for i, item_idx in enumerate(results_dict['ids']):
+            if results_dict['distances'][i] > 1:
+                break
+            links.append(results_dict['metadata'][i]['link'])
+            context.append(results_dict['metadata'][i]['text'])
 
         if len(context) == 0:
             return None, None
