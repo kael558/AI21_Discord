@@ -36,15 +36,22 @@ class Indexer:
         context, links = [], []
 
         # If 'AI21' is in string, it maps it to generic pages too often. So we remove it.
-        request = request.replace('AI21', '')
+        request = request.replace('AI21', '').strip()
 
         results_dict = self.index.get_nearest_neighbors(self.embedder.embed(request), n, include_distances=True)
 
         for i, item_idx in enumerate(results_dict['ids']):
             if results_dict['distances'][i] > 1:
                 break
+
             links.append(results_dict['metadata'][i]['link'])
             context.append(results_dict['metadata'][i]['text'])
+
+        print("REQUEST")
+        print(request)
+
+        print("LINKS")
+        print(links)
 
         if len(context) == 0:
             return None, None
@@ -54,7 +61,7 @@ class Indexer:
         context_str = "".join(context)  # Contextual Answers API has 50k character limit
         links_str = ":link: **The following links may be useful:**\n- " + "\n- ".join(links)
 
-        return context_str, links_str
+        return  context_str, links_str
 
 
 def delete_contents_in_folder(directory):

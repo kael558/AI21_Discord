@@ -6,6 +6,13 @@ import traceback
 import discord
 from bot import Bot
 import ai21
+import re
+
+
+def replace_with_real_name(response, name_map):
+    pattern = re.compile('|'.join(map(re.escape, name_map.keys())))
+    replaced_string = pattern.sub(lambda m: name_map[m.group(0)], response)
+    return replaced_string
 
 
 async def send_message(channel, reference_msg, message):
@@ -42,8 +49,13 @@ def clean_and_return_options_message(message_cc: str) -> tuple:
             message_cc = message_cc.replace('-nh', '')
             continue
         break
-    message_cc = message_cc.strip()
-    return message_cc, verbose, no_history
+
+    # Remove links
+    index = message_cc.find(':link:')
+    if index != -1:
+        message_cc = message_cc[:index]
+
+    return re.sub('\s+', ' ', message_cc), verbose, no_history
 
 
 class Client(discord.Client):
@@ -53,8 +65,11 @@ class Client(discord.Client):
 
     async def answer(self, message):
         try:
+            user_map = {message.author.name: "User1"}
+            user_map_rev = {"User1": message.author.name}
+
             message_cc, verbose, no_history = clean_and_return_options_message(message.clean_content)
-            history = [f"User: {message_cc}"]
+            history = [f"User1: {message_cc}"]
             is_dm_channel = isinstance(message.channel, discord.channel.DMChannel)
 
             if not no_history:
@@ -65,6 +80,7 @@ class Client(discord.Client):
                     if historic_msg.author.name == self.user.name:
                         if historic_msg.clean_content.startswith(":information_source:"):
                             continue
+
                         name = "AI21 Discord ChatBot"
                     else:  # message from user
                         if not is_dm_channel:  # if is a text channel
@@ -74,17 +90,23 @@ class Client(discord.Client):
                             else:  # if no question mark reaction, skip
                                 continue
 
-                        name = historic_msg.author.name
+                        if historic_msg.author.name not in user_map:
+                            user_map[historic_msg.author.name] = f"User{len(user_map) + 1}"
+                            user_map_rev[f"User{len(user_map_rev) + 1}"] = historic_msg.author.name
+                        name = user_map[historic_msg.author.name]
 
                     historic_msg_cc, _, _ = clean_and_return_options_message(historic_msg.clean_content)
                     history.insert(0, f"{name}: {historic_msg_cc}")
             async with message.channel.typing():
                 response, verbose_str = bot.generate_response(history, verbose)
+                response = replace_with_real_name(response, user_map_rev)  # replace user id's with actual names
+
                 response_msg = await send_message(message.channel, message, response)
+                await response_msg.edit(suppress=True, embeds=[])
 
                 if verbose:
-                    await send_message(message.channel, response_msg, verbose_str)
-                await response_msg.edit(suppress=True, embeds=[])
+                    verbose_msg = await send_message(message.channel, response_msg, verbose_str)
+                    await verbose_msg.edit(suppress=True, embeds=[])
                 return
         except Exception as e:
             logging.error(e)
@@ -119,6 +141,7 @@ if __name__ == "__main__":
     logging.info("Attemping to restart Discord Bot...")
 
     from dotenv import load_dotenv
+
     load_dotenv()
 
     ai21.api_key = os.environ['AI21_API_KEY']

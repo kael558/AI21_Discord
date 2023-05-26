@@ -1,0 +1,130 @@
+2023-05-26 18:09:37,595 INFO Attemping to restart Discord Bot...
+2023-05-26 18:09:37,596 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 18:09:37,598 INFO logging in using static token
+2023-05-26 18:09:38,201 INFO Shard ID None has connected to Gateway (Session ID: 7e806a08e7d4db06fb9188e8297732e9).
+2023-05-26 18:09:40,251 INFO Discord bot ready!
+2023-05-26 18:10:27,402 ERROR 'answer'
+2023-05-26 18:10:27,403 ERROR Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\main.py", line 82, in answer
+    response, verbose_str = bot.generate_response(history, verbose)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\bot.py", line 35, in generate_response
+    response, verbose_str = generate_text(prompt, preset, context_str, verbose)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\bot.py", line 148, in generate_text
+    response = response.json()["answer"]
+KeyError: 'answer'
+
+2023-05-26 18:13:04,303 INFO Attemping to restart Discord Bot...
+2023-05-26 18:13:04,303 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 18:13:04,304 INFO logging in using static token
+2023-05-26 18:13:04,958 INFO Shard ID None has connected to Gateway (Session ID: 83617d99303ba75f86332ed6bb44a4c9).
+2023-05-26 18:13:07,008 INFO Discord bot ready!
+2023-05-26 18:27:33,095 INFO Attemping to restart Discord Bot...
+2023-05-26 18:27:33,096 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 18:27:33,097 INFO logging in using static token
+2023-05-26 18:27:33,756 INFO Shard ID None has connected to Gateway (Session ID: dc8d3aeb835d56a8c1cd4f54daf84afe).
+2023-05-26 18:27:35,810 INFO Discord bot ready!
+2023-05-26 18:36:32,069 ERROR not enough values to unpack (expected 3, got 2)
+2023-05-26 18:36:32,070 ERROR Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\main.py", line 82, in answer
+    history.insert(0, f"{name}: {historic_msg_cc}")
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\bot.py", line 20, in generate_response
+    preset, request, ai21_webpage_title = get_commands(conversation_history_str)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\bot.py", line 47, in get_commands
+    preset, request, ai21_webpage_title = text.split("\n")
+ValueError: not enough values to unpack (expected 3, got 2)
+
+2023-05-26 18:41:11,953 INFO Attemping to restart Discord Bot...
+2023-05-26 18:41:11,953 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 18:41:11,954 INFO logging in using static token
+2023-05-26 18:41:12,603 INFO Shard ID None has connected to Gateway (Session ID: 82dc298d933cc7151142187bd78fe260).
+2023-05-26 18:41:14,646 INFO Discord bot ready!
+2023-05-26 18:41:48,192 INFO Attemping to restart Discord Bot...
+2023-05-26 18:41:48,193 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 18:41:48,193 INFO logging in using static token
+2023-05-26 18:41:48,799 INFO Shard ID None has connected to Gateway (Session ID: 9bc6cc087aee583e549dbeb90ec12166).
+2023-05-26 18:41:50,849 INFO Discord bot ready!
+2023-05-26 18:42:01,080 ERROR 'dict' object has no attribute 'json'
+2023-05-26 18:42:01,081 ERROR Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\main.py", line 84, in answer
+    response, verbose_str = bot.generate_response(history, verbose)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\bot.py", line 36, in generate_response
+    response, verbose_str = generate_text(prompt, preset, context_str,  verbose)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\bot.py", line 161, in generate_text
+    response = response.json()["answer"]
+AttributeError: 'dict' object has no attribute 'json'
+
+2023-05-26 18:42:34,805 INFO Attemping to restart Discord Bot...
+2023-05-26 18:42:34,806 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 18:42:34,806 INFO logging in using static token
+2023-05-26 18:42:35,434 INFO Shard ID None has connected to Gateway (Session ID: 2abfe2c80177ef2b8ff12ee6c4db4fcf).
+2023-05-26 18:42:37,500 INFO Discord bot ready!
+2023-05-26 18:48:19,494 INFO Attemping to restart Discord Bot...
+2023-05-26 18:48:19,495 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 18:48:19,496 INFO logging in using static token
+2023-05-26 18:48:20,068 INFO Shard ID None has connected to Gateway (Session ID: 1ad935c8d31d0b69d464d92228f54cc2).
+2023-05-26 18:48:22,116 INFO Discord bot ready!
+2023-05-26 18:50:30,509 ERROR not enough values to unpack (expected 3, got 2)
+2023-05-26 18:50:30,510 ERROR Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\main.py", line 89, in answer
+    response, verbose_str = bot.generate_response(history, verbose)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\bot.py", line 20, in generate_response
+    preset, request, ai21_webpage_title = get_commands(conversation_history_str)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\bot.py", line 49, in get_commands
+    preset, request, ai21_webpage_title = text.split("\n")
+ValueError: not enough values to unpack (expected 3, got 2)
+
+2023-05-26 18:56:42,946 INFO Attemping to restart Discord Bot...
+2023-05-26 18:56:42,946 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 18:56:42,947 INFO logging in using static token
+2023-05-26 18:56:43,617 INFO Shard ID None has connected to Gateway (Session ID: 4670d7e1a0580c92cff0693b23bf084f).
+2023-05-26 18:56:45,655 INFO Discord bot ready!
+2023-05-26 18:57:21,880 INFO Attemping to restart Discord Bot...
+2023-05-26 18:57:21,881 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 18:57:21,881 INFO logging in using static token
+2023-05-26 18:57:22,496 INFO Shard ID None has connected to Gateway (Session ID: d22c5ab1ad426f1a4ff803a07250659d).
+2023-05-26 18:57:24,530 INFO Discord bot ready!
+2023-05-26 19:06:43,808 INFO Attemping to restart Discord Bot...
+2023-05-26 19:06:43,809 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 19:06:43,809 INFO logging in using static token
+2023-05-26 19:06:44,417 INFO Shard ID None has connected to Gateway (Session ID: 9f045fd87e5842dfe8cd5adb28c5a447).
+2023-05-26 19:06:46,467 INFO Discord bot ready!
+2023-05-26 19:11:49,045 INFO Attemping to restart Discord Bot...
+2023-05-26 19:11:49,046 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 19:11:49,046 INFO logging in using static token
+2023-05-26 19:11:49,673 INFO Shard ID None has connected to Gateway (Session ID: d26fbfaf7434c2ca49738f4aa69c5a67).
+2023-05-26 19:11:51,716 INFO Discord bot ready!
+2023-05-26 19:12:35,416 INFO Attemping to restart Discord Bot...
+2023-05-26 19:12:35,417 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 19:12:35,418 INFO logging in using static token
+2023-05-26 19:12:36,093 INFO Shard ID None has connected to Gateway (Session ID: 5ad0cde4de66ee59f05a50f968a12d7a).
+2023-05-26 19:12:38,128 INFO Discord bot ready!
+2023-05-26 19:16:56,083 INFO Attemping to restart Discord Bot...
+2023-05-26 19:16:56,084 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 19:16:56,084 INFO logging in using static token
+2023-05-26 19:16:56,712 INFO Shard ID None has connected to Gateway (Session ID: 435179fdbca32fc3eab061edd8dc252a).
+2023-05-26 19:16:58,758 INFO Discord bot ready!
+2023-05-26 19:17:24,201 INFO Attemping to restart Discord Bot...
+2023-05-26 19:17:24,202 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 19:17:24,203 INFO logging in using static token
+2023-05-26 19:17:24,792 INFO Shard ID None has connected to Gateway (Session ID: 5026caccb53801aef9cbb7dd9d030175).
+2023-05-26 19:17:26,840 INFO Discord bot ready!
+2023-05-26 19:17:54,083 INFO Attemping to restart Discord Bot...
+2023-05-26 19:17:54,084 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 19:17:54,084 INFO logging in using static token
+2023-05-26 19:17:54,866 INFO Shard ID None has connected to Gateway (Session ID: 1a1ad101dc83517ff95ad09a5e062eab).
+2023-05-26 19:17:56,927 INFO Discord bot ready!
+2023-05-26 19:18:42,718 INFO Attemping to restart Discord Bot...
+2023-05-26 19:18:42,719 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 19:18:42,720 INFO logging in using static token
+2023-05-26 19:18:43,423 INFO Shard ID None has connected to Gateway (Session ID: 10188eb39900dbea61205609c5d4b8d0).
+2023-05-26 19:18:45,477 INFO Discord bot ready!
+2023-05-26 19:22:53,743 INFO Attemping to restart Discord Bot...
+2023-05-26 19:22:53,743 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 19:22:53,744 INFO logging in using static token
+2023-05-26 19:22:54,370 INFO Shard ID None has connected to Gateway (Session ID: 34b0f363a4f99f362866b48d511f6bb4).
+2023-05-26 19:22:56,405 INFO Discord bot ready!
+2023-05-26 19:23:54,811 INFO Attemping to restart Discord Bot...
+2023-05-26 19:23:54,812 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-05-26 19:23:54,812 INFO logging in using static token
+2023-05-26 19:23:55,422 INFO Shard ID None has connected to Gateway (Session ID: 6c2053c0f9c09707a48f70da6949d9f0).
+2023-05-26 19:23:57,483 INFO Discord bot ready!

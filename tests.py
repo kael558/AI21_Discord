@@ -31,7 +31,7 @@ class TestIndex(unittest.TestCase):
 
     @unittest.skip
     def test_apis(self):
-        request = "what specialized API's are offered by"
+        request = "what specialized API's are offered by AI21?"
         context_str, verbose_str = self.index.get_context(request)
         print_expected_actual(request, '', context_str + '\n' + verbose_str)
 

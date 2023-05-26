@@ -109,7 +109,7 @@ You can see the Discord Bot running as "python3 main.py" with:
 
 And to kill the process:
 
-`pkill -f "python main.py"`
+`pkill -f "python3 main.py"`
 
 
 ### 💧 Droplet Setup From Scratch

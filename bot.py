@@ -17,11 +17,15 @@ class Bot:
 
     def generate_response(self, conversation_history: list, verbose: bool = False) -> tuple:
         conversation_history_str = "\n".join(conversation_history)
-        preset, request, requires_ai21_index = get_commands(conversation_history_str)
+        preset, request, ai21_webpage_title = get_commands(conversation_history_str)
+        if request == "None":  # If no request was given, use the last user input
+            user_input = conversation_history[-1].split(':', 1)
+            request = user_input[1].strip()
+
         context_str, links_str = "", ""
-        if requires_ai21_index:
+        if ai21_webpage_title:
             try:
-                context_str, links_str = self.indexer.get_context(request, n=3)
+                context_str, links_str = self.indexer.get_context(ai21_webpage_title, n=3)
             except Exception as e:
                 if self.logger:
                     self.logger.error(e)
@@ -42,9 +46,25 @@ class Bot:
 
 def get_commands(conversation_history_str: str):
     prompt = construct_get_commands_prompt(conversation_history_str)
+    print(prompt)
     text, _ = generate_text(prompt, "Classify NLP task")
-    preset, request, requires_ai21_index = text.split("\n")
-    return preset.strip(), request[9:].strip(), requires_ai21_index[19:].strip() == "True"
+    lines = text.split("\n")
+
+    ai21_webpage_title = "None"
+
+    if len(lines) == 2:
+        preset, request = lines
+    elif len(lines) == 3:
+        preset, request, ai21_webpage_title = text.split("\n")
+        ai21_webpage_title = ai21_webpage_title[20:].strip()
+    else:
+        preset = "Default"
+        request = "None"
+
+    if ai21_webpage_title == "None":
+        ai21_webpage_title = None
+
+    return preset.strip(), request[9:].strip(), ai21_webpage_title
 
 
 def get_params_from_preset(preset: str) -> dict:
@@ -132,7 +152,7 @@ def get_default_preset_params():
 def generate_text(prompt, preset, context="", verbose=False):
     verbose_str = ""
 
-    if preset == "Question answering" and context != "":
+    if preset == "Question answering" and context and context != "":
         url = "https://api.ai21.com/studio/v1/experimental/answer"
         payload = {
             "context": context,
@@ -144,11 +164,17 @@ def generate_text(prompt, preset, context="", verbose=False):
             "Authorization": "Bearer YI2Pt1GWGG7HsfomHzh8pc8xOt2uAMTo"
         }
         response = requests.post(url, json=payload, headers=headers)
-        print(response.json())
-        response = response.json()["answer"]
-        if response == "Answer not in document":
+
+        if response.status_code != 200:
             response = "I couldn't find the answer to your question."
-        #response = ai21.Experimantal.Answer.execute(context=context, question=prompt)
+        else:
+            response = response.json()
+            if "answer" not in response or response["answer"] == "Answer not in document":
+                response = "I couldn't find the answer to your question."
+            else:
+                response = response["answer"]
+
+        # response = ai21.Experimantal.Answer.execute(context=context, question=prompt)
         if verbose:
             verbose_str = f"\n\n:information_source: **The above text was generated using the Contextual Question Answering API provided by AI21 Labs.**" \
                           f"\nSee more at https://docs.ai21.com/docs/contextual-answers-api"
@@ -169,5 +195,3 @@ def generate_text(prompt, preset, context="", verbose=False):
         response = f"```{response}```"
 
     return response.strip(), verbose_str.strip()
-
-
