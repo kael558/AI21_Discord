@@ -67,7 +67,7 @@ class Client(discord.Client):
 
         logging.info("Discord bot ready!")
         bot.name = client.user.display_name
-        print("Peon: Ready to work!", client.user.display_name)
+        #print("Peon: Ready to work!", client.user.display_name)
 
     async def on_member_update(self, before, after):
         if before.id == client.user.id:  # Check if the member is the bot itself
@@ -75,10 +75,8 @@ class Client(discord.Client):
                 if after.nick:  # Check if the bot has a new nickname
                     name = after.nick
                     bot.name = name
-                    print(f"The bot's new nickname is: {name}")
                 else:
                     bot.name = "QABot"
-                    print("The bot's nickname has been removed.")
 
     async def answer(self, message):
         try:
@@ -98,7 +96,7 @@ class Client(discord.Client):
                         if historic_msg.clean_content.startswith(":information_source:"):
                             continue
 
-                        name = self.user.display_name
+                        name = bot.name
                     else:  # message from user
                         if not is_dm_channel:  # if is a text channel
                             for reaction in historic_msg.reactions:
