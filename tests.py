@@ -83,9 +83,27 @@ class TestBot(unittest.TestCase):
         print_expected_actual(history,
                               'Tessa Virtue and Scott Moir won gold at the 2018 Winter Olympics in Pyeongchang, South Korea',
                               response + '\n' + verbose_str)
+#
+    def test_ai21_0(self):
+        history = ["""User: What the price of the praphrasing api?"""]
+        response, verbose_str = self.bot.generate_response(history, verbose=True)
+        print_expected_actual(history,
+                              'J2-Large, J1-Jumbo etc... See links as well',
+                              response + '\n' + verbose_str)
+    @unittest.skip
+    def test_ai21_1(self):
+        history = ["""User: what specialized API's are offered by AI21?"""]
+        response, verbose_str = self.bot.generate_response(history, verbose=True)
+        print_expected_actual(history, 'J2-Large, J1-Jumbo etc... See links as well', response + '\n' + verbose_str)
 
     @unittest.skip
-    def test_ai21(self):
+    def test_ai21_2(self):
+        history = ["""User: What is the pricing for models?"""]
+        response, verbose_str = self.bot.generate_response(history, verbose=True)
+        print_expected_actual(history, 'J2-Large, J1-Jumbo etc... See links as well', response + '\n' + verbose_str)
+
+    @unittest.skip
+    def test_ai21_3(self):
         history = ["""User: How does the segmentation works? And what are the possible types?"""]
         response, verbose_str = self.bot.generate_response(history, verbose=True)
         print_expected_actual(history, 'J2-Large, J1-Jumbo etc... See links as well', response + '\n' + verbose_str)

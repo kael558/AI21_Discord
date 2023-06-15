@@ -184,8 +184,8 @@ A short manual testing suite (*tests.py*) is provided to assess the quality of t
 - [x] Variable Preset
 - [x] AI21 Indexed information
 - [x] Improving scraper (including any text node elements, by adding depth to elements and including hierarchical elements for context)
-- [ ] Test hierarchical context retrieval to get context
-- [ ] Finishing touches (like README, discord icon, discord name, transfer hosting)
+- [x] Test hierarchical context retrieval to get context
+- [x] Finishing touches (like README, discord icon, discord name, transfer hosting)
 
 ## 🤝 Contributing
 All rights belong to AI21 Labs. 
