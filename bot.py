@@ -5,15 +5,17 @@ import ai21
 from index import Indexer
 from prompts import construct_get_response_prompt, construct_get_commands_prompt
 import requests
+import json
 
 
 class Bot:
-    def __init__(self, logger=None):
+    def __init__(self, name="AI21 Discord ChatBot", logger=None):
         from dotenv import load_dotenv
         load_dotenv()
         ai21.api_key = os.environ['AI21_API_KEY']
         self.indexer = Indexer()
         self.logger = logger
+        self.name = name
 
     def generate_response(self, conversation_history: list, verbose: bool = False) -> tuple:
         conversation_history_str = "\n".join(conversation_history)
@@ -34,7 +36,7 @@ class Bot:
         if context_str:
             prompt = request
         else:
-            prompt = construct_get_response_prompt(request, conversation_history_str)
+            prompt = construct_get_response_prompt(self.name, request, conversation_history_str)
 
         response, verbose_str = generate_text(prompt, preset, context_str, verbose)
         if response.startswith("AI21 Discord ChatBot: "):
@@ -69,7 +71,7 @@ def get_commands(conversation_history_str: str):
 def get_params_from_preset(preset: str) -> dict:
     if preset == "Classify NLP task":
         return {
-            "model": "j2-jumbo-instruct",
+            "model": "j2-ultra",
             "maxTokens": 512,
             "temperature": 0,
             "topP": 1,
@@ -78,7 +80,7 @@ def get_params_from_preset(preset: str) -> dict:
 
     if preset == "Generate code":
         return {
-            "model": "j2-grande-instruct",
+            "model": "j2-mid",
             "maxTokens": 512,
             "temperature": 0,
             "topP": 1,
@@ -86,7 +88,7 @@ def get_params_from_preset(preset: str) -> dict:
 
     if preset == "Paraphrasing":
         return {
-            "model": "j2-jumbo-instruct",
+            "model": "j2-ultra",
             "maxTokens": 512,
             "temperature": 0.3,
             "topP": 1,
@@ -94,7 +96,7 @@ def get_params_from_preset(preset: str) -> dict:
 
     if preset == "Long form generation":
         return {
-            "model": "j2-jumbo-instruct",
+            "model": "j2-ultra",
             "maxTokens": 512,
             "temperature": 0.84,
             "topP": 1,
@@ -103,7 +105,7 @@ def get_params_from_preset(preset: str) -> dict:
 
     if preset == "Question answering":
         return {
-            "model": "j2-jumbo-instruct",
+            "model": "j2-ultra",
             "maxTokens": 512,
             "temperature": 0.8,
             "topP": 1,
@@ -115,7 +117,7 @@ def get_params_from_preset(preset: str) -> dict:
 
 def get_default_preset_params():
     return {
-        "model": "j2-grande-instruct",
+        "model": "j2-mid",
         "maxTokens": 512,
         "temperature": 0.7,
         "topP": 1,
@@ -160,7 +162,7 @@ def generate_text(prompt, preset, context="", verbose=False):
         headers = {
             "accept": "application/json",
             "content-type": "application/json",
-            "Authorization": "Bearer YI2Pt1GWGG7HsfomHzh8pc8xOt2uAMTo"
+            "Authorization": f"Bearer {os.environ['AI21_API_KEY']}"
         }
         response = requests.post(url, json=payload, headers=headers)
 

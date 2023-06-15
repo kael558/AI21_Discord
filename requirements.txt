@@ -1,5 +1,5 @@
 ai21==1.0.7
-discord~=2.2.2
+discord==2.3.0
 python-dotenv~=1.0.0
 simplechain==0.0.5.7
 annoy==1.17.2

@@ -128,3 +128,106 @@ ValueError: not enough values to unpack (expected 3, got 2)
 2023-05-26 19:23:54,812 INFO logging in using static token
 2023-05-26 19:23:55,422 INFO Shard ID None has connected to Gateway (Session ID: 6c2053c0f9c09707a48f70da6949d9f0).
 2023-05-26 19:23:57,483 INFO Discord bot ready!
+2023-06-14 22:04:23,745 INFO Attemping to restart Discord Bot...
+2023-06-14 22:04:23,746 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-14 22:04:23,747 INFO logging in using static token
+2023-06-14 22:04:24,498 INFO Shard ID None has connected to Gateway (Session ID: a8e15f8f1fd65423e6d03d9ce1b7e853).
+2023-06-14 22:04:27,268 ERROR Ignoring exception in on_member_update
+Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\discord\client.py", line 441, in _run_event
+    await coro(*args, **kwargs)
+TypeError: on_member_update() takes 2 positional arguments but 3 were given
+2023-06-14 22:04:27,299 ERROR Ignoring exception in on_member_update
+Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\discord\client.py", line 441, in _run_event
+    await coro(*args, **kwargs)
+TypeError: on_member_update() takes 2 positional arguments but 3 were given
+2023-06-14 22:04:27,325 INFO Discord bot ready!
+2023-06-14 22:04:27,325 ERROR Ignoring exception in on_ready
+Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\discord\client.py", line 441, in _run_event
+    await coro(*args, **kwargs)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\main.py", line 69, in on_ready
+    print("Peon: Ready to work!", self.user.global_name, self.user.name)
+AttributeError: 'ClientUser' object has no attribute 'global_name'
+2023-06-14 22:05:05,054 INFO Attemping to restart Discord Bot...
+2023-06-14 22:05:05,055 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-14 22:05:05,056 INFO logging in using static token
+2023-06-14 22:05:05,981 INFO Shard ID None has connected to Gateway (Session ID: 99ec67c2237490f74b415894441a0e14).
+2023-06-14 22:05:08,557 INFO Discord bot ready!
+2023-06-14 22:07:49,419 INFO Attemping to restart Discord Bot...
+2023-06-14 22:07:49,420 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-14 22:07:49,420 INFO logging in using static token
+2023-06-14 22:07:50,148 INFO Shard ID None has connected to Gateway (Session ID: 31bd8312503b5a5871f0d908a0fb4293).
+2023-06-14 22:07:52,507 INFO Discord bot ready!
+2023-06-14 22:08:20,163 ERROR Ignoring exception in on_member_update
+Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\discord\client.py", line 441, in _run_event
+    await coro(*args, **kwargs)
+TypeError: on_member_update() takes 2 positional arguments but 3 were given
+2023-06-14 22:10:24,513 INFO Attemping to restart Discord Bot...
+2023-06-14 22:10:24,514 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-14 22:10:24,515 INFO logging in using static token
+2023-06-14 22:10:25,324 INFO Shard ID None has connected to Gateway (Session ID: d8f5844b2648beb1065e1b6dcac87443).
+2023-06-14 22:10:27,864 INFO Discord bot ready!
+2023-06-14 22:12:22,573 ERROR 400 Bad Request (error code: 50035): Invalid Form Body
+In emoji_id: Value "" is not snowflake.
+2023-06-14 22:12:22,593 ERROR Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\main.py", line 123, in answer
+    await response_msg.add_reaction(":thumbsup:")
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\discord\message.py", line 1098, in add_reaction
+    await self._state.http.add_reaction(self.channel.id, self.id, emoji)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\discord\http.py", line 744, in request
+    raise HTTPException(response, data)
+discord.errors.HTTPException: 400 Bad Request (error code: 50035): Invalid Form Body
+In emoji_id: Value "" is not snowflake.
+
+2023-06-14 22:18:11,142 INFO Attemping to restart Discord Bot...
+2023-06-14 22:18:11,143 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-14 22:18:11,143 INFO logging in using static token
+2023-06-14 22:18:11,823 INFO Shard ID None has connected to Gateway (Session ID: adb33adca7e25f04a182ad16595fb7ca).
+2023-06-14 22:18:14,276 INFO Discord bot ready!
+2023-06-14 22:18:14,276 ERROR Ignoring exception in on_ready
+Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\discord\client.py", line 441, in _run_event
+    await coro(*args, **kwargs)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\main.py", line 69, in on_ready
+    print("Peon: Ready to work!", client.user.display_name, self.user.nick)
+AttributeError: 'ClientUser' object has no attribute 'nick'
+2023-06-14 22:19:03,931 INFO Attemping to restart Discord Bot...
+2023-06-14 22:19:03,932 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-14 22:19:03,933 INFO logging in using static token
+2023-06-14 22:19:04,660 INFO Shard ID None has connected to Gateway (Session ID: 7c7dcc90fcd214f452f6d717c201f23f).
+2023-06-14 22:19:07,176 INFO Discord bot ready!
+2023-06-14 22:21:05,659 INFO Attemping to restart Discord Bot...
+2023-06-14 22:21:05,660 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-14 22:21:05,661 INFO logging in using static token
+2023-06-14 22:21:06,513 INFO Shard ID None has connected to Gateway (Session ID: da0ba4a0de50b0e22ba0c4580927c4a7).
+2023-06-14 22:21:08,907 INFO Discord bot ready!
+2023-06-14 22:25:26,450 INFO Attemping to restart Discord Bot...
+2023-06-14 22:25:26,451 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-14 22:25:26,451 INFO logging in using static token
+2023-06-14 22:25:27,193 INFO Shard ID None has connected to Gateway (Session ID: 81fad9ca476f8d27dc5c872932904a9c).
+2023-06-14 22:25:29,695 INFO Discord bot ready!
+2023-06-14 22:25:29,695 ERROR Ignoring exception in on_ready
+Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\venv\lib\site-packages\discord\client.py", line 441, in _run_event
+    await coro(*args, **kwargs)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\main.py", line 70, in on_ready
+    print("Peon: Ready to work!", client.user.display_name, self.user.display_name, client.global_name, client.user.global_name)
+AttributeError: 'Client' object has no attribute 'global_name'
+2023-06-14 22:27:47,356 INFO Attemping to restart Discord Bot...
+2023-06-14 22:27:47,357 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-14 22:27:47,357 INFO logging in using static token
+2023-06-14 22:27:48,175 INFO Shard ID None has connected to Gateway (Session ID: 53452f4aea806a6f7946837919db30f5).
+2023-06-14 22:27:50,612 INFO Discord bot ready!
+2023-06-14 22:28:14,203 INFO Attemping to restart Discord Bot...
+2023-06-14 22:28:14,204 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-14 22:28:14,205 INFO logging in using static token
+2023-06-14 22:28:14,867 INFO Shard ID None has connected to Gateway (Session ID: 04f7faf0e9a686f4e091b3d2fe53ae49).
+2023-06-14 22:28:17,303 INFO Discord bot ready!
+2023-06-14 22:33:54,199 INFO Attemping to restart Discord Bot...
+2023-06-14 22:33:54,200 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-14 22:33:54,201 INFO logging in using static token
+2023-06-14 22:33:55,006 INFO Shard ID None has connected to Gateway (Session ID: 186326a5666e63cbfed170202b155f63).
+2023-06-14 22:33:57,473 INFO Discord bot ready!

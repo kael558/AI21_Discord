@@ -84,18 +84,17 @@ def construct_get_commands_prompt(conversation: str):
 
 
 @prompt_template(dedent=True, fix_whitespace=True)
-def construct_get_response_prompt(request: str, conversation: str) -> str:
-    prompt = """Welcome! I am AI21 Discord ChatBot. I'm here to answer your questions, provide advice, or just have a friendly conversation.
-    Please note that while I can provide general information and guidance, I am not a licensed professional and my responses are not intended to be a substitute for professional advice. 
-    I may hallucinate or make mistakes, so please use your own judgment when making decisions based on my responses.
-    Additionally, I strive to remain neutral and respectful in all interactions, and I do not engage in discriminatory or harmful behavior. 
-    """
+def construct_get_response_prompt(name: str, request: str, conversation: str) -> str:
+    prompt = f"""Welcome! I am {name}. I'm here to answer your questions, provide advice, or just have a friendly conversation.
+     Please note that while I can provide general information and guidance, I am not a licensed professional and my responses are not intended to be a substitute for professional advice. 
+     I may hallucinate or make mistakes, so please use your own judgment when making decisions based on my responses.
+     Additionally, I strive to remain neutral and respectful in all interactions, and I do not engage in discriminatory or harmful behavior."""
 
     prompt += f"""
-    I will use the following conversation between me (AI21 Discord ChatBot) and a User as context:
+    I will use the following conversation between me ({name}) and the User's as context:
     {conversation}
 
-    It seems like the User is asking me for this: {request}
+    It seems like the last User is asking me for this: {request}
 
     My accurate response to their question or instruction is:"""
     return prompt

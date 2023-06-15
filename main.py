@@ -57,11 +57,28 @@ def clean_and_return_options_message(message_cc: str) -> tuple:
 
     return re.sub('\s+', ' ', message_cc), verbose, no_history
 
+# Maintain a record of the bots name
 
 class Client(discord.Client):
     async def on_ready(self):
+        with open("avatar.png", "rb") as avatar_file:
+            avatar_image = avatar_file.read()
+            await client.user.edit(avatar=avatar_image)
+
         logging.info("Discord bot ready!")
-        print("Peon: Ready to work!", self.user)
+        bot.name = client.user.display_name
+        print("Peon: Ready to work!", client.user.display_name)
+
+    async def on_member_update(self, before, after):
+        if before.id == client.user.id:  # Check if the member is the bot itself
+            if before.nick != after.nick:  # Check if the nickname has changed
+                if after.nick:  # Check if the bot has a new nickname
+                    name = after.nick
+                    bot.name = name
+                    print(f"The bot's new nickname is: {name}")
+                else:
+                    bot.name = "QABot"
+                    print("The bot's nickname has been removed.")
 
     async def answer(self, message):
         try:
@@ -81,7 +98,7 @@ class Client(discord.Client):
                         if historic_msg.clean_content.startswith(":information_source:"):
                             continue
 
-                        name = "AI21 Discord ChatBot"
+                        name = self.user.display_name
                     else:  # message from user
                         if not is_dm_channel:  # if is a text channel
                             for reaction in historic_msg.reactions:
@@ -104,9 +121,14 @@ class Client(discord.Client):
                 response_msg = await send_message(message.channel, message, response)
                 await response_msg.edit(suppress=True, embeds=[])
 
+                # add thumbs up reaction
+                await response_msg.add_reaction("👍")
+                await response_msg.add_reaction("👎")
+
                 if verbose:
                     verbose_msg = await send_message(message.channel, response_msg, verbose_str)
                     await verbose_msg.edit(suppress=True, embeds=[])
+
                 return
         except Exception as e:
             logging.error(e)
