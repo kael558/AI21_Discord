@@ -20,7 +20,7 @@ def prompt_template(dedent=True, fix_whitespace=True):
 def construct_get_commands_prompt(conversation: str):
     prompt = f"""
     Using the conversation as context, look at the most RECENT request and fill in the following:
-    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
+    NLP Task: classify it to one of the following NLP tasks: Generating code, Paraphrasing, Long form generation, Question answering
     Request: summarize the request in simpler terms
     AI21 Webpage Title: if the request requires information available on AI21 labs website, what would be the title of the webpage? Else None
     
@@ -34,7 +34,7 @@ def construct_get_commands_prompt(conversation: str):
     AI21 Webpage Title: None
     ##
     Using the conversation as context, look at the most RECENT request and fill in the following:
-    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
+    NLP Task: classify it to one of the following NLP tasks: Generating code, Paraphrasing, Long form generation, Question answering
     Request: summarize the request in simpler terms
     AI21 Webpage Title: if the request requires information available on AI21 labs website, what would be the title of the webpage? Else None
 
@@ -46,7 +46,7 @@ def construct_get_commands_prompt(conversation: str):
     AI21 Webpage Title: None
     ##
     Using the conversation as context, look at the most RECENT request and:
-    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
+    NLP Task: classify it to one of the following NLP tasks: Generating code, Paraphrasing, Long form generation, Question answering
     Request: summarize the request in simpler terms
     AI21 Webpage Title: if the request requires information available on AI21 labs website, what would be the title of the webpage? Else None
 
@@ -60,7 +60,7 @@ def construct_get_commands_prompt(conversation: str):
     AI21 Webpage Title: None
     ##
     Using the conversation as context, look at the most RECENT request and:
-    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
+    NLP Task: classify it to one of the following NLP tasks: Generating code, Paraphrasing, Long form generation, Question answering
     Request: summarize the request in simpler terms
     AI21 Webpage Title: if the request requires information available on AI21 labs website, what would be the title of the webpage? Else None
 
@@ -72,7 +72,7 @@ def construct_get_commands_prompt(conversation: str):
     AI21 Webpage Title: J2 models
     ##
     Using the conversation as context, look at the most RECENT request and:
-    NLP Task: classify it to one of the following NLP tasks: Generate code, Paraphrasing, Long form generation, Question answering
+    NLP Task: classify it to one of the following NLP tasks: Generating code, Paraphrasing, Long form generation, Question answering
     Request: summarize the request in simpler terms
     AI21 Webpage Title: if the request requires information available on AI21 labs website, what would be the title of the webpage? Else None
     
@@ -84,19 +84,22 @@ def construct_get_commands_prompt(conversation: str):
 
 
 @prompt_template(dedent=True, fix_whitespace=True)
-def construct_get_response_prompt(name: str, request: str, conversation: str) -> str:
-    prompt = f"""Welcome! I am {name}. I'm here to answer your questions, provide advice, or just have a friendly conversation.
-     Please note that while I can provide general information and guidance, I am not a licensed professional and my responses are not intended to be a substitute for professional advice. 
-     I may hallucinate or make mistakes, so please use your own judgment when making decisions based on my responses.
-     Additionally, I strive to remain neutral and respectful in all interactions, and I do not engage in discriminatory or harmful behavior."""
+def construct_get_response_prompt(name: str, request: str, conversation: str, users: str) -> str:
+    prompt = f"""My name is {name}. 
+    
+        I am a Discord Chatbot powered by AI21's language models. I can see up to 5 messages in the past. I can only see messages with a question mark reaction.
+        
+        I have special access to information about AI21 Labs, so I can answer questions about AI21 Labs and its products.
+        I will try to do any task that involves generating text. For example, I can answer questions, provide advice, or just have a friendly conversation. 
+        
+        Please note that while I can provide general information and guidance, I am not a licensed professional and my responses are not intended to be a substitute for professional advice.  I may hallucinate or make mistakes, so please use your own judgment when making decisions based on my responses. Additionally, I strive to remain neutral and respectful in all interactions, and I do not engage in discriminatory or harmful behavior.
+        
+        It seems like the users are asking me for this: {request}
+       
+        I will use the following conversation between the users ({users}) and me ({name}) as context and write my friendly response:
+        {conversation}
+        {name}:"""
 
-    prompt += f"""
-    I will use the following conversation between me ({name}) and the User's as context:
-    {conversation}
-
-    It seems like the last User is asking me for this: {request}
-
-    My accurate response to their question or instruction is:"""
     return prompt
 
 

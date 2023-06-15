@@ -231,3 +231,56 @@ AttributeError: 'Client' object has no attribute 'global_name'
 2023-06-14 22:33:54,201 INFO logging in using static token
 2023-06-14 22:33:55,006 INFO Shard ID None has connected to Gateway (Session ID: 186326a5666e63cbfed170202b155f63).
 2023-06-14 22:33:57,473 INFO Discord bot ready!
+2023-06-15 08:45:45,488 INFO Attemping to restart Discord Bot...
+2023-06-15 08:45:45,489 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-15 08:45:45,490 INFO logging in using static token
+2023-06-15 08:45:46,184 INFO Shard ID None has connected to Gateway (Session ID: f11d726e6173c07b505f1d44c45b11f7).
+2023-06-15 08:45:49,214 INFO Discord bot ready!
+2023-06-15 08:52:37,987 INFO Attemping to restart Discord Bot...
+2023-06-15 08:52:37,988 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-15 08:52:37,988 INFO logging in using static token
+2023-06-15 08:52:38,727 INFO Shard ID None has connected to Gateway (Session ID: faad0d37ba4f28f645956637787d3d50).
+2023-06-15 08:52:41,189 INFO Discord bot ready!
+2023-06-15 08:53:12,895 ERROR 'list' object has no attribute 'join'
+2023-06-15 08:53:12,896 ERROR Traceback (most recent call last):
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\main.py", line 104, in answer
+    response, verbose_str = bot.generate_response(history, verbose, users)
+  File "C:\Users\Rahel\PycharmProjects\AI21DiscordBot\bot.py", line 41, in generate_response
+    prompt = construct_get_response_prompt(self.name, request, conversation_history_str, users.join(", "))
+AttributeError: 'list' object has no attribute 'join'
+
+2023-06-15 08:53:47,626 INFO Attemping to restart Discord Bot...
+2023-06-15 08:53:47,627 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-15 08:53:47,628 INFO logging in using static token
+2023-06-15 08:53:48,320 INFO Shard ID None has connected to Gateway (Session ID: a2050a1c5eb33490a6bfb5df9369bc67).
+2023-06-15 08:53:50,996 INFO Discord bot ready!
+2023-06-15 08:58:12,249 INFO Attemping to restart Discord Bot...
+2023-06-15 08:58:12,249 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-15 08:58:12,250 INFO logging in using static token
+2023-06-15 08:58:12,813 INFO Shard ID None has connected to Gateway (Session ID: 9be67dba34905e6ab68df76925484544).
+2023-06-15 08:58:16,390 INFO Discord bot ready!
+2023-06-15 09:01:25,916 INFO Attemping to restart Discord Bot...
+2023-06-15 09:01:25,916 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-15 09:01:25,917 INFO logging in using static token
+2023-06-15 09:01:26,687 INFO Shard ID None has connected to Gateway (Session ID: 2d8bda9710fc5c642ede69f51a4e9b0c).
+2023-06-15 09:01:29,289 INFO Discord bot ready!
+2023-06-15 09:04:32,658 INFO Attemping to restart Discord Bot...
+2023-06-15 09:04:32,659 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-15 09:04:32,660 INFO logging in using static token
+2023-06-15 09:04:33,542 INFO Shard ID None has connected to Gateway (Session ID: 690d53ecff683eb62f62ed060e39577b).
+2023-06-15 09:04:36,028 INFO Discord bot ready!
+2023-06-15 09:09:14,250 INFO Attemping to restart Discord Bot...
+2023-06-15 09:09:14,251 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-15 09:09:14,251 INFO logging in using static token
+2023-06-15 09:09:14,958 INFO Shard ID None has connected to Gateway (Session ID: b6e8b21703bcaae8973eeaf5f66462dc).
+2023-06-15 09:09:17,381 INFO Discord bot ready!
+2023-06-15 09:10:28,858 INFO Attemping to restart Discord Bot...
+2023-06-15 09:10:28,859 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-15 09:10:28,860 INFO logging in using static token
+2023-06-15 09:10:29,734 INFO Shard ID None has connected to Gateway (Session ID: 2d8419cba3bec1901a9078ccb617f666).
+2023-06-15 09:10:32,200 INFO Discord bot ready!
+2023-06-15 09:11:31,938 INFO Attemping to restart Discord Bot...
+2023-06-15 09:11:31,939 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-15 09:11:31,940 INFO logging in using static token
+2023-06-15 09:11:32,564 INFO Shard ID None has connected to Gateway (Session ID: 3c0169150f16b5a7e05a99832e6a4821).
+2023-06-15 09:11:35,436 INFO Discord bot ready!

@@ -17,7 +17,9 @@ class Bot:
         self.logger = logger
         self.name = name
 
-    def generate_response(self, conversation_history: list, verbose: bool = False) -> tuple:
+    def generate_response(self, conversation_history: list, verbose: bool = False, users=None) -> tuple:
+        if users is None:
+            users = []
         conversation_history_str = "\n".join(conversation_history)
         preset, request, ai21_webpage_title = get_commands(conversation_history_str)
         if request == "None":  # If no request was given, use the last user input
@@ -36,7 +38,7 @@ class Bot:
         if context_str:
             prompt = request
         else:
-            prompt = construct_get_response_prompt(self.name, request, conversation_history_str)
+            prompt = construct_get_response_prompt(self.name, request, conversation_history_str, ", ".join(users))
 
         response, verbose_str = generate_text(prompt, preset, context_str, verbose)
         if response.startswith("AI21 Discord ChatBot: "):

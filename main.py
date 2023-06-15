@@ -8,13 +8,6 @@ from bot import Bot
 import ai21
 import re
 
-
-def replace_with_real_name(response, name_map):
-    pattern = re.compile('|'.join(map(re.escape, name_map.keys())))
-    replaced_string = pattern.sub(lambda m: name_map[m.group(0)], response)
-    return replaced_string
-
-
 async def send_message(channel, reference_msg, message):
     MAX_LENGTH = 2000
     n = len(message)
@@ -57,7 +50,6 @@ def clean_and_return_options_message(message_cc: str) -> tuple:
 
     return re.sub('\s+', ' ', message_cc), verbose, no_history
 
-# Maintain a record of the bots name
 
 class Client(discord.Client):
     async def on_ready(self):
@@ -67,7 +59,6 @@ class Client(discord.Client):
 
         logging.info("Discord bot ready!")
         bot.name = client.user.display_name
-        #print("Peon: Ready to work!", client.user.display_name)
 
     async def on_member_update(self, before, after):
         if before.id == client.user.id:  # Check if the member is the bot itself
@@ -80,11 +71,9 @@ class Client(discord.Client):
 
     async def answer(self, message):
         try:
-            user_map = {message.author.name: "User1"}
-            user_map_rev = {"User1": message.author.name}
-
+            users = []
             message_cc, verbose, no_history = clean_and_return_options_message(message.clean_content)
-            history = [f"User1: {message_cc}"]
+            history = [f"{message.author.name}: {message_cc}"]
             is_dm_channel = isinstance(message.channel, discord.channel.DMChannel)
 
             if not no_history:
@@ -105,21 +94,19 @@ class Client(discord.Client):
                             else:  # if no question mark reaction, skip
                                 continue
 
-                        if historic_msg.author.name not in user_map:
-                            user_map[historic_msg.author.name] = f"User{len(user_map) + 1}"
-                            user_map_rev[f"User{len(user_map_rev) + 1}"] = historic_msg.author.name
-                        name = user_map[historic_msg.author.name]
+                        if historic_msg.author.name not in users:
+                            users.append(historic_msg.author.name)
+                        name = historic_msg.author.name
 
                     historic_msg_cc, _, _ = clean_and_return_options_message(historic_msg.clean_content)
                     history.insert(0, f"{name}: {historic_msg_cc}")
             async with message.channel.typing():
-                response, verbose_str = bot.generate_response(history, verbose)
-                response = replace_with_real_name(response, user_map_rev)  # replace user id's with actual names
+                response, verbose_str = bot.generate_response(history, verbose, users)
 
                 response_msg = await send_message(message.channel, message, response)
                 await response_msg.edit(suppress=True, embeds=[])
 
-                # add thumbs up reaction
+                # add thumbs up/thumbs down reaction
                 await response_msg.add_reaction("👍")
                 await response_msg.add_reaction("👎")
 

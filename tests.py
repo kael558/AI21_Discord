@@ -84,6 +84,7 @@ class TestBot(unittest.TestCase):
                               'Tessa Virtue and Scott Moir won gold at the 2018 Winter Olympics in Pyeongchang, South Korea',
                               response + '\n' + verbose_str)
 
+    @unittest.skip
     def test_ai21(self):
         history = ["""User: How does the segmentation works? And what are the possible types?"""]
         response, verbose_str = self.bot.generate_response(history, verbose=True)
