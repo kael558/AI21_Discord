@@ -71,7 +71,7 @@ class Client(discord.Client):
 
     async def answer(self, message):
         try:
-            users = []
+            users = [message.author.name]
             message_cc, verbose, no_history = clean_and_return_options_message(message.clean_content)
             history = [f"{message.author.name}: {message_cc}"]
             is_dm_channel = isinstance(message.channel, discord.channel.DMChannel)
