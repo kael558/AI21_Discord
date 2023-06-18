@@ -289,3 +289,43 @@ AttributeError: 'list' object has no attribute 'join'
 2023-06-17 21:26:13,311 INFO logging in using static token
 2023-06-17 21:26:14,093 INFO Shard ID None has connected to Gateway (Session ID: ce683c28aacbb00c8b8fa68a61237541).
 2023-06-17 21:26:16,580 INFO Discord bot ready!
+2023-06-17 21:34:18,226 INFO Attemping to restart Discord Bot...
+2023-06-17 21:34:18,227 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-17 21:34:18,228 INFO logging in using static token
+2023-06-17 21:34:18,999 INFO Shard ID None has connected to Gateway (Session ID: 94ce77120233375e15e47712c748a4ba).
+2023-06-17 21:34:22,520 INFO Discord bot ready!
+2023-06-17 21:36:39,796 INFO Attemping to restart Discord Bot...
+2023-06-17 21:36:39,797 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-17 21:36:39,798 INFO logging in using static token
+2023-06-17 21:36:40,640 INFO Shard ID None has connected to Gateway (Session ID: 862ace51090c8f08c8a3422e7a2bee3b).
+2023-06-17 21:36:43,202 INFO Discord bot ready!
+2023-06-17 21:46:57,098 INFO Attemping to restart Discord Bot...
+2023-06-17 21:46:57,099 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-17 21:46:57,100 INFO logging in using static token
+2023-06-17 21:46:57,971 INFO Shard ID None has connected to Gateway (Session ID: 67b016272db5ea1db85e2df3484df325).
+2023-06-17 21:47:00,336 INFO Discord bot ready!
+2023-06-17 21:48:08,330 INFO Attemping to restart Discord Bot...
+2023-06-17 21:48:08,331 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-17 21:48:08,332 INFO logging in using static token
+2023-06-17 21:48:08,990 INFO Shard ID None has connected to Gateway (Session ID: ff61b8149ffdced7ca5cb7f9dba477c5).
+2023-06-17 21:48:11,537 INFO Discord bot ready!
+2023-06-17 21:49:54,646 INFO Attemping to restart Discord Bot...
+2023-06-17 21:49:54,646 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-17 21:49:54,647 INFO logging in using static token
+2023-06-17 21:49:55,517 INFO Shard ID None has connected to Gateway (Session ID: 180ef641247fca4f918f7ea9bd204393).
+2023-06-17 21:49:57,923 INFO Discord bot ready!
+2023-06-17 21:50:52,437 INFO Attemping to restart Discord Bot...
+2023-06-17 21:50:52,438 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-17 21:50:52,438 INFO logging in using static token
+2023-06-17 21:50:53,456 INFO Shard ID None has connected to Gateway (Session ID: 4d6928536e08c67db11c1d03d3d88131).
+2023-06-17 21:50:55,889 INFO Discord bot ready!
+2023-06-17 21:52:39,778 INFO Attemping to restart Discord Bot...
+2023-06-17 21:52:39,779 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-17 21:52:39,780 INFO logging in using static token
+2023-06-17 21:52:40,436 INFO Shard ID None has connected to Gateway (Session ID: 6216bb7d28296d2b0a2a32fe82793512).
+2023-06-17 21:52:42,984 INFO Discord bot ready!
+2023-06-17 21:54:02,715 INFO Attemping to restart Discord Bot...
+2023-06-17 21:54:02,716 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-17 21:54:02,717 INFO logging in using static token
+2023-06-17 21:54:03,466 INFO Shard ID None has connected to Gateway (Session ID: 213a5a45ab5b04fc74326681b23da4b1).
+2023-06-17 21:54:06,024 INFO Discord bot ready!

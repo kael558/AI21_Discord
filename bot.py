@@ -38,9 +38,9 @@ class Bot:
         if context_str:
             prompt = request
         else:
-            prompt = construct_get_response_prompt(self.name, request, conversation_history_str, ", ".join(users))
+            prompt = construct_get_response_prompt(self.name, request, conversation_history_str)
 
-        response, verbose_str = generate_text(prompt, preset, context_str, verbose)
+        response, verbose_str = generate_text(prompt, preset, users, context_str, verbose)
         if response.startswith("AI21 Discord ChatBot: "):
             response = response[21:]
         if links_str:
@@ -102,7 +102,6 @@ def get_params_from_preset(preset: str) -> dict:
             "maxTokens": 512,
             "temperature": 0.84,
             "topP": 1,
-            "numResults": 1,
         }
 
     if preset == "Question answering":
@@ -117,7 +116,9 @@ def get_params_from_preset(preset: str) -> dict:
     return {}
 
 
-def get_default_preset_params():
+def get_default_preset_params(users=None):
+    if users is None:
+        users = []
     return {
         "model": "j2-mid",
         "maxTokens": 512,
@@ -125,6 +126,7 @@ def get_default_preset_params():
         "topP": 1,
         "topKReturn": 0,
         "numResults": 1,
+        "stopSequences": users,
         "countPenalty": {
             "scale": 0,
             "applyToNumbers": False,
@@ -152,7 +154,9 @@ def get_default_preset_params():
     }
 
 
-def generate_text(prompt, preset, context="", verbose=False):
+def generate_text(prompt, preset, users=None, context="", verbose=False):
+    if users is None:
+        users = []
     verbose_str = ""
 
     if preset == "Question answering" and context and context != "":
@@ -182,7 +186,7 @@ def generate_text(prompt, preset, context="", verbose=False):
             verbose_str = f"\n\n:information_source: **The above text was generated using the Contextual Question Answering API provided by AI21 Labs.**" \
                           f"\nSee more at https://docs.ai21.com/docs/contextual-answers-api"
     else:  # foundation models
-        params = get_default_preset_params()
+        params = get_default_preset_params(users)
         preset_params = get_params_from_preset(preset)
         params.update(preset_params)
         response = ai21.Completion.execute(prompt=prompt, **params)["completions"][0]["data"]["text"].strip()
