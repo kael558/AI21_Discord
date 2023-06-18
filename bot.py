@@ -20,6 +20,7 @@ class Bot:
     def generate_response(self, conversation_history: list, verbose: bool = False, users=None) -> tuple:
         if users is None:
             users = []
+        users = [user + ': ' for user in users]
         conversation_history_str = "\n".join(conversation_history)
         preset, request, ai21_webpage_title = get_commands(conversation_history_str)
         if request == "None":  # If no request was given, use the last user input
