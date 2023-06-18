@@ -17,11 +17,11 @@ class Bot:
         self.logger = logger
         self.name = name
 
-    def generate_response(self, conversation_history: list, verbose: bool = False, users=None) -> tuple:
+    async def generate_response(self, conversation_history: list, verbose: bool = False, users=None) -> tuple:
         if users is None:
             users = []
         conversation_history_str = "\n".join(conversation_history)
-        preset, request, ai21_webpage_title = get_commands(conversation_history_str)
+        preset, request, ai21_webpage_title = await get_commands(conversation_history_str)
         if request == "None":  # If no request was given, use the last user input
             user_input = conversation_history[-1].split(':', 1)
             request = user_input[1].strip()
@@ -48,9 +48,9 @@ class Bot:
         return response.strip(), verbose_str.strip()
 
 
-def get_commands(conversation_history_str: str):
+async def get_commands(conversation_history_str: str):
     prompt = construct_get_commands_prompt(conversation_history_str)
-    text, _ = generate_text(prompt, "Classify NLP task")
+    text, _ = await generate_text(prompt, "Classify NLP task")
     lines = text.split("\n")
 
     ai21_webpage_title = "None"

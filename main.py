@@ -50,7 +50,6 @@ def clean_and_return_options_message(message_cc: str) -> tuple:
 
     return re.sub('\s+', ' ', message_cc), verbose, no_history
 
-
 class Client(discord.Client):
     async def on_ready(self):
         with open("avatar.png", "rb") as avatar_file:
@@ -58,7 +57,7 @@ class Client(discord.Client):
             await client.user.edit(avatar=avatar_image)
 
         logging.info("Discord bot ready!")
-        bot.name = client.user.display_name
+        bot.name = client.get_guild(874538902696914944).get_member(client.user.id).display_name
 
     async def on_member_update(self, before, after):
         if before.id == client.user.id:  # Check if the member is the bot itself
@@ -77,7 +76,7 @@ class Client(discord.Client):
             is_dm_channel = isinstance(message.channel, discord.channel.DMChannel)
 
             if not no_history:
-                async for historic_msg in message.channel.history(limit=5, before=message):
+                async for historic_msg in message.channel.history(limit=3, before=message):
                     if not historic_msg.content:
                         continue
 
