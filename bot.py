@@ -194,9 +194,9 @@ def generate_text(prompt, preset, users=None, context="", verbose=False):
         if verbose:
             verbose_str = f"\n\n:information_source: **The above text was generated using the following:**" \
                           f"\nPreset: *{preset}*" \
-                          f"\nModel: *{preset_params['model']}*" \
-                          f"\nTemperature: *{preset_params['temperature']}*" \
-                          f"\ntopP: *{preset_params['topP']}*" \
+                          f"\nModel: *{params['model']}*" \
+                          f"\nTemperature: *{params['temperature']}*" \
+                          f"\ntopP: *{params['topP']}*" \
                           f"\n**---Prompt---**\n>>> {prompt}"
 
     if preset == "Generate code":
