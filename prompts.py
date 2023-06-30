@@ -20,9 +20,9 @@ def prompt_template(dedent=True, fix_whitespace=True):
 @prompt_template(dedent=True, fix_whitespace=True)
 def construct_get_commands_prompt(conversation: str):
     prompt = f"""
-    Using the conversation as context, look at the most RECENT request and fill in the following:
+    Using the conversation as context, look at the LAST message and fill in the following:
     NLP Task: classify it to one of the following NLP tasks: Generating code, Paraphrasing, Long form generation, Question answering
-    Request: summarize what the user is asking in simple terms
+    Request: summarize what the LAST user is asking in simple terms
     AI21 Webpage Title: if the request requires information available on AI21 labs website, what would be the title of the webpage? Else None
     
     ---CONVERSATION---
@@ -34,9 +34,9 @@ def construct_get_commands_prompt(conversation: str):
     Request: When did Tessa Virtue and Scott Moir, and Meagan Duhamel and Eric Radford win the Olympics?
     AI21 Webpage Title: None
     ##
-    Using the conversation as context, look at the most RECENT request and fill in the following:
+    Using the conversation as context, look at the LAST message and fill in the following:
     NLP Task: classify it to one of the following NLP tasks: Generating code, Paraphrasing, Long form generation, Question answering
-    Request: summarize what the user is asking in simple terms
+    Request: summarize what the LAST user is asking in simple terms
     AI21 Webpage Title: if the request requires information available on AI21 labs website, what would be the title of the webpage? Else None
 
     ---CONVERSATION---
@@ -46,9 +46,9 @@ def construct_get_commands_prompt(conversation: str):
     Request: Paraphrasing api price
     AI21 Webpage Title: Pricing
     ##
-    Using the conversation as context, look at the most RECENT request and:
+    Using the conversation as context, look at the LAST message and fill in the following:
     NLP Task: classify it to one of the following NLP tasks: Generating code, Paraphrasing, Long form generation, Question answering
-    Request: summarize what the user is asking in simple terms
+    Request: summarize what the LAST user is asking in simple terms
     AI21 Webpage Title: if the request requires information available on AI21 labs website, what would be the title of the webpage? Else None
     
     ---CONVERSATION---
@@ -60,9 +60,9 @@ def construct_get_commands_prompt(conversation: str):
     Request: Write a shorter description of what Africa is like to visit and focus on the culture
     AI21 Webpage Title: None
     ##
-    Using the conversation as context, look at the most RECENT request and:
+    Using the conversation as context, look at the LAST message and fill in the following:
     NLP Task: classify it to one of the following NLP tasks: Generating code, Paraphrasing, Long form generation, Question answering
-    Request: summarize what the user is asking in simple terms
+    Request: summarize what the LAST user is asking in simple terms
     AI21 Webpage Title: if the request requires information available on AI21 labs website, what would be the title of the webpage? Else None
 
     ---CONVERSATION---
@@ -72,9 +72,9 @@ def construct_get_commands_prompt(conversation: str):
     Request: J2 models batch transform
     AI21 Webpage Title: J2 models
     ##
-    Using the conversation as context, look at the most RECENT request and:
+    Using the conversation as context, look at the LAST message and fill in the following:
     NLP Task: classify it to one of the following NLP tasks: Generating code, Paraphrasing, Long form generation, Question answering
-    Request: summarize what the user is asking in simple terms
+    Request: summarize what the LAST user is asking in simple terms
     AI21 Webpage Title: if the request requires information available on AI21 labs website, what would be the title of the webpage? Else None
     
     ---CONVERSATION---
