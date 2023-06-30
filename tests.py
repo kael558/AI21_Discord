@@ -23,7 +23,8 @@ class TestIndex(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.index: Indexer = Indexer()
-        warnings.simplefilter('ignore', category=ResourceWarning)  # Ignores socket warnings on AI21 API
+        warnings.simplefilter('ignore',
+                              category=ResourceWarning)  # Ignores socket warnings on AI21 API
 
     @classmethod
     def tearDownClass(cls):
@@ -52,27 +53,27 @@ class TestBot(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.bot: Bot = Bot()
-        warnings.simplefilter('ignore', category=ResourceWarning)  # Ignores socket warnings on AI21 API
+        warnings.simplefilter('ignore',
+                              category=ResourceWarning)  # Ignores socket warnings on AI21 API
 
     @classmethod
     def tearDownClass(cls):
         warnings.resetwarnings()
 
-    @unittest.skip
     def test_basic(self):
         history = ['User: Hello, how are you?']
         response, verbose_str = self.bot.generate_response(history)
-        print_expected_actual(history, 'Great! How are you?', response + '\n' + verbose_str)
+        print_expected_actual(history, 'Great! How are you?',
+                              response + '\n' + verbose_str)
 
-    @unittest.skip
     def test_basic_history(self):
         history = ['User: My name is John and I like cheese',
                    'AI21 Discord ChatBot: Hello, John',
                    'User: What did I say my name is and what do I like?']
         response, verbose_str = self.bot.generate_response(history)
-        print_expected_actual(history, 'Your name is John and you like cheese.', response + '\n' + verbose_str)
+        print_expected_actual(history, 'Your name is John and you like cheese.',
+                              response + '\n' + verbose_str)
 
-    @unittest.skip
     def test_ignore_some_context(self):
         history = ['User: Who is Canada\'s favorite figure skating pair?',
                    'AI21 Discord ChatBot: Tessa Virtue and Scott Moir',
@@ -83,38 +84,46 @@ class TestBot(unittest.TestCase):
         print_expected_actual(history,
                               'Tessa Virtue and Scott Moir won gold at the 2018 Winter Olympics in Pyeongchang, South Korea',
                               response + '\n' + verbose_str)
-#
-    def test_ai21_0(self):
+        #
+
         history = ["""User: What the price of the praphrasing api?"""]
-        response, verbose_str = self.bot.generate_response(history, verbose=True)
+        response, verbose_str = self.bot.generate_response(history,
+                                                           verbose=True)
+        print_expected_actual(history,
+                              'The price of parapharsing API is $0.001 per API request ',
+                              response + '\n' + verbose_str)
+
+    def test_ai21_1(self):
+        history = ["""User: what specialized API's are offered by AI21?"""]
+        response, verbose_str = self.bot.generate_response(history,
+                                                           verbose=True)
+        print_expected_actual(history,
+                              'Contextual API, Text Segmentation API, Paraphrasing API etc..',
+                              response + '\n' + verbose_str)
+
+    def test_ai21_2(self):
+        history = ["""User: What is the pricing for models?"""]
+        response, verbose_str = self.bot.generate_response(history,
+                                                           verbose=True)
         print_expected_actual(history,
                               'J2-Large, J1-Jumbo etc... See links as well',
                               response + '\n' + verbose_str)
-    @unittest.skip
-    def test_ai21_1(self):
-        history = ["""User: what specialized API's are offered by AI21?"""]
-        response, verbose_str = self.bot.generate_response(history, verbose=True)
-        print_expected_actual(history, 'J2-Large, J1-Jumbo etc... See links as well', response + '\n' + verbose_str)
 
-    @unittest.skip
-    def test_ai21_2(self):
-        history = ["""User: What is the pricing for models?"""]
-        response, verbose_str = self.bot.generate_response(history, verbose=True)
-        print_expected_actual(history, 'J2-Large, J1-Jumbo etc... See links as well', response + '\n' + verbose_str)
-
-    @unittest.skip
     def test_ai21_3(self):
-        history = ["""User: How does the segmentation works? And what are the possible types?"""]
-        response, verbose_str = self.bot.generate_response(history, verbose=True)
-        print_expected_actual(history, 'J2-Large, J1-Jumbo etc... See links as well', response + '\n' + verbose_str)
+        history = [
+            """User: How does the segmentation works? And what are the possible types?"""]
+        response, verbose_str = self.bot.generate_response(history,
+                                                           verbose=True)
+        print_expected_actual(history,
+                              'The Text Segmentation API supports both raw text and URLs of webpages...',
+                              response + '\n' + verbose_str)
 
-    @unittest.skip
     def test_generate_code(self):
         history = ['User: Write me a python function that prints "Hello World"']
         response, verbose_str = self.bot.generate_response(history)
-        print_expected_actual(history, 'def hello(): print("Hello world!")', response + '\n' + verbose_str)
+        print_expected_actual(history, 'def hello(): print("Hello world!")',
+                              response + '\n' + verbose_str)
 
-    @unittest.skip
     def test_paraphrase(self):
         history = [
             "AI21 Discord ChatBot: Africa is a huge and diverse continent, with a wide range of cultures, natural landscapes, and travel experiences available. The continent has 54 countries, each with its own unique history, politics, and people."
@@ -123,23 +132,51 @@ class TestBot(unittest.TestCase):
             "Africa is also known for its friendly and welcoming people, as well as its delicious food and vibrant music, dance, and art cultures. No matter what you're interested in or what you're looking for in a travel experience, Africa has something to offer.",
             "User: Can you write a shorter description in 1-2 lines and focus on the culture"]
         response, verbose_str = self.bot.generate_response(history)
-        print_expected_actual(history, '1-2 lines of Africa description with a focus on the culture...',
+        print_expected_actual(history,
+                              '1-2 lines of Africa description with a focus on the culture...',
                               response + '\n' + verbose_str)
 
-    @unittest.skip
     def test_long_form_generation(self):
-        history = ["User: Write a short poem about the 'Paul is dead' conspiracy theory"]
+        history = [
+            "User: Write a short poem about the 'Paul is dead' conspiracy theory"]
         response, verbose_str = self.bot.generate_response(history)
-        print_expected_actual(history, 'A poem about the Paul is dead conspiracy', response + '\n' + verbose_str)
+        print_expected_actual(history,
+                              'A poem about the Paul is dead conspiracy',
+                              response + '\n' + verbose_str)
 
-    @unittest.skip
     def test_question_answering(self):
-        history = ["User: What sort of questions can I expect at a Software Engineering job interview?"]
+        history = [
+            "User: What sort of questions can I expect at a Software Engineering job interview?"]
         response, verbose_str = self.bot.generate_response(history)
-        print_expected_actual(history, 'Interview questions about a job interview', response + '\n' + verbose_str)
+        print_expected_actual(history,
+                              'Interview questions about a job interview',
+                              response + '\n' + verbose_str)
 
-    @unittest.skip
     def test_verbose(self):
         history = ["User: What is the capital of Canada?"]
-        response, verbose_str = self.bot.generate_response(history, verbose=True)
-        print_expected_actual(history, 'Ottawa and model parameters', response + '\n' + verbose_str)
+        response, verbose_str = self.bot.generate_response(history,
+                                                           verbose=True)
+        print_expected_actual(history, 'Ottawa and model parameters',
+                              response + '\n' + verbose_str)
+
+    def test_banana_eating_spacecraft_test(self):
+        self.bot.name = "AI21 Bot"
+        history = [
+            "AI21 Bot: I am a Discord Chatbot powered by AI21's language models. I can see up to 3 messages in the past. I can only see messages with a question mark reaction. Please note that while I can provide general information and guidance, I am not a licensed professional and my responses are not intended to be a substitute for professional advice. I may hallucinate or make mistakes, so please use your own judgment when making decisions based on my responses. Additionally, I strive to remain neutral and respectful in all interactions, and I do not engage in discriminatory or harmful behavior.",
+            "Yotam: Nice to meet you, bot! Now please tell me a story about a bannana-eating spacecraft going to school for the first time"]
+        response, verbose_str = self.bot.generate_response(history,
+                                                           verbose=True)
+        print_expected_actual(history, 'Poem about banana-eating spacecraft',
+                              response + '\nVERBOSE:\n' + verbose_str)
+
+    def test_could_not_respond_in_history(self):
+        self.bot.name = "AI21 Bot"
+        history = [
+            "AI21 Bot: I am a Discord Chatbot powered by AI21's language models. I can see up to 3 messages in the past. I can only see messages with a question mark reaction. Please note that while I can provide general information and guidance, I am not a licensed professional and my responses are not intended to be a substitute for professional advice. I may hallucinate or make mistakes, so please use your own judgment when making decisions based on my responses. Additionally, I strive to remain neutral and respectful in all interactions, and I do not engage in discriminatory or harmful behavior.",
+            "Yotam: Nice to meet you, bot! Now please tell me a story about a bannana-eating spacecraft going to school for the first time",
+            "AI21 Bot: I'm sorry, but I am unable to respond to that query.",
+            "Yotam: Nice to meet you, bot! Now please tell me a story about a bannana-eating spacecraft going to school for the first time"]
+        response, verbose_str = self.bot.generate_response(history,
+                                                           verbose=True)
+        print_expected_actual(history, 'Poem about banana-eating spacecraft',
+                              response + '\nVERBOSE:\n' + verbose_str)

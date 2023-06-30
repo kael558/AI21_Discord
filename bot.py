@@ -23,7 +23,7 @@ class Bot:
         users = [user + ': ' for user in users]
         conversation_history_str = "\n".join(conversation_history)
         preset, request, ai21_webpage_title = get_commands(conversation_history_str)
-        if request == "None":  # If no request was given, use the last user input
+        if request == "None" or request == "none":  # If no request was given, use the last user input
             user_input = conversation_history[-1].split(':', 1)
             request = user_input[1].strip()
 
@@ -103,6 +103,15 @@ def get_params_from_preset(preset: str) -> dict:
             "maxTokens": 512,
             "temperature": 0.84,
             "topP": 1,
+            "countPenalty": {
+                "scale": 0.3,
+            },
+            "frequencyPenalty": {
+                "scale": 50,
+            },
+            "presencePenalty": {
+                "scale": 0.3,
+            }
         }
 
     if preset == "Question answering":
@@ -111,6 +120,15 @@ def get_params_from_preset(preset: str) -> dict:
             "maxTokens": 512,
             "temperature": 0.8,
             "topP": 1,
+            "countPenalty": {
+                "scale": 0.3,
+            },
+            "frequencyPenalty": {
+                "scale": 50,
+            },
+            "presencePenalty": {
+                "scale": 0.3,
+            }
         }
 
     # use default preset params

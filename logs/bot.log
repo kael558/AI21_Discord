@@ -334,3 +334,12 @@ AttributeError: 'list' object has no attribute 'join'
 2023-06-17 21:59:57,935 INFO logging in using static token
 2023-06-17 21:59:58,691 INFO Shard ID None has connected to Gateway (Session ID: 5793b8a0041c71fc1572e1b06ad8857c).
 2023-06-17 22:00:01,286 INFO Discord bot ready!
+2023-06-28 08:46:06,035 INFO Attemping to restart Discord Bot...
+2023-06-28 08:46:06,036 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-28 08:46:06,037 INFO logging in using static token
+2023-06-28 08:46:06,926 INFO Shard ID None has connected to Gateway (Session ID: 3ec48106e151291ff1a787dcf4fcc673).
+2023-06-28 08:46:09,371 INFO Discord bot ready!
+2023-06-28 08:54:26,672 INFO Attemping to restart Discord Bot...
+2023-06-28 08:54:26,673 WARNING PyNaCl is not installed, voice will NOT be supported
+2023-06-28 08:54:26,674 INFO logging in using static token
+2023-06-28 08:54:27,400 INFO Shard ID None has connected to Gateway (Session ID: 97512f4d42e8123e17eb81d883f31b56).
