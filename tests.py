@@ -191,3 +191,15 @@ class TestBot(unittest.TestCase):
                                                            verbose=True)
         print_expected_actual(history, 'Poem about banana-eating spacecraft and ignore the python function',
                               response + '\nVERBOSE:\n' + verbose_str)
+
+    def test_what_was_first_msg(self):
+        self.bot.name = "AI21 Bot"
+        history = [
+            """Yotam: Write me a python function that says "Hello World!""",
+            """AI21 Bot: Ok, here you go:```\ndef say_hello():print("Hello World!")```""",
+            "Yotam: Tell me a story about a banana eating spacecraft going to school for the first time"]
+        response, verbose_str = self.bot.generate_response(history,
+                                                           verbose=True)
+        print_expected_actual(history,
+                              'Poem about banana-eating spacecraft and ignore the python function',
+                              response + '\nVERBOSE:\n' + verbose_str)

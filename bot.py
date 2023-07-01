@@ -203,7 +203,7 @@ def generate_text(prompt, preset, users=None, context="", verbose=False):
         # response = ai21.Experimantal.Answer.execute(context=context, question=prompt)
         if verbose:
             verbose_str = f"\n\n:information_source: **The above text was generated using the Contextual Question Answering API provided by AI21 Labs.**" \
-                          f"\nSee more at https://docs.ai21.com/docs/contextual-answers-api"
+                          f"\nSee more at <https://docs.ai21.com/docs/contextual-answers-api>"
     else:  # foundation models
         params = get_default_preset_params(users)
         preset_params = get_params_from_preset(preset)

@@ -51,7 +51,7 @@ class Indexer:
         length = 49999 // len(context)
         context = [c[:length] for c in context]
         context_str = "".join(context)  # Contextual Answers API has 50k character limit
-        links_str = ":link: **The following links may be useful:**\n- " + "\n- ".join(links)
+        links_str = ":link: **The following links may be useful:**\n- <" + ">\n- <".join(links) + ">"
 
         return context_str, links_str
 
